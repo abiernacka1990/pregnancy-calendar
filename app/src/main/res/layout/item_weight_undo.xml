@@ -25,7 +25,7 @@
     tools:ignore="overdraw">
 
     <TextView
-        android:id="@+id/undo_row_texttv"
+        android:id="@+id/text_undo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -42,7 +42,7 @@
         tools:ignore="PxUsage" />
 
     <Button
-        android:id="@+id/undo_row_undobutton"
+        android:id="@+id/button_undo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

@@ -6,8 +6,8 @@ import com.j256.ormlite.table.DatabaseTable;
 /**
  * Created by agnieszka on 04.11.15.
  */
-@DatabaseTable(tableName = "weight_info")
-public class WeightInfo {
+@DatabaseTable(tableName = "weights")
+public class Weight {
 
     @DatabaseField(generatedId = true)
     private int id;
@@ -44,24 +44,24 @@ public class WeightInfo {
 
     public static class Builder {
 
-        private WeightInfo weightInfo;
+        private Weight weight;
 
         public Builder() {
-            weightInfo = new WeightInfo();
+            weight = new Weight();
         }
 
         public Builder setWeek(int week) {
-            weightInfo.setWeek(week);
+            weight.setWeek(week);
             return this;
         }
 
         public Builder setWeight(double weight) {
-            weightInfo.setWeight(weight);
+            this.weight.setWeight(weight);
             return this;
         }
 
-        public WeightInfo build() {
-            return weightInfo;
+        public Weight build() {
+            return weight;
         }
     }
 }

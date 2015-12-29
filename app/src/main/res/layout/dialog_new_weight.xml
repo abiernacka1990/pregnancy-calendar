@@ -1,61 +1,62 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="@dimen/fab_margin"
-    tools:context="com.miquido.pregnancycalendar.ui.fragments.dialog.NewWeightInfoDialogFragment">
+    tools:context="com.miquido.pregnancycalendar.ui.fragments.dialog.NewWeightDialogFragment">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/fab_margin"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/week_of_pregnancy"/>
+            android:text="@string/week_of_pregnancy"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <Spinner
+            android:id="@+id/spinner_week"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:id="@+id/spinnerWeek"
-            android:layout_marginLeft="@dimen/fab_margin" />
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/fab_margin"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/weight"/>
+            android:layout_weight="2"
+            android:text="@string/weight"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
+            android:id="@+id/edittext_weight"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:id="@+id/editTextWeight"
-            android:layout_marginLeft="@dimen/fab_margin"/>
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_weight="1"
+            android:inputType="number" />
 
     </LinearLayout>
 
     <Button
+        android:id="@+id/button_save"
         style="?android:attr/buttonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/save"
         android:layout_gravity="right"
-        android:id="@+id/buttonSave" />
+        android:text="@string/save" />
 </LinearLayout>

@@ -14,7 +14,6 @@ import com.miquido.pregnancycalendar.utils.StringFormatter;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -30,7 +29,7 @@ public class SettingsFragment extends BaseFragment {
 
     private TextView dataTextView;
 
-    private OnSettingsChangesListener mListener;
+    private OnSettingsChangesListener settingsChangesListener;
     private CaldroidFragment dateDialogFragment;
 
     /**
@@ -58,7 +57,7 @@ public class SettingsFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View mainView = inflater.inflate(R.layout.fragment_settings, container, false);
-        dataTextView = (TextView) mainView.findViewById(R.id.textViewSettingsStartDate);
+        dataTextView = (TextView) mainView.findViewById(R.id.text_start_date);
         updatePregnancyStartDateInfo();
         dataTextView.setOnClickListener(view -> openDateChooser());
 
@@ -78,7 +77,7 @@ public class SettingsFragment extends BaseFragment {
     }
 
     /**
-     * Open Dialog to choose a date. Set selected date.
+     * Open Dialog to choose a date (start of pregnancy). Set selected date.
      */
     private void openDateChooser() {
 
@@ -105,9 +104,9 @@ public class SettingsFragment extends BaseFragment {
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onPregnancyStartDateChanged() {
-        if (mListener != null) {
+        if (settingsChangesListener != null) {
             //TODO:
-            mListener.onPregnancyStartDateChanged(0);
+            settingsChangesListener.onPregnancyStartDateChanged(0);
         }
     }
 
@@ -115,7 +114,7 @@ public class SettingsFragment extends BaseFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (OnSettingsChangesListener) activity;
+            settingsChangesListener = (OnSettingsChangesListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnSettingsChangesListener");
@@ -125,7 +124,7 @@ public class SettingsFragment extends BaseFragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        settingsChangesListener = null;
     }
 
     public interface OnSettingsChangesListener {

@@ -3,7 +3,8 @@ package com.miquido.pregnancycalendar.db.ormlite;
 import android.content.Context;
 
 import com.j256.ormlite.dao.Dao;
-import com.miquido.pregnancycalendar.model.WeightInfo;
+import com.miquido.pregnancycalendar.db.WeightRepository;
+import com.miquido.pregnancycalendar.model.Weight;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -11,51 +12,55 @@ import java.util.List;
 /**
  * Created by agnieszka on 19.02.15.
  */
-public class WeightInfoRepository {
+public class OrmWeightRepository implements WeightRepository {
     private DatabaseHelper db;
-    Dao<WeightInfo, Integer> weightInfos;
+    Dao<Weight, Integer> weights;
 
-    public WeightInfoRepository(Context ctx) {
+    public OrmWeightRepository(Context ctx) {
         try {
             DatabaseManager dbManager = new DatabaseManager();
             db = dbManager.getHelper(ctx);
-            weightInfos = db.getWeightInfoDao();
+            weights = db.getWeightInfoDao();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
 
-    public int create(WeightInfo weightInfo) {
+    @Override
+    public int create(Weight weight) {
         try {
-            return weightInfos.create(weightInfo);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
-
-    public int update(WeightInfo weightInfo) {
-        try {
-            return weightInfos.update(weightInfo);
+            return weights.create(weight);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return 0;
     }
 
-    public int delete(WeightInfo weightInfo) {
+    @Override
+    public int update(Weight weight) {
         try {
-            return weightInfos.delete(weightInfo);
+            return weights.update(weight);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return 0;
     }
 
-    public List<WeightInfo> getAll() {
+    @Override
+    public int delete(Weight weight) {
         try {
-            return weightInfos.queryForAll();
+            return weights.delete(weight);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public List<Weight> getAll() {
+        try {
+            return weights.queryForAll();
         } catch (SQLException e) {
             e.printStackTrace();
         }

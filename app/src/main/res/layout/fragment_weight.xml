@@ -1,5 +1,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.miquido.pregnancycalendar.ui.fragments.WeightFragment">
 
@@ -11,23 +12,25 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/weight_title"
-            android:gravity="center"
             android:layout_margin="@dimen/fab_margin"
-            android:id="@+id/textView2" />
+            android:gravity="center"
+            android:text="@string/weight_title"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <com.jjoe64.graphview.GraphView
+            android:id="@+id/graph"
             android:layout_width="match_parent"
             android:layout_height="200dip"
-            android:layout_margin="@dimen/fab_margin"
-            android:id="@+id/graph" />
+            android:layout_margin="@dimen/fab_margin" />
 
     </LinearLayout>
 
-    <android.support.design.widget.FloatingActionButton android:id="@+id/fabAddWeight"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end" android:layout_margin="@dimen/fab_margin"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_add_weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
         android:src="@mipmap/ic_add" />
 </FrameLayout>
 

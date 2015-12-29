@@ -11,8 +11,8 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.miquido.pregnancycalendar.App;
 import com.miquido.pregnancycalendar.R;
-import com.miquido.pregnancycalendar.model.WeightInfo;
-import com.miquido.pregnancycalendar.ui.fragments.dialog.NewWeightInfoDialogFragment;
+import com.miquido.pregnancycalendar.model.Weight;
+import com.miquido.pregnancycalendar.ui.fragments.dialog.NewWeightDialogFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +23,7 @@ import java.util.List;
  * Use the {@link WeightFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WeightFragment extends BaseFragment implements NewWeightInfoDialogFragment.NewWeightInfoListener {
+public class WeightFragment extends BaseFragment implements NewWeightDialogFragment.NewWeightInfoListener {
 
     private static final String DIALOG_NEW_WEIGHT = "DIALOG_NEW_WEIGHT";
     private GraphView graph;
@@ -49,7 +49,7 @@ public class WeightFragment extends BaseFragment implements NewWeightInfoDialogF
         View mainView = inflater.inflate(R.layout.fragment_weight, container, false);
 
         graph = (GraphView) mainView.findViewById(R.id.graph);
-        FloatingActionButton fabAddWeight = (FloatingActionButton) mainView.findViewById(R.id.fabAddWeight);
+        FloatingActionButton fabAddWeight = (FloatingActionButton) mainView.findViewById(R.id.fab_add_weight);
         fabAddWeight.setOnClickListener(view -> addWeightInfo());
 
         initializeListView();
@@ -62,20 +62,20 @@ public class WeightFragment extends BaseFragment implements NewWeightInfoDialogF
 
     }
 
-    /** Add new weight info
-     *
+    /**
+     * Add new weight info
      */
     private void addWeightInfo() {
-        NewWeightInfoDialogFragment.newInstance(this).show(getFragmentManager(), DIALOG_NEW_WEIGHT);
+        NewWeightDialogFragment.newInstance(this).show(getFragmentManager(), DIALOG_NEW_WEIGHT);
     }
 
     private void refreshData() {
 
-        List<WeightInfo> data = App.getInstance().getWeightInfoRepository().getAll();
+        List<Weight> data = App.getInstance().getWeightRepository().getAll();
 
         List<DataPoint> dataPointList = new ArrayList<>();
-        for(WeightInfo weightInfo: data) {
-            dataPointList.add(new DataPoint(weightInfo.getWeek(), weightInfo.getWeight()));
+        for (Weight weight : data) {
+            dataPointList.add(new DataPoint(weight.getWeek(), weight.getWeight()));
         }
         Collections.sort(dataPointList, (lhs, rhs) -> (int) (lhs.getX() - rhs.getX()));
 
@@ -90,7 +90,6 @@ public class WeightFragment extends BaseFragment implements NewWeightInfoDialogF
     public void onNewWeightInfoAdded(int week, double weight) {
         refreshData();
     }
-
 
 
 }

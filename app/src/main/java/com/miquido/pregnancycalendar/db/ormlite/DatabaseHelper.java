@@ -8,7 +8,7 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import com.miquido.pregnancycalendar.model.WeightInfo;
+import com.miquido.pregnancycalendar.model.Weight;
 
 import java.sql.SQLException;
 
@@ -19,14 +19,14 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
      */
     private static final String DATABASE_NAME = "pregnancyCalendar.db";
     /**
-     *database version
-      */
+     * database version
+     */
     private static final int DATABASE_VERSION = 1;
 
     /**
      * the DAO object we use to access weight note
      */
-    private Dao<WeightInfo, Integer> weightInfos = null;
+    private Dao<Weight, Integer> weightInfos = null;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -39,7 +39,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
         try {
-            TableUtils.createTable(connectionSource, WeightInfo.class);
+            TableUtils.createTable(connectionSource, Weight.class);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
             throw new RuntimeException(e);
@@ -54,7 +54,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
             Log.i(DatabaseHelper.class.getName(), "onUpgrade");
-            TableUtils.dropTable(connectionSource, WeightInfo.class, true);
+            TableUtils.dropTable(connectionSource, Weight.class, true);
             onCreate(db, connectionSource);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Can't drop databases", e);
@@ -66,9 +66,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
      * Returns the DAO for notes
      * value.
      */
-    public Dao<WeightInfo, Integer> getWeightInfoDao() throws SQLException {
+    public Dao<Weight, Integer> getWeightInfoDao() throws SQLException {
         if (weightInfos == null) {
-            weightInfos = getDao(WeightInfo.class);
+            weightInfos = getDao(Weight.class);
         }
         return weightInfos;
     }
