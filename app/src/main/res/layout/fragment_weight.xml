@@ -1,0 +1,33 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.miquido.pregnancycalendar.ui.fragments.WeightFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/weight_title"
+            android:gravity="center"
+            android:layout_margin="@dimen/fab_margin"
+            android:id="@+id/textView2" />
+
+        <com.jjoe64.graphview.GraphView
+            android:layout_width="match_parent"
+            android:layout_height="200dip"
+            android:layout_margin="@dimen/fab_margin"
+            android:id="@+id/graph" />
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton android:id="@+id/fabAddWeight"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end" android:layout_margin="@dimen/fab_margin"
+        android:src="@mipmap/ic_add" />
+</FrameLayout>
+
