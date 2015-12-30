@@ -8,14 +8,16 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 @DatabaseTable(tableName = "weights")
 public class Weight {
+    public static final String WEIGHT_FIELD_NAME = "weight";
+    public static final String WEEK_FIELD_NAME = "week";
 
     @DatabaseField(generatedId = true)
     private int id;
 
-    @DatabaseField
+    @DatabaseField(canBeNull = false, columnName = WEEK_FIELD_NAME, unique = true)
     private int week;
 
-    @DatabaseField
+    @DatabaseField(canBeNull = false, columnName = WEIGHT_FIELD_NAME)
     private double weight;
 
     public int getId() {

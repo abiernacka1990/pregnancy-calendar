@@ -7,6 +7,8 @@
     <string name="incorrect_value">Incorrect value</string>
     <string name="item_deleted">Item deleted</string>
     <string name="tap_to_undo">Tap to undo</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -23,6 +25,8 @@
     <string name="weight_title">Weight gain in the subsequent weeks of pregnancy</string>
 
     <!-- Weight information: DialogFragment to add new info -->
-    <string name="week_of_pregnancy">Week of pregnancy:</string>
-    <string name="weight">Weight:</string>
+    <string name="dialog_new_weight_week_of_pregnancy">Week of pregnancy:</string>
+    <string name="dialog_new_weight_weight">Weight:</string>
+    <string name="dialog_new_weight_title">Add...</string>
+    <string name="dialog_confirm_updating_data_message">Information about your weight in this week already exists. Do you want to overwrite it?</string>
 </resources>

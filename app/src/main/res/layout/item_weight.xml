@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="3dp"
-            android:text="@string/week_of_pregnancy"
+            android:text="@string/dialog_new_weight_week_of_pregnancy"
             android:textStyle="bold" />
 
         <TextView
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="3dp"
-            android:text="@string/weight"
+            android:text="@string/dialog_new_weight_weight"
             android:textStyle="bold" />
 
         <TextView

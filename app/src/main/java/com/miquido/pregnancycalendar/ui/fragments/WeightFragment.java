@@ -23,7 +23,7 @@ import java.util.List;
  * Use the {@link WeightFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WeightFragment extends BaseFragment implements NewWeightDialogFragment.NewWeightInfoListener {
+public class WeightFragment extends BaseFragment implements NewWeightDialogFragment.NewWeightListener {
 
     private static final String DIALOG_NEW_WEIGHT = "DIALOG_NEW_WEIGHT";
     private GraphView graph;
@@ -87,7 +87,7 @@ public class WeightFragment extends BaseFragment implements NewWeightDialogFragm
     }
 
     @Override
-    public void onNewWeightInfoAdded(int week, double weight) {
+    public void onNewWeightsUpdated(Weight weight) {
         refreshData();
     }
 

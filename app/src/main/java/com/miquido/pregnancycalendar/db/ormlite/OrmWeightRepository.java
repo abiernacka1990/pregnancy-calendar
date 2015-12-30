@@ -3,6 +3,7 @@ package com.miquido.pregnancycalendar.db.ormlite;
 import android.content.Context;
 
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.UpdateBuilder;
 import com.miquido.pregnancycalendar.db.WeightRepository;
 import com.miquido.pregnancycalendar.model.Weight;
 
@@ -38,6 +39,19 @@ public class OrmWeightRepository implements WeightRepository {
     }
 
     @Override
+    public int updateSpecifiedWeek(Weight weight) {
+        try {
+            UpdateBuilder<Weight, Integer> updateBuilder = weights.updateBuilder();
+            updateBuilder.updateColumnValue(Weight.WEIGHT_FIELD_NAME, weight.getWeight());
+            updateBuilder.where().eq(Weight.WEEK_FIELD_NAME, weight.getWeek());
+            return updateBuilder.update();
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
     public int update(Weight weight) {
         try {
             return weights.update(weight);
@@ -65,5 +79,15 @@ public class OrmWeightRepository implements WeightRepository {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public boolean exist(int week) {
+        try {
+            return weights.queryBuilder().where().eq(Weight.WEEK_FIELD_NAME, week).query().size() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

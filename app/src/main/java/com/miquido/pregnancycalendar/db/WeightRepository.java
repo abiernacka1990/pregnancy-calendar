@@ -17,4 +17,7 @@ public interface WeightRepository {
 
     List<Weight> getAll();
 
+    boolean exist(int week);
+
+    int updateSpecifiedWeek(Weight weight);
 }
