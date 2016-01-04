@@ -29,6 +29,6 @@
     <!-- Weight information: DialogFragment to add new info -->
     <string name="dialog_new_weight_week_of_pregnancy">Week of pregnancy:</string>
     <string name="dialog_new_weight_weight">Weight [%s]:</string>
-    <string name="dialog_new_weight_title">Add...</string>
+    <string name="dialog_new_weight_title">Add new weight</string>
     <string name="dialog_confirm_updating_data_message">Information about your weight in this week already exists. Do you want to overwrite it?</string>
 </resources>
