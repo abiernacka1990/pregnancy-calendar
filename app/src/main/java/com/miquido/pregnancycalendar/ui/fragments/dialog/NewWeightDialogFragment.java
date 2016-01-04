@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.miquido.pregnancycalendar.App;
 import com.miquido.pregnancycalendar.BuildConfig;
@@ -55,6 +56,8 @@ public class NewWeightDialogFragment extends DialogFragment {
         // Inflate the layout for this fragment
         getDialog().setTitle(R.string.dialog_new_weight_title);
         View mainView = inflater.inflate(R.layout.dialog_new_weight, container, false);
+        TextView weightLabelTextView = (TextView) mainView.findViewById(R.id.text_weight_label);
+        weightLabelTextView.setText(String.format(getString(R.string.dialog_new_weight_weight), App.getInstance().getDefaultWeightUnit()));
         editTextWeight = (EditText) mainView.findViewById(R.id.edittext_weight);
         spinnerWeek = (Spinner) mainView.findViewById(R.id.spinner_week);
         List<Integer> weeks = new ArrayList<>();

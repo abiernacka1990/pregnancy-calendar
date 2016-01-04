@@ -3,6 +3,7 @@
 
     <!-- Base -->
     <string name="unknown_date">\?\?/\?\?/\?\?</string>
+    <string name="default_weight_unit">kg</string>
     <string name="save">Save</string>
     <string name="incorrect_value">Incorrect value</string>
     <string name="item_deleted">Item deleted</string>
@@ -20,13 +21,14 @@
 
     <!-- Settings -->
     <string name="settings_start_date">Last menstruation date:</string>
+    <string name="settings_weight_unit">Unit of weight:</string>
 
     <!-- Weight information -->
     <string name="weight_title">Weight gain in the subsequent weeks of pregnancy</string>
 
     <!-- Weight information: DialogFragment to add new info -->
     <string name="dialog_new_weight_week_of_pregnancy">Week of pregnancy:</string>
-    <string name="dialog_new_weight_weight">Weight:</string>
+    <string name="dialog_new_weight_weight">Weight [%s]:</string>
     <string name="dialog_new_weight_title">Add...</string>
     <string name="dialog_confirm_updating_data_message">Information about your weight in this week already exists. Do you want to overwrite it?</string>
 </resources>

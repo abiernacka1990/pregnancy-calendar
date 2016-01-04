@@ -14,6 +14,8 @@ public class App extends Application {
 
     private static App instance;
     private WeightRepository weightRepository;
+
+
     public static App getInstance(){
         return instance;
     }
@@ -27,5 +29,9 @@ public class App extends Application {
 
     public WeightRepository getWeightRepository() {
         return weightRepository;
+    }
+
+    public String getDefaultWeightUnit() {
+        return getApplicationContext().getString(R.string.default_weight_unit);
     }
 }

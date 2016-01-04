@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.miquido.pregnancycalendar.R;
@@ -28,6 +29,7 @@ public class SettingsFragment extends BaseFragment {
     private final String dialogSavedStateKey = "DIALOG_CALDROID_SAVED_STATE";
 
     private TextView dataTextView;
+    private EditText weightUnitEditText;
 
     private OnSettingsChangesListener settingsChangesListener;
     private CaldroidFragment dateDialogFragment;
@@ -58,7 +60,8 @@ public class SettingsFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View mainView = inflater.inflate(R.layout.fragment_settings, container, false);
         dataTextView = (TextView) mainView.findViewById(R.id.text_start_date);
-        updatePregnancyStartDateInfo();
+        weightUnitEditText = (EditText) mainView.findViewById(R.id.text_weight_unit);
+        showPreferences();
         dataTextView.setOnClickListener(view -> openDateChooser());
 
         if(savedInstanceState != null) {
@@ -127,6 +130,12 @@ public class SettingsFragment extends BaseFragment {
         settingsChangesListener = null;
     }
 
+    @Override
+    public void onPause() {
+        saveWeightUnit();
+        super.onPause();
+    }
+
     public interface OnSettingsChangesListener {
         void onPregnancyStartDateChanged(long date);
     }
@@ -143,13 +152,20 @@ public class SettingsFragment extends BaseFragment {
 
     private void savePregnancyStartDate(Date date) {
         Preferences.getInstance().setPregnancyStartDate(date.getTime());
-        updatePregnancyStartDateInfo();
+        showPreferences();
     }
 
-    private void updatePregnancyStartDateInfo() {
+    private void saveWeightUnit() {
+        Preferences.getInstance().setWeightUnit(weightUnitEditText.getEditableText().toString());
+    }
+
+    private void showPreferences() {
         long date = Preferences.getInstance().getPregnancyStartDate();
         String dateInfo = date == 0 ? getString(R.string.unknown_date) : StringFormatter.date(date);
         dataTextView.setText(dateInfo);
+        String defaultWeightUnit = Preferences.getInstance().getWeightUnit();
+        weightUnitEditText.setText(defaultWeightUnit);
+        weightUnitEditText.setSelection(weightUnitEditText.getText().length());
     }
 
 

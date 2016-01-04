@@ -12,6 +12,7 @@ public class Preferences {
 
     private static final String PREFERENCES_NAME = "PREGNANCY CALENDAR SHARED PREFERENCES";
     private static final String PREGNANCY_START_DATE_KEY = "PREGNANCY_START_DATE_KEY";
+    private static final String WEIGHT_UNIT = "WEIGHT_UNIT";
 
     private static Preferences ourInstance = new Preferences();
 
@@ -36,4 +37,15 @@ public class Preferences {
         editor.putLong(PREGNANCY_START_DATE_KEY, date);
         editor.apply();
     }
+
+    public String getWeightUnit() {
+        return sharedpreferences.getString(WEIGHT_UNIT, App.getInstance().getDefaultWeightUnit());
+    }
+
+    public void setWeightUnit(String weightUnit) {
+        editor.putString(WEIGHT_UNIT, weightUnit);
+        editor.apply();
+    }
+
+
 }

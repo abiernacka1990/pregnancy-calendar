@@ -1,29 +1,42 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.miquido.pregnancycalendar.ui.fragments.SettingsFragment">
 
     <TextView
         android:id="@+id/text_start_date_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:layout_margin="@dimen/fab_margin"
         android:text="@string/settings_start_date"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/text_start_date"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
         android:layout_margin="@dimen/fab_margin"
         android:clickable="true"
         android:text="@string/unknown_date"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/colorClikableTextView"
         tools:text="16/09/2015" />
-</RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/text_weight_unit_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:text="@string/settings_weight_unit"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/text_weight_unit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        tools:text="kg" />
+</LinearLayout>
