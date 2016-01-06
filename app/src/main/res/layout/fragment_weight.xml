@@ -17,11 +17,10 @@
             android:text="@string/weight_title"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <com.jjoe64.graphview.GraphView
-            android:id="@+id/graph"
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chart"
             android:layout_width="match_parent"
-            android:layout_height="200dip"
-            android:layout_margin="@dimen/fab_margin" />
+            android:layout_height="200dp" />
 
     </LinearLayout>
 

@@ -1,5 +1,7 @@
 package com.miquido.pregnancycalendar.db;
 
+import android.support.annotation.Nullable;
+
 import com.miquido.pregnancycalendar.model.Weight;
 
 import java.util.List;
@@ -15,6 +17,7 @@ public interface WeightRepository {
 
     int delete(Weight weight);
 
+    @Nullable
     List<Weight> getAll();
 
     boolean exist(int week);

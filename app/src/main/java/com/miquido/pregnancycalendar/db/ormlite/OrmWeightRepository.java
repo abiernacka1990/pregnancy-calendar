@@ -74,7 +74,7 @@ public class OrmWeightRepository implements WeightRepository {
     @Override
     public List<Weight> getAll() {
         try {
-            return weights.queryForAll();
+            return weights.queryBuilder().orderBy(Weight.WEEK_FIELD_NAME, true).query();
         } catch (SQLException e) {
             e.printStackTrace();
         }

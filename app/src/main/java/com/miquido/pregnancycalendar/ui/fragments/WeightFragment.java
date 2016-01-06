@@ -6,13 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.miquido.pregnancycalendar.App;
 import com.miquido.pregnancycalendar.R;
 import com.miquido.pregnancycalendar.model.Weight;
 import com.miquido.pregnancycalendar.ui.fragments.dialog.NewWeightDialogFragment;
+import com.miquido.pregnancycalendar.utils.StringFormatter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +28,8 @@ import java.util.List;
 public class WeightFragment extends BaseFragment implements NewWeightDialogFragment.NewWeightListener {
 
     private static final String DIALOG_NEW_WEIGHT = "DIALOG_NEW_WEIGHT";
-    private GraphView graph;
+
+    private LineChart chart;
 
     /**
      * Use this factory method to create a new instance of
@@ -48,12 +51,14 @@ public class WeightFragment extends BaseFragment implements NewWeightDialogFragm
         // Inflate the layout for this fragment
         View mainView = inflater.inflate(R.layout.fragment_weight, container, false);
 
-        graph = (GraphView) mainView.findViewById(R.id.graph);
-        FloatingActionButton fabAddWeight = (FloatingActionButton) mainView.findViewById(R.id.fab_add_weight);
-        fabAddWeight.setOnClickListener(view -> addWeightInfo());
+        chart = (LineChart) mainView.findViewById(R.id.chart);
+        chart.setNoDataTextDescription(getString(R.string.weight_no_data));
 
         initializeListView();
         refreshData();
+
+        FloatingActionButton fabAddWeight = (FloatingActionButton) mainView.findViewById(R.id.fab_add_weight);
+        fabAddWeight.setOnClickListener(view -> addWeightInfo());
         return mainView;
     }
 
@@ -71,18 +76,39 @@ public class WeightFragment extends BaseFragment implements NewWeightDialogFragm
 
     private void refreshData() {
 
-        List<Weight> data = App.getInstance().getWeightRepository().getAll();
-
-        List<DataPoint> dataPointList = new ArrayList<>();
-        for (Weight weight : data) {
-            dataPointList.add(new DataPoint(weight.getWeek(), weight.getWeight()));
+        List<Weight> weightList = App.getInstance().getWeightRepository().getAll();
+        chart.clear();
+        if (weightList == null || weightList.isEmpty()) {
+            //TODO: show info?
+            return;
         }
-        Collections.sort(dataPointList, (lhs, rhs) -> (int) (lhs.getX() - rhs.getX()));
 
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPointList.toArray(new DataPoint[dataPointList.size()]));
-        series.setColor(getResources().getColor(R.color.colorPrimaryDark));
-        graph.removeAllSeries();
-        graph.addSeries(series);
+        ArrayList<String> xValsAsString = new ArrayList<>();
+        ArrayList<Integer> xVals = new ArrayList<>();
+        ArrayList<Entry> yVals = new ArrayList<>();
+
+        for (Weight weight : weightList) {
+
+            xVals.add(weight.getWeek());
+            yVals.add(new Entry((float) weight.getWeight(), weight.getWeek()));
+        }
+
+        for (int i = Collections.min(xVals); i <= Collections.max(xVals); i++) {
+            xValsAsString.add(String.valueOf(i));
+        }
+
+        LineDataSet dataSet = new LineDataSet(yVals, "DataSet 1");
+
+        ArrayList<LineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(dataSet);
+
+        LineData data = new LineData(xValsAsString, dataSets);
+
+        chart.setData(data);
+
+        chart.notifyDataSetChanged();
+        chart.invalidate();
+
         //TODO: refresh adapter
     }
 

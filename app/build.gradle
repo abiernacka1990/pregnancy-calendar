@@ -1,6 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 
+repositories {
+    maven { url "https://jitpack.io" }
+}
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
@@ -30,7 +34,7 @@ dependencies {
     compile 'com.nineoldandroids:library:2.4.0+'
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:design:23.1.0'
-    compile 'com.jjoe64:graphview:4.0.1'
     compile 'com.j256.ormlite:ormlite-android:4.46'
     compile project(':caldroid')
+    compile 'com.github.PhilJay:MPAndroidChart:v2.1.6'
 }
