@@ -4,15 +4,27 @@
     android:layout_height="match_parent"
     tools:context="com.miquido.pregnancycalendar.ui.fragments.WeightFragment">
 
+    <TextView
+        android:id="@+id/text_weight_no_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/weight_no_data"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:visibility="gone"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/text_weight_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_margin"
+            android:layout_margin="@dimen/default_margin"
             android:gravity="center"
             android:text="@string/weight_title"
             android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -20,7 +32,8 @@
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/chart"
             android:layout_width="match_parent"
-            android:layout_height="200dp" />
+            android:layout_height="200dp"
+            android:layout_margin="@dimen/default_margin"/>
 
     </LinearLayout>
 

@@ -25,7 +25,7 @@
 
     <!-- Weight information -->
     <string name="weight_title">Weight gain in the subsequent weeks of pregnancy</string>
-    <string name="weight_no_data">You need to provide data for the chart.</string>
+    <string name="weight_no_data">You did not added any information about weight yet.</string>
 
     <!-- Weight information: DialogFragment to add new info -->
     <string name="dialog_new_weight_week_of_pregnancy">Week of pregnancy:</string>
