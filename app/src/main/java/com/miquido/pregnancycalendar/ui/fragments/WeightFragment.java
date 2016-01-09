@@ -61,6 +61,12 @@ public class WeightFragment extends BaseFragment implements NewWeightDialogFragm
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -111,7 +117,7 @@ public class WeightFragment extends BaseFragment implements NewWeightDialogFragm
      * Add new weight info
      */
     private void addWeightInfo() {
-        NewWeightDialogFragment.newInstance(this).show(getFragmentManager(), DIALOG_NEW_WEIGHT);
+        NewWeightDialogFragment.newInstance(this).show(getActivity().getSupportFragmentManager(), DIALOG_NEW_WEIGHT);
     }
 
     private void refreshData() {

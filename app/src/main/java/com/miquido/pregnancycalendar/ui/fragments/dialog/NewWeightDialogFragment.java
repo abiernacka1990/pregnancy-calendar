@@ -51,6 +51,12 @@ public class NewWeightDialogFragment extends DialogFragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -107,7 +113,7 @@ public class NewWeightDialogFragment extends DialogFragment {
     private void confirmUpdatingData(Weight weight) {
         new AlertDialog.Builder(getActivity())
             .setMessage(R.string.dialog_confirm_updating_data_message)
-            .setPositiveButton(R.string.yes, (dialog, id) -> {
+                .setPositiveButton(R.string.yes, (dialog, id) -> {
                 dismiss();
                 updateData(weight);
             })
@@ -130,6 +136,13 @@ public class NewWeightDialogFragment extends DialogFragment {
 
     public void setListener(NewWeightListener listener) {
         this.listener = listener;
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (getDialog() != null && getRetainInstance())
+            getDialog().setDismissMessage(null);
+        super.onDestroyView();
     }
 
     public interface NewWeightListener {
