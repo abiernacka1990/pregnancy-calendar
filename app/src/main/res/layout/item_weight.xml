@@ -9,13 +9,15 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/text_space"
         android:layout_marginTop="@dimen/text_space"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="3dp"
-            android:text="@string/dialog_new_weight_week_of_pregnancy"
+            android:text="@string/item_weight_week_of_pregnancy"
             android:textStyle="bold" />
 
         <TextView
@@ -28,13 +30,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/text_space"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="3dp"
-            android:text="@string/dialog_new_weight_weight"
+            android:text="@string/item_weight_weight"
             android:textStyle="bold" />
 
         <TextView
@@ -42,4 +46,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:background="@color/caldroid_darker_gray" />
 </LinearLayout>

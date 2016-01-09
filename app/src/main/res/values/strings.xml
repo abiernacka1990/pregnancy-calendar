@@ -26,10 +26,16 @@
     <!-- Weight information -->
     <string name="weight_title">Weight gain in the subsequent weeks of pregnancy</string>
     <string name="weight_no_data">You did not added any information about weight yet.</string>
+    <string name="weight_snackbar_item_removed">Item was removed.</string>
+    <string name="weight_snackbar_click_to_cancel">Click to cancel.</string>
 
     <!-- Weight information: DialogFragment to add new info -->
     <string name="dialog_new_weight_week_of_pregnancy">Week of pregnancy:</string>
     <string name="dialog_new_weight_weight">Weight [%s]:</string>
     <string name="dialog_new_weight_title">Add new weight</string>
     <string name="dialog_confirm_updating_data_message">Information about your weight in this week already exists. Do you want to overwrite it?</string>
+
+    <!-- Item weight -->
+    <string name="item_weight_week_of_pregnancy">Week of pregnancy:</string>
+    <string name="item_weight_weight">Weight:</string>
 </resources>

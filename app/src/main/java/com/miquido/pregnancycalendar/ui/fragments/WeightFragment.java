@@ -3,6 +3,10 @@ package com.miquido.pregnancycalendar.ui.fragments;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +19,10 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.miquido.pregnancycalendar.App;
 import com.miquido.pregnancycalendar.R;
+import com.miquido.pregnancycalendar.adapters.WeightsAdapter;
 import com.miquido.pregnancycalendar.model.Weight;
 import com.miquido.pregnancycalendar.ui.fragments.dialog.NewWeightDialogFragment;
-import com.miquido.pregnancycalendar.utils.StringFormatter;
+import com.miquido.pregnancycalendar.ui.helpers.SimpleItemTouchHelperCallback;
 import com.miquido.pregnancycalendar.utils.UsefulUIMethods;
 
 import java.util.ArrayList;
@@ -29,13 +34,17 @@ import java.util.List;
  * Use the {@link WeightFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WeightFragment extends BaseFragment implements NewWeightDialogFragment.NewWeightListener {
+public class WeightFragment extends BaseFragment implements NewWeightDialogFragment.NewWeightListener, com.miquido.pregnancycalendar.adapters.ItemTouchHelper {
 
     private static final String DIALOG_NEW_WEIGHT = "DIALOG_NEW_WEIGHT";
 
     private LineChart chart;
+    private RecyclerView recyclerView;
     private TextView titleTextView;
     private TextView noDataTextView;
+
+    private WeightsAdapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     /**
      * Use this factory method to create a new instance of
@@ -59,6 +68,14 @@ public class WeightFragment extends BaseFragment implements NewWeightDialogFragm
 
         titleTextView = (TextView) mainView.findViewById(R.id.text_weight_title);
         noDataTextView = (TextView) mainView.findViewById(R.id.text_weight_no_data);
+
+        recyclerView = (RecyclerView) mainView.findViewById(R.id.recycler_view_weights_list);
+        layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new WeightsAdapter();
+        recyclerView.setAdapter(adapter);
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(this);
+        new ItemTouchHelper(callback).attachToRecyclerView(recyclerView);
 
         chart = (LineChart) mainView.findViewById(R.id.chart);
         setChartStyle();
@@ -110,7 +127,7 @@ public class WeightFragment extends BaseFragment implements NewWeightDialogFragm
 
         updateChart(weightList);
 
-        //TODO: refresh adapter
+        adapter.updateList(weightList);
     }
 
     private void updateVisibilityOfViews(boolean emptyList) {
@@ -160,5 +177,16 @@ public class WeightFragment extends BaseFragment implements NewWeightDialogFragm
         refreshData();
     }
 
-
+    @Override
+    public void onItemDismiss(int position) {
+        Weight deletedItem = adapter.itemDissmissed(position);
+        App.getInstance().getWeightRepository().delete(deletedItem);
+       // refreshData();
+        Snackbar.make(getView(), R.string.weight_snackbar_item_removed, Snackbar.LENGTH_LONG)
+                .setAction(getString(R.string.weight_snackbar_click_to_cancel), v -> {
+                    App.getInstance().getWeightRepository().create(deletedItem);
+                    refreshData();;
+                })
+                .show();
+    }
 }

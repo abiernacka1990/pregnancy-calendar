@@ -35,6 +35,12 @@
             android:layout_height="200dp"
             android:layout_margin="@dimen/default_margin"/>
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_weights_list"
+            android:scrollbars="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
