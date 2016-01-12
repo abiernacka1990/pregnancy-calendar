@@ -2,7 +2,9 @@ package com.miquido.pregnancycalendar;
 
 import android.app.Application;
 
+import com.miquido.pregnancycalendar.db.EventsRepository;
 import com.miquido.pregnancycalendar.db.WeightRepository;
+import com.miquido.pregnancycalendar.db.ormlite.OrmEventRepository;
 import com.miquido.pregnancycalendar.db.ormlite.OrmWeightRepository;
 import com.miquido.pregnancycalendar.utils.DevelopProperties;
 
@@ -15,6 +17,7 @@ public class App extends Application {
 
     private static App instance;
     private WeightRepository weightRepository;
+    private EventsRepository eventsRepository;
 
 
     public static App getInstance(){
@@ -26,10 +29,15 @@ public class App extends Application {
         super.onCreate();
         instance = this;
         weightRepository = new OrmWeightRepository(getApplicationContext());
+            eventsRepository = new OrmEventRepository(getApplicationContext());
     }
 
     public WeightRepository getWeightRepository() {
         return weightRepository;
+    }
+
+    public EventsRepository getEventsRepository() {
+        return eventsRepository;
     }
 
     public String getDefaultWeightUnit() {

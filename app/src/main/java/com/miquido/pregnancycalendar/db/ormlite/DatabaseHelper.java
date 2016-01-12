@@ -8,6 +8,7 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import com.miquido.pregnancycalendar.model.Event;
 import com.miquido.pregnancycalendar.model.Weight;
 
 import java.sql.SQLException;
@@ -27,6 +28,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
      * the DAO object we use to access weight
      */
     private Dao<Weight, Integer> weights = null;
+    /**
+     * the DAO object we use to access event
+     */
+    private Dao<Event, Integer> events = null;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -40,6 +45,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
         try {
             TableUtils.createTable(connectionSource, Weight.class);
+            TableUtils.createTable(connectionSource, Event.class);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
             throw new RuntimeException(e);
@@ -55,6 +61,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             Log.i(DatabaseHelper.class.getName(), "onUpgrade");
             TableUtils.dropTable(connectionSource, Weight.class, true);
+            TableUtils.dropTable(connectionSource, Event.class, true);
             onCreate(db, connectionSource);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Can't drop databases", e);
@@ -72,7 +79,16 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
         return weights;
     }
+
+    /**
+     * Returns the DAO for events
+     * value.
+     */
+    public Dao<Event, Integer> getEventsDao() throws SQLException {
+        if (events == null) {
+            events = getDao(Event.class);
         }
+        return events;
     }
 
     /**
@@ -82,6 +98,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void close() {
         super.close();
         weights = null;
+        events = null;
     }
 
 }
