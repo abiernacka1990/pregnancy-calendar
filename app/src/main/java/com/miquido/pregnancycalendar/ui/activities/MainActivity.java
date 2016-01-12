@@ -9,17 +9,27 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
+import com.miquido.pregnancycalendar.BuildConfig;
 import com.miquido.pregnancycalendar.R;
+import com.miquido.pregnancycalendar.ui.fragments.PregnancyCaldroidFragment;
 import com.miquido.pregnancycalendar.ui.fragments.SettingsFragment;
 import com.miquido.pregnancycalendar.ui.fragments.WeightFragment;
+import com.roomorama.caldroid.CaldroidFragment;
+
+import java.util.Calendar;
 
 /**
  * Main activity in application
  */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SettingsFragment.OnSettingsChangesListener {
+
+    private static final String FRAGMENT_TAG = "FragmentTag";
+    private static final String TAG = "MainActivity";
+    private CaldroidFragment caldroidFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +38,31 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //FIXME: remove this line
-        //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show()
+        caldroidFragment = new PregnancyCaldroidFragment();
+
+        Fragment fragment = null;
+
+        if (savedInstanceState != null) {
+            caldroidFragment.restoreStatesFromKey(savedInstanceState, "CALDROID_SAVED_STATE");
+            fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
+        } else {
+            Bundle args = new Bundle();
+            Calendar cal = Calendar.getInstance();
+            args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
+            args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
+            args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
+            args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, true);
+
+            caldroidFragment.setArguments(args);
+        }
+
+        if(fragment == null) {
+            fragment = caldroidFragment;
+        }
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.layout_fragments_container, fragment)
+                .commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -60,18 +93,21 @@ public class MainActivity extends AppCompatActivity
 
         int id = item.getItemId();
 
-        //FIXME: remove this line
-        fragment = new SettingsFragment();
-
         if (id == R.id.nav_settings) {
             fragment = SettingsFragment.newInstance();
         } else if (id == R.id.nav_weight) {
             fragment = WeightFragment.newInstance();
         } else if (id == R.id.nav_calendar) {
+            fragment = caldroidFragment;
+        } else {
+            if ( BuildConfig.DEBUG) {
+                Log.d(TAG, "No fragment specified for selected item: " + item.toString());
+            }
+            return false;
         }
 
         fragmentManager.beginTransaction()
-                .replace(R.id.layout_fragments_container, fragment)
+                .replace(R.id.layout_fragments_container, fragment, FRAGMENT_TAG)
                 .commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -82,5 +118,14 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onPregnancyStartDateChanged(long date) {
         //TODO refresh calendar
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        if (caldroidFragment != null) {
+            caldroidFragment.saveStatesToKey(outState, "CALDROID_SAVED_STATE");
+        }
     }
 }
