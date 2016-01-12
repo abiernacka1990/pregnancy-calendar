@@ -19,7 +19,7 @@ public class OrmWeightRepository implements WeightRepository {
 
     public OrmWeightRepository(Context ctx) {
         try {
-            DatabaseManager dbManager = new DatabaseManager();
+            DatabaseManager dbManager = DatabaseManager.getInstance();
             db = dbManager.getHelper(ctx);
             weights = db.getWeightInfoDao();
         } catch (SQLException e) {

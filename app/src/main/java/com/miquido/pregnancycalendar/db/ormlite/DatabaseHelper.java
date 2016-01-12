@@ -24,9 +24,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     /**
-     * the DAO object we use to access weight note
+     * the DAO object we use to access weight
      */
-    private Dao<Weight, Integer> weightInfos = null;
+    private Dao<Weight, Integer> weights = null;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -63,14 +63,16 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     /**
-     * Returns the DAO for notes
+     * Returns the DAO for weights
      * value.
      */
     public Dao<Weight, Integer> getWeightInfoDao() throws SQLException {
-        if (weightInfos == null) {
-            weightInfos = getDao(Weight.class);
+        if (weights == null) {
+            weights = getDao(Weight.class);
         }
-        return weightInfos;
+        return weights;
+    }
+        }
     }
 
     /**
@@ -79,7 +81,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void close() {
         super.close();
-        weightInfos = null;
+        weights = null;
     }
 
 }
