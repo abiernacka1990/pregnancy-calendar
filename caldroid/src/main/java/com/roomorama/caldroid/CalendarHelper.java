@@ -35,7 +35,7 @@ public class CalendarHelper {
                                                    int startDayOfWeek, boolean sixWeeksInCalendar) {
         ArrayList<DateTime> datetimeList = new ArrayList<DateTime>();
 
-        DateTime firstDateOfMonth = new DateTime(year, month, 1, 0, 0, 0, 0);
+        DateTime firstDateOfMonth = DateTime.forDateOnly(year, month, 1);
         DateTime lastDateOfMonth = firstDateOfMonth.plusDays(firstDateOfMonth
                 .getNumDaysInMonth() - 1);
 
@@ -116,7 +116,7 @@ public class CalendarHelper {
         int day = calendar.get(Calendar.DATE);
 
         // javaMonth start at 0. Need to plus 1 to get datetimeMonth
-        return new DateTime(year, javaMonth + 1, day, 0, 0, 0, 0);
+        return DateTime.forDateOnly(year, javaMonth + 1, day);
     }
 
     public static Date convertDateTimeToDate(DateTime dateTime) {

@@ -1420,7 +1420,7 @@ public class CaldroidFragment extends DialogFragment {
         SimpleDateFormat fmt = new SimpleDateFormat("EEE", Locale.getDefault());
 
         // 17 Feb 2013 is Sunday
-        DateTime sunday = new DateTime(2013, 2, 17, 0, 0, 0, 0);
+        DateTime sunday = DateTime.forDateOnly(2013, 2, 17);
         DateTime nextDay = sunday.plusDays(startDayOfWeek - SUNDAY);
 
         for (int i = 0; i < 7; i++) {

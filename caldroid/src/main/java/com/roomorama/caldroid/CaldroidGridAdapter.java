@@ -164,8 +164,10 @@ public class CaldroidGridAdapter extends BaseAdapter {
             }
         }
 
-        selectedDates = (ArrayList<DateTime>) caldroidData
-                .get(CaldroidFragment.SELECTED_DATES);
+        if (selectedDates == null) {
+            selectedDates = (ArrayList<DateTime>) caldroidData
+                    .get(CaldroidFragment.SELECTED_DATES);
+        }
         if (selectedDates != null) {
             selectedDatesMap.clear();
             for (DateTime dateTime : selectedDates) {
