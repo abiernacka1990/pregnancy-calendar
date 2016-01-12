@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.miquido.pregnancycalendar.db.WeightRepository;
 import com.miquido.pregnancycalendar.db.ormlite.OrmWeightRepository;
+import com.miquido.pregnancycalendar.utils.DevelopProperties;
 
 /**
  * Created by agnieszka on 03.11.15.
