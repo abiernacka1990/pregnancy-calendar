@@ -6,18 +6,26 @@
     android:background="@drawable/cell_bg"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="10dp" >
+    android:padding="@dimen/cell_padding" >
+
+    <ImageView
+        android:id="@+id/image_pointer"
+        android:layout_width="@dimen/pointer_size"
+        android:layout_height="@dimen/pointer_size"
+        android:src="@drawable/event_pointer"/>
 
     <TextView
         android:id="@+id/text_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:textSize="@dimen/cell_text_size"/>
 
     <TextView
         android:id="@+id/text_extra_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center" />
+        android:gravity="center"
+        android:textSize="@dimen/cell_text_size_small" />
 
 </LinearLayout>

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.miquido.pregnancycalendar.R;
@@ -23,98 +24,65 @@ public class PregnancyCaldroidAdapter extends CaldroidGridAdapter {
     public static final int NUMBER_OF_WEEKS = 40;
 
     public PregnancyCaldroidAdapter(Context context, int month, int year,
-									HashMap<String, Object> caldroidData,
-									HashMap<String, Object> extraData) {
-		super(context, month, year, caldroidData, extraData);
-	}
+                                    HashMap<String, Object> caldroidData,
+                                    HashMap<String, Object> extraData) {
+        super(context, month, year, caldroidData, extraData);
+    }
 
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		LayoutInflater inflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View cellView = convertView;
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
 
-		// For reuse
-		if (convertView == null) {
-			cellView = inflater.inflate(R.layout.cell_calendar, null);
-		}
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View cellView = convertView;
 
-		int topPadding = cellView.getPaddingTop();
-		int leftPadding = cellView.getPaddingLeft();
-		int bottomPadding = cellView.getPaddingBottom();
-		int rightPadding = cellView.getPaddingRight();
+        if (convertView == null) {
+            cellView = inflater.inflate(R.layout.cell_calendar, null);
+        }
 
-		TextView tv1 = (TextView) cellView.findViewById(R.id.text_date);
-		TextView tv2 = (TextView) cellView.findViewById(R.id.text_extra_info);
+        int topPadding = cellView.getPaddingTop();
+        int leftPadding = cellView.getPaddingLeft();
+        int bottomPadding = cellView.getPaddingBottom();
+        int rightPadding = cellView.getPaddingRight();
 
-		tv1.setTextColor(Color.BLACK);
+        TextView dateTextView = (TextView) cellView.findViewById(R.id.text_date);
+        TextView extraInfoTextView = (TextView) cellView.findViewById(R.id.text_extra_info);
+        ImageView pointerImageView = (ImageView) cellView.findViewById(R.id.image_pointer);
 
-		// Get dateTime of this cell
-		DateTime dateTime = this.datetimeList.get(position);
-		Resources resources = context.getResources();
+        pointerImageView.setVisibility(View.INVISIBLE);
 
-		// Set color of the dates in previous / next month
-		if (dateTime.getMonth() != month) {
-			tv1.setTextColor(resources
-					.getColor(com.caldroid.R.color.caldroid_darker_gray));
-		}
+        dateTextView.setTextColor(Color.BLACK);
 
-		boolean shouldResetDiabledView = false;
-		boolean shouldResetSelectedView = false;
+        // Get dateTime of this cell
+        DateTime dateTime = this.datetimeList.get(position);
+        Resources resources = context.getResources();
 
-		// Customize for disabled dates and date outside min/max dates
-		if ((minDateTime != null && dateTime.lt(minDateTime))
-				|| (maxDateTime != null && dateTime.gt(maxDateTime))
-				|| (disableDates != null && disableDates.indexOf(dateTime) != -1)) {
+        // Set color of the dates in previous / next month
+        if (dateTime.getMonth() != month) {
+            dateTextView.setTextColor(resources.getColor(com.caldroid.R.color.caldroid_darker_gray));
+        }
 
-			tv1.setTextColor(CaldroidFragment.disabledTextColor);
-			if (CaldroidFragment.disabledBackgroundDrawable == -1) {
-				cellView.setBackgroundResource(com.caldroid.R.drawable.disable_cell);
-			} else {
-				cellView.setBackgroundResource(CaldroidFragment.disabledBackgroundDrawable);
-			}
+        // Customize for selected dates
+        if (selectedDates != null && selectedDates.indexOf(dateTime) != -1) {
+            pointerImageView.setVisibility(View.VISIBLE);
+        }
 
-			if (dateTime.equals(getToday())) {
-				cellView.setBackgroundResource(com.caldroid.R.drawable.red_border_gray_bg);
-			}
+        if (dateTime.equals(getToday())) {
+            cellView.setBackgroundResource(com.caldroid.R.drawable.red_border);
+        } else {
+            cellView.setBackgroundResource(com.caldroid.R.drawable.cell_bg);
+        }
 
-		} else {
-			shouldResetDiabledView = true;
-		}
+        dateTextView.setText(String.valueOf(dateTime.getDay()));
+        extraInfoTextView.setText(getWeekInfo(dateTime));
 
-		// Customize for selected dates
-		if (selectedDates != null && selectedDates.indexOf(dateTime) != -1) {
-			cellView.setBackgroundColor(resources
-					.getColor(com.caldroid.R.color.caldroid_sky_blue));
-
-			tv1.setTextColor(Color.BLACK);
-
-		} else {
-			shouldResetSelectedView = true;
-		}
-
-		if (shouldResetDiabledView && shouldResetSelectedView) {
-			// Customize for today
-			if (dateTime.equals(getToday())) {
-				cellView.setBackgroundResource(com.caldroid.R.drawable.red_border);
-			} else {
-				cellView.setBackgroundResource(com.caldroid.R.drawable.cell_bg);
-			}
-		}
-
-		tv1.setText("" + dateTime.getDay());
-		tv2.setText(getWeekInfo(dateTime));
-
-		// Somehow after setBackgroundResource, the padding collapse.
-		// This is to recover the padding
-		cellView.setPadding(leftPadding, topPadding, rightPadding,
+        // Somehow after setBackgroundResource, the padding collapse.
+        // This is to recover the padding
+        cellView.setPadding(leftPadding, topPadding, rightPadding,
                 bottomPadding);
 
-		// Set custom color if required
-		setCustomResources(dateTime, cellView, tv1);
 
-		return cellView;
-	}
+        return cellView;
+    }
 
     private String getWeekInfo(DateTime dateTime) {
 
@@ -126,11 +94,11 @@ public class PregnancyCaldroidAdapter extends CaldroidGridAdapter {
             final long now = CalendarHelper.convertDateTimeToDate(dateTime).getTime();
             int week = (int) ((now - pregnancyStartDate) / (1000 * 60 * 60 * 24 * 7)) + 1;
             if (now >= pregnancyStartDate && week <= NUMBER_OF_WEEKS) {
-                return String.valueOf(week);
+                return "(" + String.valueOf(week) + ")";
             }
         }
 
-        return  defaultInfo;
+        return defaultInfo;
 
     }
 

@@ -8,4 +8,10 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="default_margin">16dp</dimen>
     <dimen name="text_space">5dp</dimen>
+
+    <!-- Calendar cell -->
+    <dimen name="cell_padding">5dp</dimen>
+    <dimen name="pointer_size">6dp</dimen>
+    <dimen name="cell_text_size">15sp</dimen>
+    <dimen name="cell_text_size_small">11sp</dimen>
 </resources>
