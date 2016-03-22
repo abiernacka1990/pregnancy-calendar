@@ -12,27 +12,21 @@ import android.widget.TextView;
 import com.miquido.pregnancycalendar.R;
 import com.miquido.pregnancycalendar.utils.Preferences;
 import com.miquido.pregnancycalendar.utils.StringFormatter;
-import com.roomorama.caldroid.CaldroidFragment;
-import com.roomorama.caldroid.CaldroidListener;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
-
-import hirondelle.date4j.DateTime;
 
 /**
  * Fragment with user settings.
  */
-public class SettingsFragment extends BaseFragment {
-
-    private final String dialogTag = "CALDROID_DIALOG_FRAGMENT";
-    private final String dialogSavedStateKey = "DIALOG_CALDROID_SAVED_STATE";
+public class SettingsFragment extends BaseFragment implements DatePickerDialog.OnDateSetListener {
 
     private TextView dataTextView;
     private EditText weightUnitEditText;
 
     private OnSettingsChangesListener settingsChangesListener;
-    private CaldroidFragment dateDialogFragment;
 
     /**
      * Use this factory method to create a new instance of
@@ -63,19 +57,6 @@ public class SettingsFragment extends BaseFragment {
         weightUnitEditText = (EditText) mainView.findViewById(R.id.text_weight_unit);
         showPreferences();
         dataTextView.setOnClickListener(view -> openDateChooser());
-
-        if(savedInstanceState != null) {
-            dateDialogFragment = new CaldroidFragment();
-            dateDialogFragment.restoreDialogStatesFromKey(
-                    getAppCompatActivity().getSupportFragmentManager(), savedInstanceState,
-                    dialogSavedStateKey, dialogTag);
-            Bundle args = dateDialogFragment.getArguments();
-            if (args == null) {
-                args = new Bundle();
-                dateDialogFragment.setArguments(args);
-            }
-        }
-
         return mainView;
     }
 
@@ -83,33 +64,30 @@ public class SettingsFragment extends BaseFragment {
      * Open Dialog to choose a date (start of pregnancy). Set selected date.
      */
     private void openDateChooser() {
-
-        DateTime dateToSelect = getDateToSelect();
-
-        dateDialogFragment = new CaldroidFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt(CaldroidFragment.YEAR, dateToSelect.getYear());
-        bundle.putInt(CaldroidFragment.MONTH, dateToSelect.getMonth());
-        dateDialogFragment.setArguments(bundle);
-        dateDialogFragment.setCalendarDateTime(dateToSelect);
-        dateDialogFragment.setSelectedDate(new Date(dateToSelect.getMilliseconds(TimeZone.getDefault())));
-
-        dateDialogFragment.setCaldroidListener(dateDialogListener);
-        dateDialogFragment.show(getAppCompatActivity().getSupportFragmentManager(), dialogTag);
+        Calendar dateToSelectByDefault = getDateToSelectByDefault();
+        DatePickerDialog startPregnancyDatePickerDialog = DatePickerDialog.newInstance(
+                SettingsFragment.this,
+                dateToSelectByDefault.get(Calendar.YEAR),
+                dateToSelectByDefault.get(Calendar.MONTH),
+                dateToSelectByDefault.get(Calendar.DAY_OF_MONTH)
+        );
+        startPregnancyDatePickerDialog.show(getActivity().getFragmentManager(), "Datepickerdialog");
     }
 
     @NonNull
-    private DateTime getDateToSelect() {
+    private Calendar getDateToSelectByDefault() {
+        Calendar dateToPick = Calendar.getInstance();
         long pregnancyStartDateAsLong = Preferences.getInstance().getPregnancyStartDate();
-        return pregnancyStartDateAsLong == 0 ?
-                DateTime.now(TimeZone.getDefault()) : DateTime.forInstant(pregnancyStartDateAsLong, TimeZone.getDefault());
+        if (pregnancyStartDateAsLong != 0) {
+            dateToPick.setTimeInMillis(pregnancyStartDateAsLong);
+        }
+        return dateToPick;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onPregnancyStartDateChanged() {
         if (settingsChangesListener != null) {
             //TODO:
-            settingsChangesListener.onPregnancyStartDateChanged(0);
+            settingsChangesListener.onPregnancyStartDateChanged();
         }
     }
 
@@ -136,22 +114,27 @@ public class SettingsFragment extends BaseFragment {
         super.onPause();
     }
 
-    public interface OnSettingsChangesListener {
-        void onPregnancyStartDateChanged(long date);
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+
+        view.dismiss();
+        long selectedDateInMillis = getSelectedDateInMillis(year, monthOfYear, dayOfMonth);
+        savePregnancyStartDate(selectedDateInMillis);
+        onPregnancyStartDateChanged();
     }
 
-    final CaldroidListener dateDialogListener = new CaldroidListener() {
-        @Override
-        public void onSelectDate(Date date, View view) {
-            savePregnancyStartDate(date);
-            dateDialogFragment.dismiss();
+    private long getSelectedDateInMillis(int year, int monthOfYear, int dayOfMonth) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, monthOfYear, dayOfMonth, 0, 0, 0);
+        return calendar.getTimeInMillis();
+    }
 
-        }
+    public interface OnSettingsChangesListener {
+        void onPregnancyStartDateChanged();
+    }
 
-    };
-
-    private void savePregnancyStartDate(Date date) {
-        Preferences.getInstance().setPregnancyStartDate(date.getTime());
+    private void savePregnancyStartDate(long startDateInMillis) {
+        Preferences.getInstance().setPregnancyStartDate(startDateInMillis);
         showPreferences();
     }
 
@@ -166,15 +149,6 @@ public class SettingsFragment extends BaseFragment {
         String defaultWeightUnit = Preferences.getInstance().getWeightUnit();
         weightUnitEditText.setText(defaultWeightUnit);
         weightUnitEditText.setSelection(weightUnitEditText.getText().length());
-    }
-
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if (dateDialogFragment != null) {
-            dateDialogFragment.saveStatesToKey(outState, dialogSavedStateKey);
-        }
     }
 
 }

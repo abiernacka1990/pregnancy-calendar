@@ -14,21 +14,14 @@ import android.view.MenuItem;
 
 import com.miquido.pregnancycalendar.BuildConfig;
 import com.miquido.pregnancycalendar.R;
-import com.miquido.pregnancycalendar.ui.fragments.EventsListFragment;
-import com.miquido.pregnancycalendar.ui.fragments.PregnancyCaldroidFragment;
 import com.miquido.pregnancycalendar.ui.fragments.SettingsFragment;
 import com.miquido.pregnancycalendar.ui.fragments.WeightFragment;
-import com.roomorama.caldroid.CaldroidFragment;
-
-import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SettingsFragment.OnSettingsChangesListener {
 
-    private static final String TOP_FRAGMENT_TAG = "TopFragmentTag";
-    private static final String BOTTOM_FRAGMENT_TAG = "BottomFragmentTag";
+    private static final String FRAGMENT_TAG = "FRAGMENT_TAG";
     private static final String TAG = "MainActivity";
-    private CaldroidFragment caldroidFragment = new PregnancyCaldroidFragment();;
     private Toolbar toolbar;
 
     @Override
@@ -42,7 +35,7 @@ public class MainActivity extends AppCompatActivity
         initToolbar();
         initToogle();
         initNavDrawer();
-        showFragments(savedInstanceState);
+        showFragment(savedInstanceState);
     }
 
     private void initToogle() {
@@ -63,64 +56,22 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void showFragments(Bundle savedInstanceState) {
-        Fragment fragment = findTopFragmentToShow(savedInstanceState);
-
-        if(fragment instanceof PregnancyCaldroidFragment) {
-            showBottomFragment(savedInstanceState);
-        }
-        replaceMainFragment(fragment);
+    private void showFragment(Bundle savedInstanceState) {
+        Fragment fragment = findFragmentToShow(savedInstanceState);
+        replaceFragment(fragment);
     }
 
-    private void showBottomFragment(Bundle savedInstanceState) {
-        Fragment fragment;
-        if (savedInstanceState != null) {
-            fragment = restoreBottomFragment(savedInstanceState);
-        } else {
-            fragment = EventsListFragment.newInstance();
-        }
-    }
 
-    private Fragment findTopFragmentToShow(Bundle savedInstanceState) {
-        Fragment fragment;
+    private Fragment findFragmentToShow(Bundle savedInstanceState) {
+        Fragment fragment = null;
 
         if (savedInstanceState != null) {
-            fragment = restoreTopFragment(savedInstanceState);
+            fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
         } else {
-            initCaldroidFragment();
-            fragment = caldroidFragment;
+            //TODO
         }
 
         return fragment;
-    }
-
-    private Fragment restoreTopFragment(Bundle savedInstanceState) {
-        return restoreFragment(savedInstanceState, TOP_FRAGMENT_TAG);
-    }
-
-    private Fragment restoreBottomFragment(Bundle savedInstanceState) {
-        return restoreFragment(savedInstanceState, BOTTOM_FRAGMENT_TAG);
-    }
-
-    private Fragment restoreFragment(Bundle savedInstanceState, String tag) {
-        Fragment fragment;
-        fragment = getSupportFragmentManager().findFragmentByTag(tag);
-        if (fragment instanceof CaldroidFragment) {
-            fragment = caldroidFragment;
-        }
-        caldroidFragment.restoreStatesFromKey(savedInstanceState, "CALDROID_SAVED_STATE");
-        return fragment;
-    }
-
-    private void initCaldroidFragment() {
-        Bundle args = new Bundle();
-        Calendar cal = Calendar.getInstance();
-        args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
-        args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
-        args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
-        args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, true);
-
-        caldroidFragment.setArguments(args);
     }
 
     @Override
@@ -139,21 +90,22 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = getFragmentForSelectedNavDrawerItem(item);
 
         if (fragment != null) {
-            replaceMainFragmentAndCloseDrawer(fragment);
+            replaceFragmentAndCloseDrawer(fragment);
             return true;
         } else {
             return false;
         }
     }
 
-    private void replaceMainFragmentAndCloseDrawer(Fragment fragment) {
-        replaceMainFragment(fragment);
+    private void replaceFragmentAndCloseDrawer(Fragment fragment) {
+        replaceFragment(fragment);
         closeNavDrawer();
     }
 
-    private void replaceMainFragment(Fragment fragment) {
+    private void replaceFragment(Fragment fragment) {
+        if (fragment == null) return;
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.layout_top_fragment_container, fragment, TOP_FRAGMENT_TAG)
+                .replace(R.id.layout_top_fragment_container, fragment, FRAGMENT_TAG)
                 .commit();
     }
 
@@ -172,7 +124,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_weight) {
             fragment = WeightFragment.newInstance();
         } else if (id == R.id.nav_calendar) {
-            fragment = caldroidFragment;
+            fragment = null;
         } else {
             logNoItemFound(item);
             fragment = null;
@@ -187,13 +139,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onPregnancyStartDateChanged(long date) {
+    public void onPregnancyStartDateChanged() {
         //TODO refresh calendar
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        caldroidFragment.saveStatesToKey(outState, "CALDROID_SAVED_STATE");
     }
 }

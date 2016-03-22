@@ -4,10 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.miquido.pregnancycalendar.model.Event;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import hirondelle.date4j.DateTime;
 
 /**
  * Created by agnieszka on 10.01.16.
@@ -21,6 +18,4 @@ public interface EventsRepository {
 
     @Nullable
     List<Event> getAll();
-
-    ArrayList<DateTime> getAllDates();
 }

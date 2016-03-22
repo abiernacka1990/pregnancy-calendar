@@ -3,10 +3,6 @@ package com.miquido.pregnancycalendar.model;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-import java.util.Date;
-
-import hirondelle.date4j.DateTime;
-
 /**
  * Created by agnieszka on 10.01.16.
  */

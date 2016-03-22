@@ -10,8 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import hirondelle.date4j.DateTime;
-
 /**
  * Created by agnieszka on 10.01.16.
  */
@@ -71,14 +69,4 @@ public class OrmEventRepository implements EventsRepository {
         return null;
     }
 
-    @Override
-    public ArrayList<DateTime> getAllDates() {
-        List<Event> events = getAll();
-        ArrayList<DateTime> dateTimes = new ArrayList<>();
-        for (Event event: events) {
-            DateTime dateTime = new DateTime(event.getDate());
-            dateTimes.add(dateTime);
-        }
-        return dateTimes;
-    }
 }
