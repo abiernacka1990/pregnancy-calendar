@@ -15,12 +15,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.miquido.pregnancycalendar.BuildConfig;
 import com.miquido.pregnancycalendar.R;
 import com.miquido.pregnancycalendar.model.Weight;
+import com.miquido.pregnancycalendar.ui.decorators.MyDayDecorator;
+import com.miquido.pregnancycalendar.ui.fragments.EventsFragment;
 import com.miquido.pregnancycalendar.ui.fragments.SettingsFragment;
 import com.miquido.pregnancycalendar.ui.fragments.WeightFragment;
+import com.samsistemas.calendarview.decor.DayDecorator;
+import com.samsistemas.calendarview.widget.CalendarView;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SettingsFragment.OnSettingsChangesListener {
@@ -30,6 +42,7 @@ public class MainActivity extends AppCompatActivity
     private Toolbar toolbar;
     private AppBarLayout appBarLayout;
     private CollapsingToolbarLayout toolbarLayout;
+    private CalendarView calendarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +56,21 @@ public class MainActivity extends AppCompatActivity
         initToogle();
         initNavDrawer();
         showFragment(savedInstanceState);
+        initCalendar();
+    }
+
+    private void initCalendar() {
+
+        calendarView = (CalendarView) findViewById(R.id.calendar_view);
+        calendarView.setDecoratorsList(new ArrayList<DayDecorator>(Arrays.asList(new MyDayDecorator())));
+        calendarView.setFirstDayOfWeek(Calendar.MONDAY);
+        calendarView.setIsOverflowDateVisible(true);
+        calendarView.setCurrentDay(new Date(System.currentTimeMillis()));
+        calendarView.refreshCalendar(Calendar.getInstance(Locale.getDefault()));
+        calendarView.setOnDateClickListener(selectedDate -> {
+            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+            Toast.makeText(MainActivity.this, df.format(selectedDate), Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void initToogle() {
@@ -131,8 +159,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     private enum MainFragment {
-        WEIGHT(WeightFragment.class, false),
-        SETTINGS(SettingsFragment.class, false);
+        EVENTS(EventsFragment.class, Constants.EXPANDED_APPBAR_ENABLED),
+        WEIGHT(WeightFragment.class, !Constants.EXPANDED_APPBAR_ENABLED),
+        SETTINGS(SettingsFragment.class, !Constants.EXPANDED_APPBAR_ENABLED);
 
         private Class<? extends Fragment>  fragmentClass;
         private boolean expandedAppBarEnabled;
@@ -172,7 +201,7 @@ public class MainActivity extends AppCompatActivity
             } else if (id == R.id.nav_weight) {
                 return WEIGHT;
             } else if (id == R.id.nav_calendar) {
-                return null;
+                return EVENTS;
             } else {
                 logNoItemFound(item);
                 return null;
@@ -183,6 +212,10 @@ public class MainActivity extends AppCompatActivity
             if ( BuildConfig.DEBUG) {
                 Log.d(TAG, "No fragment specified for selected item: " + item.toString());
             }
+        }
+
+        private static class Constants {
+            public static final boolean EXPANDED_APPBAR_ENABLED = true;
         }
     }
 }
