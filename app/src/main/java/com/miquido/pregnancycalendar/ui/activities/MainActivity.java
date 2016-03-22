@@ -1,7 +1,11 @@
 package com.miquido.pregnancycalendar.ui.activities;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +18,7 @@ import android.view.MenuItem;
 
 import com.miquido.pregnancycalendar.BuildConfig;
 import com.miquido.pregnancycalendar.R;
+import com.miquido.pregnancycalendar.model.Weight;
 import com.miquido.pregnancycalendar.ui.fragments.SettingsFragment;
 import com.miquido.pregnancycalendar.ui.fragments.WeightFragment;
 
@@ -23,6 +28,8 @@ public class MainActivity extends AppCompatActivity
     private static final String FRAGMENT_TAG = "FRAGMENT_TAG";
     private static final String TAG = "MainActivity";
     private Toolbar toolbar;
+    private AppBarLayout appBarLayout;
+    private CollapsingToolbarLayout toolbarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +54,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initToolbar() {
+        appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+        toolbarLayout.setTitleEnabled(false);
         setSupportActionBar(toolbar);
     }
 
@@ -87,10 +97,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
-        Fragment fragment = getFragmentForSelectedNavDrawerItem(item);
+        MainFragment selectedFragment = MainFragment.getFragmentByNavDrawerItem(item);
 
-        if (fragment != null) {
-            replaceFragmentAndCloseDrawer(fragment);
+        if (selectedFragment != null) {
+            replaceFragmentAndCloseDrawer(selectedFragment.getFragment());
+            selectedFragment.setAppBarBehaviour(appBarLayout);
             return true;
         } else {
             return false;
@@ -105,7 +116,7 @@ public class MainActivity extends AppCompatActivity
     private void replaceFragment(Fragment fragment) {
         if (fragment == null) return;
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.layout_top_fragment_container, fragment, FRAGMENT_TAG)
+                .replace(R.id.fragment_container, fragment, FRAGMENT_TAG)
                 .commit();
     }
 
@@ -114,32 +125,64 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
     }
 
-    @Nullable
-    private Fragment getFragmentForSelectedNavDrawerItem(MenuItem item) {
-        Fragment fragment;
-        int id = item.getItemId();
-
-        if (id == R.id.nav_settings) {
-            fragment = SettingsFragment.newInstance();
-        } else if (id == R.id.nav_weight) {
-            fragment = WeightFragment.newInstance();
-        } else if (id == R.id.nav_calendar) {
-            fragment = null;
-        } else {
-            logNoItemFound(item);
-            fragment = null;
-        }
-        return fragment;
-    }
-
-    private void logNoItemFound(MenuItem item) {
-        if ( BuildConfig.DEBUG) {
-            Log.d(TAG, "No fragment specified for selected item: " + item.toString());
-        }
-    }
-
     @Override
     public void onPregnancyStartDateChanged() {
         //TODO refresh calendar
+    }
+
+    private enum MainFragment {
+        WEIGHT(WeightFragment.class, false),
+        SETTINGS(SettingsFragment.class, false);
+
+        private Class<? extends Fragment>  fragmentClass;
+        private boolean expandedAppBarEnabled;
+
+        MainFragment(Class<? extends Fragment>  fragmentClass, boolean expandedAppBarEnabled) {
+            this.fragmentClass = fragmentClass;
+            this.expandedAppBarEnabled = expandedAppBarEnabled;
+        }
+
+        @Nullable
+        public Fragment getFragment() {
+            try {
+                return fragmentClass.newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        public void setAppBarBehaviour(AppBarLayout appBarLayout) {
+            appBarLayout.setExpanded(expandedAppBarEnabled, false);
+            CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
+            AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) params.getBehavior();
+            behavior.setDragCallback(new AppBarLayout.Behavior.DragCallback() {
+                @Override
+                public boolean canDrag(@NonNull AppBarLayout appBarLayout) {
+                    return expandedAppBarEnabled;
+                }
+            });
+        }
+
+        public static MainFragment getFragmentByNavDrawerItem(MenuItem item) {
+            int id = item.getItemId();
+
+            if (id == R.id.nav_settings) {
+                return SETTINGS;
+            } else if (id == R.id.nav_weight) {
+                return WEIGHT;
+            } else if (id == R.id.nav_calendar) {
+                return null;
+            } else {
+                logNoItemFound(item);
+                return null;
+            }
+        }
+
+        private static void logNoItemFound(MenuItem item) {
+            if ( BuildConfig.DEBUG) {
+                Log.d(TAG, "No fragment specified for selected item: " + item.toString());
+            }
+        }
     }
 }
