@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.miquido.pregnancycalendar.BuildConfig;
 import com.miquido.pregnancycalendar.R;
+import com.miquido.pregnancycalendar.ui.fragments.EventsListFragment;
 import com.miquido.pregnancycalendar.ui.fragments.PregnancyCaldroidFragment;
 import com.miquido.pregnancycalendar.ui.fragments.SettingsFragment;
 import com.miquido.pregnancycalendar.ui.fragments.WeightFragment;
@@ -24,7 +25,8 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SettingsFragment.OnSettingsChangesListener {
 
-    private static final String FRAGMENT_TAG = "FragmentTag";
+    private static final String TOP_FRAGMENT_TAG = "TopFragmentTag";
+    private static final String BOTTOM_FRAGMENT_TAG = "BottomFragmentTag";
     private static final String TAG = "MainActivity";
     private CaldroidFragment caldroidFragment = new PregnancyCaldroidFragment();;
     private Toolbar toolbar;
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity
         initToolbar();
         initToogle();
         initNavDrawer();
-        showFragment(savedInstanceState);
+        showFragments(savedInstanceState);
     }
 
     private void initToogle() {
@@ -61,22 +63,52 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void showFragment(Bundle savedInstanceState) {
-        Fragment fragment = findFragmentToShow(savedInstanceState);
+    private void showFragments(Bundle savedInstanceState) {
+        Fragment fragment = findTopFragmentToShow(savedInstanceState);
 
+        if(fragment instanceof PregnancyCaldroidFragment) {
+            showBottomFragment(savedInstanceState);
+        }
         replaceMainFragment(fragment);
     }
 
-    private Fragment findFragmentToShow(Bundle savedInstanceState) {
+    private void showBottomFragment(Bundle savedInstanceState) {
+        Fragment fragment;
+        if (savedInstanceState != null) {
+            fragment = restoreBottomFragment(savedInstanceState);
+        } else {
+            fragment = EventsListFragment.newInstance();
+        }
+    }
+
+    private Fragment findTopFragmentToShow(Bundle savedInstanceState) {
         Fragment fragment;
 
         if (savedInstanceState != null) {
-            fragment = restoreFragment(savedInstanceState);
+            fragment = restoreTopFragment(savedInstanceState);
         } else {
             initCaldroidFragment();
             fragment = caldroidFragment;
         }
 
+        return fragment;
+    }
+
+    private Fragment restoreTopFragment(Bundle savedInstanceState) {
+        return restoreFragment(savedInstanceState, TOP_FRAGMENT_TAG);
+    }
+
+    private Fragment restoreBottomFragment(Bundle savedInstanceState) {
+        return restoreFragment(savedInstanceState, BOTTOM_FRAGMENT_TAG);
+    }
+
+    private Fragment restoreFragment(Bundle savedInstanceState, String tag) {
+        Fragment fragment;
+        fragment = getSupportFragmentManager().findFragmentByTag(tag);
+        if (fragment instanceof CaldroidFragment) {
+            fragment = caldroidFragment;
+        }
+        caldroidFragment.restoreStatesFromKey(savedInstanceState, "CALDROID_SAVED_STATE");
         return fragment;
     }
 
@@ -89,16 +121,6 @@ public class MainActivity extends AppCompatActivity
         args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, true);
 
         caldroidFragment.setArguments(args);
-    }
-
-    private Fragment restoreFragment(Bundle savedInstanceState) {
-        Fragment fragment;
-        fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
-        if (fragment instanceof CaldroidFragment) {
-            fragment = caldroidFragment;
-        }
-        caldroidFragment.restoreStatesFromKey(savedInstanceState, "CALDROID_SAVED_STATE");
-        return fragment;
     }
 
     @Override
@@ -131,7 +153,7 @@ public class MainActivity extends AppCompatActivity
 
     private void replaceMainFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.layout_fragments_container, fragment, FRAGMENT_TAG)
+                .replace(R.id.layout_top_fragment_container, fragment, TOP_FRAGMENT_TAG)
                 .commit();
     }
 
