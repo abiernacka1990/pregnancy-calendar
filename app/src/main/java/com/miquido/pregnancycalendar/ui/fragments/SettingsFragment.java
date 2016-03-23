@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.miquido.pregnancycalendar.R;
@@ -27,6 +28,7 @@ public class SettingsFragment extends BaseFragment implements DatePickerDialog.O
     private EditText weightUnitEditText;
 
     private OnSettingsChangesListener settingsChangesListener;
+    private ImageView startDateImageView;
 
     /**
      * Use this factory method to create a new instance of
@@ -54,9 +56,10 @@ public class SettingsFragment extends BaseFragment implements DatePickerDialog.O
         // Inflate the layout for this fragment
         View mainView = inflater.inflate(R.layout.fragment_settings, container, false);
         dataTextView = (TextView) mainView.findViewById(R.id.text_start_date);
+        startDateImageView = (ImageView) mainView.findViewById(R.id.imageViewStartDate);
         weightUnitEditText = (EditText) mainView.findViewById(R.id.text_weight_unit);
         showPreferences();
-        dataTextView.setOnClickListener(view -> openDateChooser());
+        startDateImageView.setOnClickListener(view -> openDateChooser());
         return mainView;
     }
 

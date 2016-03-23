@@ -5,38 +5,88 @@
     android:orientation="vertical"
     tools:context="com.miquido.pregnancycalendar.ui.fragments.SettingsFragment">
 
-    <TextView
-        android:id="@+id/text_start_date_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:text="@string/settings_start_date"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/text_start_date"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:clickable="true"
-        android:text="@string/unknown_date"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/colorClikableTextView"
-        tools:text="16/09/2015" />
+        android:layout_margin="@dimen/fab_margin">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/imageViewStartDate"
+            android:layout_toStartOf="@+id/imageViewStartDate"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/text_weight_unit_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:text="@string/settings_weight_unit"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/text_start_date_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/setting_item_margin"
+                android:text="@string/settings_start_date"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <EditText
-        android:id="@+id/text_weight_unit"
+            <TextView
+                android:id="@+id/text_start_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/unknown_date"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                tools:text="16/09/2015" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageViewStartDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginStart="@dimen/fab_margin"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:src="@drawable/ic_start_date"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        tools:text="kg" />
+        android:layout_margin="@dimen/fab_margin">
+
+        <TextView
+            android:id="@+id/text_weight_unit_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_weight_unit"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/text_weight_unit"
+            android:layout_toStartOf="@+id/text_weight_unit"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/text_weight_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:maxLength="@integer/max_weight_unit_chars"
+            android:minWidth="@dimen/min_weight_unit_edtx_width"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            tools:text="kg" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
 </LinearLayout>
