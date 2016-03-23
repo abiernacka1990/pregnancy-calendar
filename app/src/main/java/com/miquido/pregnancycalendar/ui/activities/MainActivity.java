@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -16,11 +17,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.miquido.pregnancycalendar.BuildConfig;
 import com.miquido.pregnancycalendar.R;
 import com.miquido.pregnancycalendar.ui.decorators.MyDayDecorator;
+import com.miquido.pregnancycalendar.ui.fragments.BaseFragment;
 import com.miquido.pregnancycalendar.ui.fragments.EventsFragment;
 import com.miquido.pregnancycalendar.ui.fragments.SettingsFragment;
 import com.miquido.pregnancycalendar.ui.fragments.WeightFragment;
@@ -44,6 +47,8 @@ public class MainActivity extends AppCompatActivity
     private CollapsingToolbarLayout toolbarLayout;
     private CalendarView calendarView;
     private NestedScrollView nestedScrollViewMain;
+    private Fragment currentFragment;
+    private FloatingActionButton fabBottom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +61,21 @@ public class MainActivity extends AppCompatActivity
         initToolbar();
         initToogle();
         initNavDrawer();
+        initContent();
         showFragment(savedInstanceState);
         initCalendar();
-        initContent();
     }
 
     private void initContent() {
         nestedScrollViewMain = (NestedScrollView) findViewById(R.id.nested_scrollview_main);
+        fabBottom = (FloatingActionButton) findViewById(R.id.fab_bottom);
+        fabBottom.setOnClickListener(view -> sendOnBottmFabClickEventToFragment());
+    }
+
+    private void sendOnBottmFabClickEventToFragment() {
+        if(currentFragment instanceof BaseFragment) {
+            ((BaseFragment) currentFragment).onBottomFloatingBtClick();
+        }
     }
 
     private void initCalendar() {
@@ -112,7 +125,7 @@ public class MainActivity extends AppCompatActivity
         if (savedInstanceState != null) {
             fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
         } else {
-            //TODO
+            fragment = EventsFragment.newInstance();
         }
 
         return fragment;
@@ -135,7 +148,7 @@ public class MainActivity extends AppCompatActivity
 
         if (selectedFragment != null) {
             replaceFragmentAndCloseDrawer(selectedFragment.getFragment());
-            selectedFragment.setFragmentANdAppBarBehaviour(appBarLayout, nestedScrollViewMain);
+            selectedFragment.setFragmentAndAppBarBehaviour(appBarLayout, nestedScrollViewMain);
             return true;
         } else {
             return false;
@@ -152,6 +165,8 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment, FRAGMENT_TAG)
                 .commit();
+        currentFragment = fragment;
+        MainFragment.findFragmentByClass(fragment.getClass()).setFabBottomVisibility(fabBottom);
     }
 
     private void closeNavDrawer() {
@@ -164,17 +179,23 @@ public class MainActivity extends AppCompatActivity
         //TODO refresh calendar
     }
 
+    public void setCurrentFragment(Fragment currentFragment) {
+        this.currentFragment = currentFragment;
+    }
+
     private enum MainFragment {
-        EVENTS(EventsFragment.class, Constants.EXPANDED_APPBAR_ENABLED),
-        WEIGHT(WeightFragment.class, !Constants.EXPANDED_APPBAR_ENABLED),
-        SETTINGS(SettingsFragment.class, !Constants.EXPANDED_APPBAR_ENABLED);
+        EVENTS(EventsFragment.class, Constants.EXPANDED_APPBAR_ENABLED, !Constants.FAB_BOTTOM_VISIBILE),
+        WEIGHT(WeightFragment.class, !Constants.EXPANDED_APPBAR_ENABLED, Constants.FAB_BOTTOM_VISIBILE),
+        SETTINGS(SettingsFragment.class, !Constants.EXPANDED_APPBAR_ENABLED, !Constants.FAB_BOTTOM_VISIBILE);
 
         private Class<? extends Fragment>  fragmentClass;
         private boolean expandedAppBarEnabled;
+        private boolean fabBottomVisible;
 
-        MainFragment(Class<? extends Fragment>  fragmentClass, boolean expandedAppBarEnabled) {
+        MainFragment(Class<? extends Fragment>  fragmentClass, boolean expandedAppBarEnabled, boolean fabBottomVisible) {
             this.fragmentClass = fragmentClass;
             this.expandedAppBarEnabled = expandedAppBarEnabled;
+            this.fabBottomVisible = fabBottomVisible;
         }
 
         @Nullable
@@ -187,7 +208,7 @@ public class MainActivity extends AppCompatActivity
             return null;
         }
 
-        public void setFragmentANdAppBarBehaviour(AppBarLayout appBarLayout, NestedScrollView nestedScrollView) {
+        public void setFragmentAndAppBarBehaviour(AppBarLayout appBarLayout, NestedScrollView nestedScrollView) {
             appBarLayout.setExpanded(expandedAppBarEnabled, false);
             CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
             AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) params.getBehavior();
@@ -221,8 +242,26 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
+        public void setFabBottomVisibility(FloatingActionButton fabBottom) {
+            if (fabBottomVisible) {
+                fabBottom.setVisibility(View.VISIBLE);
+            } else {
+                fabBottom.setVisibility(View.GONE);
+            }
+        }
+
+        public static MainFragment findFragmentByClass(Class<? extends Fragment> aClass) {
+            for (MainFragment mainFragment: MainFragment.values()) {
+                if (mainFragment.fragmentClass == aClass) {
+                    return mainFragment;
+                }
+            }
+            throw new RuntimeException("No MainFragment found for specified class:" + aClass.toString());
+        }
+
         private static class Constants {
             public static final boolean EXPANDED_APPBAR_ENABLED = true;
+            public static final boolean FAB_BOTTOM_VISIBILE = true;
         }
     }
 }

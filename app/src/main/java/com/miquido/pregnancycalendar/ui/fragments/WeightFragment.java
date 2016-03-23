@@ -89,8 +89,6 @@ public class WeightFragment extends BaseFragment implements NewWeightDialogFragm
         initializeListView();
         refreshData();
 
-        FloatingActionButton fabAddWeight = (FloatingActionButton) mainView.findViewById(R.id.fab_add_weight);
-        fabAddWeight.setOnClickListener(view -> addWeightInfo());
         return mainView;
     }
 
@@ -194,5 +192,10 @@ public class WeightFragment extends BaseFragment implements NewWeightDialogFragm
                     refreshData();;
                 })
                 .show();
+    }
+
+    @Override
+    public void onBottomFloatingBtClick() {
+        addWeightInfo();
     }
 }

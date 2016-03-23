@@ -13,4 +13,8 @@ public abstract class BaseFragment extends Fragment {
     protected AppCompatActivity getAppCompatActivity() {
         return  (AppCompatActivity) getActivity();
     }
+
+    public void onBottomFloatingBtClick() {
+
+    }
 }
