@@ -10,6 +10,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,7 +20,6 @@ import android.widget.Toast;
 
 import com.miquido.pregnancycalendar.BuildConfig;
 import com.miquido.pregnancycalendar.R;
-import com.miquido.pregnancycalendar.model.Weight;
 import com.miquido.pregnancycalendar.ui.decorators.MyDayDecorator;
 import com.miquido.pregnancycalendar.ui.fragments.EventsFragment;
 import com.miquido.pregnancycalendar.ui.fragments.SettingsFragment;
@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity
     private AppBarLayout appBarLayout;
     private CollapsingToolbarLayout toolbarLayout;
     private CalendarView calendarView;
+    private NestedScrollView nestedScrollViewMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,11 @@ public class MainActivity extends AppCompatActivity
         initNavDrawer();
         showFragment(savedInstanceState);
         initCalendar();
+        initContent();
+    }
+
+    private void initContent() {
+        nestedScrollViewMain = (NestedScrollView) findViewById(R.id.nested_scrollview_main);
     }
 
     private void initCalendar() {
@@ -129,7 +135,7 @@ public class MainActivity extends AppCompatActivity
 
         if (selectedFragment != null) {
             replaceFragmentAndCloseDrawer(selectedFragment.getFragment());
-            selectedFragment.setAppBarBehaviour(appBarLayout);
+            selectedFragment.setFragmentANdAppBarBehaviour(appBarLayout, nestedScrollViewMain);
             return true;
         } else {
             return false;
@@ -181,7 +187,7 @@ public class MainActivity extends AppCompatActivity
             return null;
         }
 
-        public void setAppBarBehaviour(AppBarLayout appBarLayout) {
+        public void setFragmentANdAppBarBehaviour(AppBarLayout appBarLayout, NestedScrollView nestedScrollView) {
             appBarLayout.setExpanded(expandedAppBarEnabled, false);
             CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
             AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) params.getBehavior();
@@ -191,6 +197,7 @@ public class MainActivity extends AppCompatActivity
                     return expandedAppBarEnabled;
                 }
             });
+            nestedScrollView.setNestedScrollingEnabled(expandedAppBarEnabled);
         }
 
         public static MainFragment getFragmentByNavDrawerItem(MenuItem item) {

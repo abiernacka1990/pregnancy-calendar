@@ -43,7 +43,7 @@
                     app:dayOfWeekTextColor="@android:color/white"
                     app:disabledDayBackgroundColor="@color/colorPrimary"
                     app:disabledDayTextColor="@android:color/darker_gray"
-                    app:selectedDayBackgroundColor="@color/colorAccent"
+                    app:selectedDayBackgroundColor="@color/colorPrimaryDark"
                     app:titleLayoutBackgroundColor="@color/colorPrimary"
                     app:weekLayoutBackgroundColor="@color/colorPrimary"
                     app:weekend="saturday|sunday"
@@ -62,6 +62,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nested_scrollview_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
