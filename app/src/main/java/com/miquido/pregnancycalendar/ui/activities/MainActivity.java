@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import com.miquido.pregnancycalendar.BuildConfig;
 import com.miquido.pregnancycalendar.R;
-import com.miquido.pregnancycalendar.ui.decorators.MyDayDecorator;
+import com.miquido.pregnancycalendar.ui.decorators.PregnancyDayDecorator;
 import com.miquido.pregnancycalendar.ui.fragments.BaseFragment;
 import com.miquido.pregnancycalendar.ui.fragments.EventsFragment;
 import com.miquido.pregnancycalendar.ui.fragments.SettingsFragment;
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity
     private void initCalendar() {
 
         calendarView = (CalendarView) findViewById(R.id.calendar_view);
-        calendarView.setDecoratorsList(new ArrayList<DayDecorator>(Arrays.asList(new MyDayDecorator())));
+        calendarView.setDecoratorsList(new ArrayList<DayDecorator>(Arrays.asList(new PregnancyDayDecorator())));
         calendarView.setFirstDayOfWeek(Calendar.MONDAY);
         calendarView.setIsOverflowDateVisible(true);
         calendarView.setCurrentDay(new Date(System.currentTimeMillis()));

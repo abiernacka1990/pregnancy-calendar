@@ -21,6 +21,7 @@ import com.miquido.pregnancycalendar.App;
 import com.miquido.pregnancycalendar.R;
 import com.miquido.pregnancycalendar.adapters.WeightsAdapter;
 import com.miquido.pregnancycalendar.model.Weight;
+import com.miquido.pregnancycalendar.ui.decorators.DividerItemDecoration;
 import com.miquido.pregnancycalendar.ui.fragments.dialog.NewWeightDialogFragment;
 import com.miquido.pregnancycalendar.ui.helpers.SimpleItemTouchHelperCallback;
 import com.miquido.pregnancycalendar.utils.UsefulUIMethods;
@@ -76,6 +77,9 @@ public class WeightFragment extends BaseFragment implements NewWeightDialogFragm
         noDataTextView = (TextView) mainView.findViewById(R.id.text_weight_no_data);
 
         recyclerView = (RecyclerView) mainView.findViewById(R.id.recycler_view_weights_list);
+        RecyclerView.ItemDecoration itemDecoration = new
+                DividerItemDecoration(getContext().getResources());
+        recyclerView.addItemDecoration(itemDecoration);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         adapter = new WeightsAdapter();
@@ -185,13 +189,13 @@ public class WeightFragment extends BaseFragment implements NewWeightDialogFragm
     public void onItemDismiss(int position) {
         Weight deletedItem = adapter.itemDissmissed(position);
         App.getInstance().getWeightRepository().delete(deletedItem);
-       // refreshData();
         Snackbar.make(getView(), R.string.weight_snackbar_item_removed, Snackbar.LENGTH_LONG)
                 .setAction(getString(R.string.weight_snackbar_click_to_cancel), v -> {
                     App.getInstance().getWeightRepository().create(deletedItem);
                     refreshData();;
                 })
                 .show();
+        refreshData();
     }
 
     @Override

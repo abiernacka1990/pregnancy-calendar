@@ -10,6 +10,7 @@
     <dimen name="default_margin">16dp</dimen>
     <dimen name="text_space">5dp</dimen>
     <dimen name="min_weight_unit_edtx_width">100dp</dimen>
+    <dimen name="dialog_margin">24dp</dimen>
 
     <!-- App bar -->
     <dimen name="app_bar_height">416dp</dimen>
