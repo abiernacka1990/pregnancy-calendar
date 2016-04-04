@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.miquido.pregnancycalendar.ui.fragments.SettingsFragment">
+    tools:context=".ui.fragments.main.SettingsFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"

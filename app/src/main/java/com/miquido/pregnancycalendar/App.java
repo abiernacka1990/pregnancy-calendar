@@ -3,8 +3,8 @@ package com.miquido.pregnancycalendar;
 import android.app.Application;
 
 import com.miquido.pregnancycalendar.db.EventsRepository;
-import com.miquido.pregnancycalendar.db.FakeEventRepository;
-import com.miquido.pregnancycalendar.db.FakeWeightRepository;
+import com.miquido.pregnancycalendar.db.fake.FakeEventRepository;
+import com.miquido.pregnancycalendar.db.fake.FakeWeightRepository;
 import com.miquido.pregnancycalendar.db.WeightRepository;
 import com.miquido.pregnancycalendar.db.ormlite.OrmEventRepository;
 import com.miquido.pregnancycalendar.db.ormlite.OrmWeightRepository;

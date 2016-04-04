@@ -2,6 +2,7 @@
     <string name="app_name">Pregnancy Calendar</string>
 
     <!-- Base -->
+    <string name="empty"/>
     <string name="unknown_date">\?\?/\?\?/\?\?</string>
     <string name="default_weight_unit">kg</string>
     <string name="save">Save</string>
@@ -39,6 +40,17 @@
     <string name="item_weight_week_of_pregnancy">Week of pregnancy:</string>
     <string name="item_weight_weight">Weight:</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Events list -->
+    <string name="eventlist_header_without_week" formatted="false">%s</string>
+    <string name="eventlist_header_with_week" formatted="false">%s - %d. week</string>
+    <string name="title_activity_event_creator">@string/empty</string>
+    <string name="action_save">Save</string>
+
+    <!-- Event details -->
+    <string name="event_details_title_hint">Write title...</string>
+
+
+    <!-- Validation -->
+    <string name="validate_empty_field">Field cannot be empty</string>
+
 </resources>

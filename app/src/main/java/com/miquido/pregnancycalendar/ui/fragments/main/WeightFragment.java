@@ -1,8 +1,7 @@
-package com.miquido.pregnancycalendar.ui.fragments;
+package com.miquido.pregnancycalendar.ui.fragments.main;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +21,7 @@ import com.miquido.pregnancycalendar.R;
 import com.miquido.pregnancycalendar.adapters.WeightsAdapter;
 import com.miquido.pregnancycalendar.model.Weight;
 import com.miquido.pregnancycalendar.ui.decorators.DividerItemDecoration;
+import com.miquido.pregnancycalendar.ui.fragments.BaseFragment;
 import com.miquido.pregnancycalendar.ui.fragments.dialog.NewWeightDialogFragment;
 import com.miquido.pregnancycalendar.ui.helpers.SimpleItemTouchHelperCallback;
 import com.miquido.pregnancycalendar.utils.UsefulUIMethods;
@@ -59,12 +59,6 @@ public class WeightFragment extends BaseFragment implements NewWeightDialogFragm
 
     public WeightFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setRetainInstance(true);
     }
 
     @Override

@@ -69,4 +69,14 @@ public class OrmEventRepository implements EventsRepository {
         return null;
     }
 
+    @Override
+    public Event get(int id) {
+        try {
+            return events.queryForId(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

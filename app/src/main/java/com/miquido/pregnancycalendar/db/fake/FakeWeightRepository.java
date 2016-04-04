@@ -1,7 +1,8 @@
-package com.miquido.pregnancycalendar.db;
+package com.miquido.pregnancycalendar.db.fake;
 
 import android.support.annotation.Nullable;
 
+import com.miquido.pregnancycalendar.db.WeightRepository;
 import com.miquido.pregnancycalendar.model.Weight;
 
 import java.util.ArrayList;

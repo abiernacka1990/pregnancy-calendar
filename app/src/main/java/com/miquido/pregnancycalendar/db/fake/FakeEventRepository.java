@@ -1,7 +1,8 @@
-package com.miquido.pregnancycalendar.db;
+package com.miquido.pregnancycalendar.db.fake;
 
 import android.support.annotation.Nullable;
 
+import com.miquido.pregnancycalendar.db.EventsRepository;
 import com.miquido.pregnancycalendar.model.Event;
 
 import java.util.ArrayList;
@@ -32,5 +33,10 @@ public class FakeEventRepository implements EventsRepository {
         List<Event> list = new ArrayList<>();
         list.add(Event.getFakeEvent());
         return list;
+    }
+
+    @Override
+    public Event get(int id) {
+        return Event.getFakeEvent();
     }
 }

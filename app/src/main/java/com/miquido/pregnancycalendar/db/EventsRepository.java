@@ -18,4 +18,6 @@ public interface EventsRepository {
 
     @Nullable
     List<Event> getAll();
+
+    public Event get(int id);
 }

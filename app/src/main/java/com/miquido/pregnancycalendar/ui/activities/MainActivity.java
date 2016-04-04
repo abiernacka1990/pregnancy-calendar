@@ -1,5 +1,6 @@
 package com.miquido.pregnancycalendar.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,9 +25,9 @@ import com.miquido.pregnancycalendar.BuildConfig;
 import com.miquido.pregnancycalendar.R;
 import com.miquido.pregnancycalendar.ui.decorators.PregnancyDayDecorator;
 import com.miquido.pregnancycalendar.ui.fragments.BaseFragment;
-import com.miquido.pregnancycalendar.ui.fragments.EventsFragment;
-import com.miquido.pregnancycalendar.ui.fragments.SettingsFragment;
-import com.miquido.pregnancycalendar.ui.fragments.WeightFragment;
+import com.miquido.pregnancycalendar.ui.fragments.main.EventsFragment;
+import com.miquido.pregnancycalendar.ui.fragments.main.SettingsFragment;
+import com.miquido.pregnancycalendar.ui.fragments.main.WeightFragment;
 import com.samsistemas.calendarview.decor.DayDecorator;
 import com.samsistemas.calendarview.widget.CalendarView;
 
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity
     private CalendarView calendarView;
     private NestedScrollView nestedScrollViewMain;
     private Fragment currentFragment;
-    private FloatingActionButton fabBottom;
+    private FloatingActionButton fabBottom, fabTop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +107,12 @@ public class MainActivity extends AppCompatActivity
         toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         toolbarLayout.setTitleEnabled(false);
         setSupportActionBar(toolbar);
+        fabTop = (FloatingActionButton) findViewById(R.id.fab_top);
+        fabTop.setOnClickListener(view -> openEventCreatorActivity());
+    }
+
+    private void openEventCreatorActivity() {
+        startActivity(new Intent(this, EventCreatorActivity.class));
     }
 
     private void initNavDrawer() {
