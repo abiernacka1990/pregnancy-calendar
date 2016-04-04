@@ -1,5 +1,7 @@
 package com.miquido.pregnancycalendar.utils;
 
+import org.joda.time.DateTime;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -8,14 +10,19 @@ import java.util.Date;
  */
 public class StringFormatter {
 
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+    private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("dd/MM/yy");
+    private static final SimpleDateFormat DATE_FORMAT_WITH_DAY_OF_WEEK = new SimpleDateFormat("EEE, dd MMM yyyy");
 
-    public static String date(Date date) {
-        return sdf.format(date);
+    public static String simpleDate(Date date) {
+        return SIMPLE_DATE_FORMAT.format(date);
     }
 
-    public static String date(long date) {
-        return date(new Date(date));
+    public static String simpleDate(long date) {
+        return simpleDate(new Date(date));
+    }
+
+    public static String withDayOfWeekDate(DateTime date) {
+        return DATE_FORMAT_WITH_DAY_OF_WEEK.format(date.getMillis());
     }
 
 

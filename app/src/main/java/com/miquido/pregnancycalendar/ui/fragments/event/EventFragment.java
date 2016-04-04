@@ -35,4 +35,8 @@ public class EventFragment extends Fragment {
         eventFragment.setArguments(args);
         return eventFragment;
     }
+
+    protected Event getEvent() {
+        return event;
+    }
 }

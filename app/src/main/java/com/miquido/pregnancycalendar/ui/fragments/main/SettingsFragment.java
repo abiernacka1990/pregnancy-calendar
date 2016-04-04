@@ -146,7 +146,7 @@ public class SettingsFragment extends BaseFragment implements DatePickerDialog.O
 
     private void showPreferences() {
         long date = Preferences.getInstance().getPregnancyStartDate();
-        String dateInfo = date == 0 ? getString(R.string.unknown_date) : StringFormatter.date(date);
+        String dateInfo = date == 0 ? getString(R.string.unknown_date) : StringFormatter.simpleDate(date);
         dataTextView.setText(dateInfo);
         String defaultWeightUnit = Preferences.getInstance().getWeightUnit();
         weightUnitEditText.setText(defaultWeightUnit);

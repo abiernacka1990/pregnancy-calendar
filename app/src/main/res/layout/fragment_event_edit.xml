@@ -1,12 +1,38 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.fragments.event.EventEditFragment">
+    android:layout_height="wrap_content"
+    tools:context=".ui.fragments.event.EventEditFragment"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="@dimen/event_edit_margin">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/imageview_clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_clock"
+            android:layout_marginRight="@dimen/event_edit_margin"
+            android:layout_marginEnd="@dimen/event_edit_margin"/>
+
+        <TextView
+            android:id="@+id/textview_startdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/imageview_clock"
+            android:layout_toEndOf="@id/imageview_clock"
+            android:layout_alignBottom="@id/imageview_clock"
+            android:textSize="@dimen/event_font_size"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+</LinearLayout>

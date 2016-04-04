@@ -3,6 +3,8 @@ package com.miquido.pregnancycalendar.model;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import org.joda.time.DateTime;
+
 /**
  * Created by agnieszka on 10.01.16.
  */
@@ -18,7 +20,7 @@ public class Event {
     private String title;
 
     @DatabaseField(canBeNull = false, columnName = DATE_FIELD_NAME)
-    private String date;
+    private long date;
 
     public int getId() {
         return id;
@@ -32,18 +34,18 @@ public class Event {
         this.title = title;
     }
 
-    public String getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
     public static Event getFakeEvent() {
         Event event = new Event();
         event.setTitle("Fake Event");
-        event.setDate("2016-01-01");
+        event.setDate(new DateTime().getMillis());
         return event;
     }
 }
