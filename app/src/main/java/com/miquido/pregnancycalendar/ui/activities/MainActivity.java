@@ -85,12 +85,15 @@ public class MainActivity extends AppCompatActivity
         calendarView.setDecoratorsList(new ArrayList<DayDecorator>(Arrays.asList(new PregnancyDayDecorator())));
         calendarView.setFirstDayOfWeek(Calendar.MONDAY);
         calendarView.setIsOverflowDateVisible(true);
-        calendarView.setCurrentDay(new Date(System.currentTimeMillis()));
         calendarView.refreshCalendar(Calendar.getInstance(Locale.getDefault()));
-        calendarView.setOnDateClickListener(selectedDate -> {
-            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-            Toast.makeText(MainActivity.this, df.format(selectedDate), Toast.LENGTH_SHORT).show();
-        });
+        calendarView.setDateAsSelected(Calendar.getInstance().getTime());
+        calendarView.setOnDateClickListener(selectedDate -> updateEventsList(selectedDate));
+    }
+
+    private void updateEventsList(Date selectedDate) {
+        if (currentFragment instanceof EventsFragment) {
+            ((EventsFragment) currentFragment).updateEventList(selectedDate);
+        }
     }
 
     private void initToogle() {

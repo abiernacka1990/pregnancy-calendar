@@ -421,10 +421,6 @@ public class CalendarView extends LinearLayout {
             }
             dayView.decorate();
 
-            //Set the current day color
-            if(mCalendar.get(Calendar.MONTH) == startCalendar.get(Calendar.MONTH) )
-                setCurrentDay(mCalendar.getTime());
-
             startCalendar.add(Calendar.DATE, 1);
             dayOfMonthIndex++;
         }
@@ -561,9 +557,6 @@ public class CalendarView extends LinearLayout {
             calendar.set(Calendar.DAY_OF_MONTH, Integer.valueOf(dayOfMonthText.getText().toString()));
             setDateAsSelected(calendar.getTime());
 
-            //Set the current day color
-            setCurrentDay(mCalendar.getTime());
-
             if (mOnDateLongClickListener != null) {
                 mOnDateLongClickListener.onDateLongClick(calendar.getTime());
             }
@@ -587,9 +580,6 @@ public class CalendarView extends LinearLayout {
             calendar.setTime(mCalendar.getTime());
             calendar.set(Calendar.DAY_OF_MONTH, Integer.valueOf(dayOfMonthText.getText().toString()));
             setDateAsSelected(calendar.getTime());
-
-            //Set the current day color
-            setCurrentDay(mCalendar.getTime());
 
             if (mOnDateClickListener != null) {
                 mOnDateClickListener.onDateClick(calendar.getTime());

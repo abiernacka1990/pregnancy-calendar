@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.miquido.pregnancycalendar.App;
 import com.miquido.pregnancycalendar.R;
 import com.miquido.pregnancycalendar.model.Event;
 import com.miquido.pregnancycalendar.ui.helpers.PregnancyDatesHelper;
@@ -32,11 +33,15 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private OnItemClickListener onItemClickListener;
 
-    public EventsAdapter(Context context, List<Event> events, long date, OnItemClickListener onItemClickListener) {
+    public EventsAdapter(Context context, long date, OnItemClickListener onItemClickListener) {
         this.context = context;
-        this.events = events;
-        this.date = date;
+        setDateAnfFindEvents(date);
         this.onItemClickListener = onItemClickListener;
+    }
+
+    public void setDateAnfFindEvents(long date) {
+        this.date = date;
+        events = App.getInstance().getEventsRepository().getAllEventsForSpecifiedDay(date);
     }
 
     @Override

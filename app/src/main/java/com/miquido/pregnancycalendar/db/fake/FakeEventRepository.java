@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import com.miquido.pregnancycalendar.db.EventsRepository;
 import com.miquido.pregnancycalendar.model.Event;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +14,7 @@ import java.util.List;
  * Created by agnieszka on 12.01.16.
  */
 public class FakeEventRepository implements EventsRepository {
+
     @Override
     public int create(Event event) {
         return 0;
@@ -38,5 +41,10 @@ public class FakeEventRepository implements EventsRepository {
     @Override
     public Event get(int id) {
         return Event.getFakeEvent();
+    }
+
+    @Override
+    public List<Event> getAllEventsForSpecifiedDay(long date) {
+        return null;
     }
 }

@@ -4,6 +4,8 @@ import android.support.annotation.Nullable;
 
 import com.miquido.pregnancycalendar.model.Event;
 
+import org.joda.time.DateTime;
+
 import java.util.List;
 
 /**
@@ -20,4 +22,6 @@ public interface EventsRepository {
     List<Event> getAll();
 
     public Event get(int id);
+
+    List<Event> getAllEventsForSpecifiedDay(long date);
 }

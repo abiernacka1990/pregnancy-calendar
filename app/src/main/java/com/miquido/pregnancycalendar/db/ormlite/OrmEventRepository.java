@@ -6,6 +6,8 @@ import com.j256.ormlite.dao.Dao;
 import com.miquido.pregnancycalendar.db.EventsRepository;
 import com.miquido.pregnancycalendar.model.Event;
 
+import org.joda.time.DateTime;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +79,29 @@ public class OrmEventRepository implements EventsRepository {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public List<Event> getAllEventsForSpecifiedDuration(DateTime startDate, DateTime endDate) {
+
+        try {
+            return events
+                    .queryBuilder()
+                    .where()
+                    .ge(Event.DATE_FIELD_NAME, startDate.getMillis())
+                    .and()
+                    .lt(Event.DATE_FIELD_NAME, endDate.getMillis())
+                    .query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Event> getAllEventsForSpecifiedDay(long date) {
+        DateTime startOfDay = new DateTime(date).withTime(0, 0, 0, 0);
+        DateTime endOfDay = new DateTime(startOfDay).plusDays(1);
+        return getAllEventsForSpecifiedDuration(startOfDay, endOfDay);
     }
 
 }

@@ -18,6 +18,7 @@ import com.miquido.pregnancycalendar.ui.decorators.DividerItemDecoration;
 import com.miquido.pregnancycalendar.ui.fragments.BaseFragment;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class EventsFragment extends BaseFragment implements EventsAdapter.OnItemClickListener {
 
@@ -44,7 +45,7 @@ public class EventsFragment extends BaseFragment implements EventsAdapter.OnItem
         recyclerView.addItemDecoration(itemDecoration);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new EventsAdapter(getContext(), App.getInstance().getEventsRepository().getAll(), Calendar.getInstance().getTimeInMillis(), this);
+        adapter = new EventsAdapter(getContext(), Calendar.getInstance().getTimeInMillis(), this);
         recyclerView.setAdapter(adapter);
         return recyclerView;
     }
@@ -54,5 +55,10 @@ public class EventsFragment extends BaseFragment implements EventsAdapter.OnItem
         Intent startEventCreatorActIntent = new Intent(getContext(), EventCreatorActivity.class);
         startEventCreatorActIntent.putExtra(EventCreatorActivity.ARG_EVENT_ID, event.getId());
         startActivity(startEventCreatorActIntent);
+    }
+
+    public void updateEventList(Date selectedDate) {
+        adapter.setDateAnfFindEvents(selectedDate.getTime());
+        adapter.notifyDataSetChanged();
     }
 }

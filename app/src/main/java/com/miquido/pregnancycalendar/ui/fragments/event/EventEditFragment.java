@@ -67,7 +67,7 @@ public class EventEditFragment extends EventFragment {
         if (getEvent() != null) {
             startDateTime = new DateTime(getEvent().getDate());
         } else {
-            startDateTime = new DateTime();
+            startDateTime = new DateTime().withTime(9, 0, 0, 0);
         }
         updateDate(startDateTextView, startDateTime);
     }
@@ -84,7 +84,7 @@ public class EventEditFragment extends EventFragment {
         DatePickerDialog startPregnancyDatePickerDialog = DatePickerDialog.newInstance(
                 onStartDateSelectedListener,
                 startDateTime.getYear(),
-                startDateTime.getMonthOfYear(),
+                startDateTime.getMonthOfYear() - 1,
                 startDateTime.getDayOfMonth()
         );
         startPregnancyDatePickerDialog.show(getActivity().getFragmentManager(), START_DATE_PICKER_DIALOG);
@@ -122,10 +122,17 @@ public class EventEditFragment extends EventFragment {
     }
 
     private void createEventAndSave() {
-        Event event = new Event();
+        Event event = getEvent();
+        if (event == null) {
+            event = new Event();
+        }
         event.setTitle(getTitleEditText().getText().toString());
         event.setDate(startDateTime.getMillis());
-        App.getInstance().getEventsRepository().create(event);
+        if (getEvent() == null) {
+            App.getInstance().getEventsRepository().create(event);
+        } else {
+            App.getInstance().getEventsRepository().update(event);
+        }
     }
 
     private boolean validData() {
@@ -138,7 +145,7 @@ public class EventEditFragment extends EventFragment {
         public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
             startDateTime = startDateTime
                     .withYear(year)
-                    .withMonthOfYear(monthOfYear)
+                    .withMonthOfYear(monthOfYear + 1)
                     .withDayOfMonth(dayOfMonth);
             updateDate(startDateTextView, startDateTime);
         }
