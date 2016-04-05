@@ -12,6 +12,7 @@ public class StringFormatter {
 
     private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("dd/MM/yy");
     private static final SimpleDateFormat DATE_FORMAT_WITH_DAY_OF_WEEK = new SimpleDateFormat("EEE, dd MMM yyyy");
+    private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
 
     public static String simpleDate(Date date) {
         return SIMPLE_DATE_FORMAT.format(date);
@@ -23,6 +24,9 @@ public class StringFormatter {
 
     public static String withDayOfWeekDate(DateTime date) {
         return DATE_FORMAT_WITH_DAY_OF_WEEK.format(date.getMillis());
+    }
+    public static String time(DateTime date) {
+        return TIME_FORMAT.format(date.getMillis());
     }
 
 

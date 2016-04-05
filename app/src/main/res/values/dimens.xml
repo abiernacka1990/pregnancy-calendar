@@ -22,6 +22,7 @@
     <dimen name="header_font_size">20sp</dimen>
     <dimen name="event_font_size">16sp</dimen>
     <dimen name="event_edit_margin">16dp</dimen>
+    <dimen name="eventedit_category_margintop">8dp</dimen>
 
     <!-- Event list -->
     <dimen name="header_padding">16dp</dimen>

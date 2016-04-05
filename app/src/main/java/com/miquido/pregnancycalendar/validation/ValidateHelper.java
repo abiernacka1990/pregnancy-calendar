@@ -1,10 +1,10 @@
-package validation;
+package com.miquido.pregnancycalendar.validation;
 
 import android.content.Context;
 
 import com.miquido.pregnancycalendar.R;
 
-import validation.exception.ValidationException;
+import com.miquido.pregnancycalendar.validation.exception.ValidationException;
 
 /**
  * Created by agnieszka on 04.04.16.

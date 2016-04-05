@@ -21,7 +21,7 @@
     <string name="menu_calendar">Calendar</string>
 
     <!-- Settings -->
-    <string name="settings_start_date">Last menstruation date:</string>
+    <string name="settings_start_date">Fist day of pregnancy:</string>
     <string name="settings_weight_unit">Unit of weight:</string>
 
     <!-- Weight information -->
@@ -48,6 +48,7 @@
 
     <!-- Event details -->
     <string name="event_details_title_hint">Write title...</string>
+    <string name="event_edit_add_note">Add note...</string>
 
 
     <!-- Validation -->

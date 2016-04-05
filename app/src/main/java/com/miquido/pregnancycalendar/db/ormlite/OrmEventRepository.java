@@ -9,7 +9,6 @@ import com.miquido.pregnancycalendar.model.Event;
 import org.joda.time.DateTime;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -87,9 +86,9 @@ public class OrmEventRepository implements EventsRepository {
             return events
                     .queryBuilder()
                     .where()
-                    .ge(Event.DATE_FIELD_NAME, startDate.getMillis())
+                    .ge(Event.START_DATE_FIELD_NAME, startDate.getMillis())
                     .and()
-                    .lt(Event.DATE_FIELD_NAME, endDate.getMillis())
+                    .lt(Event.START_DATE_FIELD_NAME, endDate.getMillis())
                     .query();
         } catch (SQLException e) {
             e.printStackTrace();

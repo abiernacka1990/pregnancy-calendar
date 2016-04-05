@@ -1,10 +1,9 @@
-package validation.fields;
+package com.miquido.pregnancycalendar.validation.fields;
 
-import android.content.Context;
 import android.widget.EditText;
 
-import validation.IValidator;
-import validation.exception.ValidationException;
+import com.miquido.pregnancycalendar.validation.IValidator;
+import com.miquido.pregnancycalendar.validation.exception.ValidationException;
 
 /**
  * Created by agnieszka on 04.04.16.

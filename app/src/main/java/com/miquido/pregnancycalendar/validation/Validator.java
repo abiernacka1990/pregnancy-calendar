@@ -1,4 +1,4 @@
-package validation;
+package com.miquido.pregnancycalendar.validation;
 
 import java.util.ArrayList;
 import java.util.Arrays;

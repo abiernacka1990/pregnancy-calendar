@@ -11,7 +11,9 @@ import org.joda.time.DateTime;
 @DatabaseTable(tableName = "events")
 public class Event {
     public static final String TITLE_FIELD_NAME = "title";
-    public static final String DATE_FIELD_NAME = "date";
+    public static final String START_DATE_FIELD_NAME = "startDate";
+    public static final String END_DATE_FIELD_NAME = "endDate";
+    public static final String NOTE_FIELD_NAME = "note";
 
     @DatabaseField(generatedId = true)
     private int id;
@@ -19,8 +21,14 @@ public class Event {
     @DatabaseField(canBeNull = false, columnName = TITLE_FIELD_NAME)
     private String title;
 
-    @DatabaseField(canBeNull = false, columnName = DATE_FIELD_NAME)
-    private long date;
+    @DatabaseField(canBeNull = false, columnName = START_DATE_FIELD_NAME)
+    private long startDate;
+
+    @DatabaseField(canBeNull = false, columnName = END_DATE_FIELD_NAME)
+    private long endDate;
+
+    @DatabaseField(canBeNull = true, columnName = NOTE_FIELD_NAME)
+    private String note;
 
     public int getId() {
         return id;
@@ -34,18 +42,35 @@ public class Event {
         this.title = title;
     }
 
-    public long getDate() {
-        return date;
+    public long getStartDate() {
+        return startDate;
     }
 
-    public void setDate(long date) {
-        this.date = date;
+    public void setStartDate(long startDate) {
+        this.startDate = startDate;
+    }
+
+    public long getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(long endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public static Event getFakeEvent() {
         Event event = new Event();
         event.setTitle("Fake Event");
-        event.setDate(new DateTime().getMillis());
+        event.setStartDate(new DateTime().getMillis());
+        event.setEndDate(new DateTime().getMillis());
         return event;
     }
 }

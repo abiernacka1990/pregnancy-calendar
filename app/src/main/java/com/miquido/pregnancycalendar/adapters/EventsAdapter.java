@@ -111,7 +111,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemCount() {
-        return events.size() + 1;
+        return events == null ? 1 : (events.size() + 1);
     }
 
     class HeaderViewHolder extends RecyclerView.ViewHolder {

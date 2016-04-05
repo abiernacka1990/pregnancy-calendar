@@ -15,21 +15,25 @@ import com.miquido.pregnancycalendar.App;
 import com.miquido.pregnancycalendar.R;
 import com.miquido.pregnancycalendar.model.Event;
 import com.miquido.pregnancycalendar.ui.activities.EventCreatorActivity;
-import com.miquido.pregnancycalendar.utils.StringFormatter;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.miquido.pregnancycalendar.ui.fragments.event.helper.EventDate;
 
 import org.joda.time.DateTime;
 
-import validation.Validator;
-import validation.fields.EventTitleEditTextValidator;
+import com.miquido.pregnancycalendar.validation.Validator;
+import com.miquido.pregnancycalendar.validation.fields.EventTitleEditTextValidator;
 
 public class EventEditFragment extends EventFragment {
 
     private static final String START_DATE_PICKER_DIALOG = "START_DATE_PICKER_DIALOG";
+    private static final String END_DATE_PICKER_DIALOG = "END_DATE_PICKER_DIALOG";
     public static final String ARG_EVENT_START_DATE = "argEventStartDate";
+    private static final String START_DATE_SIS = "START_DATE_SIS";
+    private static final String END_DATE_SIS = "END_DATE_SIS";
 
-    private TextView startDateTextView;
-    private DateTime startDateTime;
+    private EventDate startEventDate;
+    private EventDate endEventDate;
+    private EditText noteEditText;
+
     private long startDateTimeFromArg = -1;
 
     public EventEditFragment() {
@@ -63,46 +67,67 @@ public class EventEditFragment extends EventFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event_edit, container, false);
-        boolean shouldSetEventInfo = savedInstanceState == null;
-        initView(view, shouldSetEventInfo);
+        initView(view, savedInstanceState);
         return view;
     }
 
-    private void initView(View mainView, boolean shouldSetEventInfo) {
+    private void initView(View mainView, Bundle savedInstanceState) {
         findViews(mainView);
-        setListeners();
-        if (shouldSetEventInfo) {
-            setEventInfo();
+        setEventInfo(savedInstanceState);
+    }
+
+    private void setEventInfo(Bundle savedInstanceState) {
+
+        setDates(savedInstanceState);
+        setNoteIfExist();
+    }
+
+    private void setNoteIfExist() {
+        if (getEvent() != null && getEvent().getNote() != null) {
+            noteEditText.setText(getEvent().getNote());
         }
     }
 
-    private void setEventInfo() {
+    private void setDates(Bundle savedInstanceState) {
+        DateTime startDateTime;
+        DateTime endDateTime;
+
         if (getEvent() != null) {
-            startDateTime = new DateTime(getEvent().getDate());
+            startDateTime = new DateTime(getEvent().getStartDate());
+            endDateTime = new DateTime(getEvent().getEndDate());
         } else if (startDateTimeFromArg > 0) {
             startDateTime = new DateTime(startDateTimeFromArg).withTime(9, 0, 0, 0);
+            endDateTime = new DateTime(startDateTimeFromArg).withTime(10, 0, 0, 0);
         } else {
             startDateTime = new DateTime().withTime(9, 0, 0, 0);
+            endDateTime = new DateTime().withTime(10, 0, 0, 0);
         }
-        updateDate(startDateTextView, startDateTime);
+
+        startDateTime = getDateFromSavedInstanceSteteIfExist(savedInstanceState, startDateTime, START_DATE_SIS);
+        endDateTime = getDateFromSavedInstanceSteteIfExist(savedInstanceState, endDateTime, END_DATE_SIS);
+        startEventDate.updateDateTime(startDateTime);
+        endEventDate.updateDateTime(endDateTime);
     }
 
-    private void setListeners() {
-        startDateTextView.setOnClickListener(view -> openDateDialog());
+    private DateTime getDateFromSavedInstanceSteteIfExist(Bundle savedInstanceState, DateTime dateTime, String key) {
+        if (savedInstanceState != null) {
+            long dateTimeAsLong = savedInstanceState.getLong(key, 0);
+            if (dateTimeAsLong > 0) {
+                dateTime = new DateTime(dateTimeAsLong);
+            }
+        }
+        return dateTime;
     }
+
 
     private void findViews(View mainView) {
-        startDateTextView = (TextView) mainView.findViewById(R.id.textview_startdate);
-    }
-
-    private void openDateDialog() {
-        DatePickerDialog startPregnancyDatePickerDialog = DatePickerDialog.newInstance(
-                onStartDateSelectedListener,
-                startDateTime.getYear(),
-                startDateTime.getMonthOfYear() - 1,
-                startDateTime.getDayOfMonth()
-        );
-        startPregnancyDatePickerDialog.show(getActivity().getFragmentManager(), START_DATE_PICKER_DIALOG);
+        TextView startDateTextView = (TextView) mainView.findViewById(R.id.textview_startdate);
+        TextView startTimeTextView = (TextView) mainView.findViewById(R.id.textview_starttime);
+        startEventDate = new EventDate(this, startDateTextView, startTimeTextView);
+        TextView endDateTextView = (TextView) mainView.findViewById(R.id.textview_enddate);
+        TextView endTimeTextView = (TextView) mainView.findViewById(R.id.textview_endtime);
+        endEventDate = new EventDate(this, endDateTextView, endTimeTextView);
+        noteEditText = (EditText) mainView.findViewById(R.id.edittext_note);
     }
 
     @Override
@@ -143,7 +168,9 @@ public class EventEditFragment extends EventFragment {
             event = new Event();
         }
         event.setTitle(getTitleEditText().getText().toString());
-        event.setDate(startDateTime.getMillis());
+        event.setStartDate(startEventDate.getDateTime().getMillis());
+        event.setEndDate(endEventDate.getDateTime().getMillis());
+        event.setNote(noteEditText.getText().toString());
         if (getEvent() == null) {
             App.getInstance().getEventsRepository().create(event);
         } else {
@@ -156,18 +183,26 @@ public class EventEditFragment extends EventFragment {
         return validator.validate();
     }
 
-    private DatePickerDialog.OnDateSetListener onStartDateSelectedListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-            startDateTime = startDateTime
-                    .withYear(year)
-                    .withMonthOfYear(monthOfYear + 1)
-                    .withDayOfMonth(dayOfMonth);
-            updateDate(startDateTextView, startDateTime);
-        }
-    };
 
-    private void updateDate(TextView textView, DateTime dateTime) {
-        textView.setText(StringFormatter.withDayOfWeekDate(dateTime));
+    public void checkDates(EventDate changedEventDate) {
+        if (startEventDate.getDateTime().isAfter(endEventDate.getDateTime())) {
+            fixDates(changedEventDate);
+        }
+
+    }
+
+    private void fixDates(EventDate changedEventDate) {
+        if (changedEventDate == startEventDate) {
+            endEventDate.updateDateTime(startEventDate.getDateTime().plusHours(1));
+        } else if (changedEventDate == endEventDate) {
+            startEventDate.updateDateTime(endEventDate.getDateTime().minusHours(1));
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong(START_DATE_SIS, startEventDate.getDateTime().getMillis());
+        outState.putLong(END_DATE_SIS, endEventDate.getDateTime().getMillis());
     }
 }
