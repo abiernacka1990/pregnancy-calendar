@@ -5,7 +5,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -16,6 +15,8 @@ import com.miquido.pregnancycalendar.R;
 import com.miquido.pregnancycalendar.model.Event;
 import com.miquido.pregnancycalendar.ui.fragments.event.EventEditFragment;
 import com.miquido.pregnancycalendar.ui.fragments.event.EventPreviewFragment;
+
+import java.util.Calendar;
 
 public class EventCreatorActivity extends AppCompatActivity {
 
@@ -72,7 +73,7 @@ public class EventCreatorActivity extends AppCompatActivity {
             Fragment fragmentToShow = null;
             switch (mode) {
                 case EDIT:
-                    fragmentToShow = EventEditFragment.newInstance();
+                    fragmentToShow = EventEditFragment.newInstanceWithStartDate(getStartDateFromIntentOrToday());
                     break;
                 case PREVIEW:
                     fragmentToShow = EventPreviewFragment.newInstance(argEventId);
@@ -80,6 +81,16 @@ public class EventCreatorActivity extends AppCompatActivity {
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.content, fragmentToShow).commit();
         }
+    }
+
+    private long getStartDateFromIntentOrToday() {
+        if (getIntent() != null) {
+            long startDateFromArg = getIntent().getLongExtra(EventEditFragment.ARG_EVENT_START_DATE, -1);
+            if (startDateFromArg > 0) {
+                return startDateFromArg;
+            }
+        }
+        return Calendar.getInstance().getTimeInMillis();
     }
 
     private void updateViewForSpecifiedMode() {
@@ -140,7 +151,7 @@ public class EventCreatorActivity extends AppCompatActivity {
         updateViewForSpecifiedMode();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.content, EventEditFragment.newInstance(argEventId))
+                .replace(R.id.content, EventEditFragment.newInstanceWithEvent(argEventId))
                 .commit();
     }
 

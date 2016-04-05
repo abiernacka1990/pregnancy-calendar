@@ -135,6 +135,6 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public interface OnItemClickListener {
-        public void onItemClicked(Event event);
+        void onItemClicked(Event event);
     }
 }

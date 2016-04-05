@@ -22,17 +22,45 @@ import java.util.Date;
 
 public class EventsFragment extends BaseFragment implements EventsAdapter.OnItemClickListener {
 
+    public static final String ARG_SELECTED_DATE = "ARG_SELECTED_DATE";
+
     private RecyclerView recyclerView;
 
     private EventsAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    private long selectedDate;
 
     public EventsFragment() {
         // Required empty public constructor
     }
 
-    public static EventsFragment newInstance() {
-        return new EventsFragment();
+    public static EventsFragment newInstance(Date lastSelectedDay) {
+        EventsFragment fragment = new EventsFragment();
+        if (lastSelectedDay != null) {
+            Bundle args = new Bundle();
+            args.putLong(ARG_SELECTED_DATE, lastSelectedDay.getTime());
+            fragment.setArguments(args);
+        }
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setSelectedDate(savedInstanceState);
+    }
+
+    private void setSelectedDate(Bundle savedInstanceState) {
+        selectedDate = new Date().getTime();
+
+        if (savedInstanceState != null) {
+            selectedDate = savedInstanceState.getLong(ARG_SELECTED_DATE, selectedDate);
+        } else if (getArguments() != null) {
+            selectedDate = getArguments().getLong(ARG_SELECTED_DATE, selectedDate);
+        }
+        if (savedInstanceState != null) {
+            selectedDate = savedInstanceState.getLong(ARG_SELECTED_DATE, selectedDate);
+        }
     }
 
     @Override
@@ -45,7 +73,7 @@ public class EventsFragment extends BaseFragment implements EventsAdapter.OnItem
         recyclerView.addItemDecoration(itemDecoration);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new EventsAdapter(getContext(), Calendar.getInstance().getTimeInMillis(), this);
+        adapter = new EventsAdapter(getContext(), selectedDate, this);
         recyclerView.setAdapter(adapter);
         return recyclerView;
     }
@@ -58,7 +86,14 @@ public class EventsFragment extends BaseFragment implements EventsAdapter.OnItem
     }
 
     public void updateEventList(Date selectedDate) {
+        this.selectedDate = selectedDate.getTime();
         adapter.setDateAnfFindEvents(selectedDate.getTime());
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong(ARG_SELECTED_DATE, selectedDate);
     }
 }

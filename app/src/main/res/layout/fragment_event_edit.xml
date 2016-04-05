@@ -26,6 +26,7 @@
             android:layout_toRightOf="@id/imageview_clock"
             android:layout_toEndOf="@id/imageview_clock"
             android:layout_alignBottom="@id/imageview_clock"
+            android:freezesText="true"
             android:textSize="@dimen/event_font_size"/>
 
     </RelativeLayout>

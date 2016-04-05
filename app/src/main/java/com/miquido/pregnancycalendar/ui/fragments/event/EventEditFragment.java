@@ -1,5 +1,6 @@
 package com.miquido.pregnancycalendar.ui.fragments.event;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,22 +25,28 @@ import validation.fields.EventTitleEditTextValidator;
 
 public class EventEditFragment extends EventFragment {
 
-    public static final String START_DATE_PICKER_DIALOG = "START_DATE_PICKER_DIALOG";
+    private static final String START_DATE_PICKER_DIALOG = "START_DATE_PICKER_DIALOG";
+    public static final String ARG_EVENT_START_DATE = "argEventStartDate";
 
     private TextView startDateTextView;
     private DateTime startDateTime;
+    private long startDateTimeFromArg = -1;
 
     public EventEditFragment() {
         // Required empty public constructor
     }
 
-    public static EventEditFragment newInstance() {
-        return new EventEditFragment();
-    }
-
-    public static EventEditFragment newInstance(int eventId) {
+    public static EventEditFragment newInstanceWithEvent(int eventId) {
         EventEditFragment fragment = new EventEditFragment();
         fragment = appendEventIdToArgs(fragment, eventId);
+        return fragment;
+    }
+
+    public static EventEditFragment newInstanceWithStartDate(long startDateTimeToArg) {
+        EventEditFragment fragment = new EventEditFragment();
+        Bundle args = new Bundle();
+        args.putLong(ARG_EVENT_START_DATE, startDateTimeToArg);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -47,25 +54,33 @@ public class EventEditFragment extends EventFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        if (getArguments() != null) {
+            startDateTimeFromArg = getArguments().getLong(ARG_EVENT_START_DATE, -1);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event_edit, container, false);
-        initView(view);
+        boolean shouldSetEventInfo = savedInstanceState == null;
+        initView(view, shouldSetEventInfo);
         return view;
     }
 
-    private void initView(View mainView) {
+    private void initView(View mainView, boolean shouldSetEventInfo) {
         findViews(mainView);
         setListeners();
-        setEventInfo();
+        if (shouldSetEventInfo) {
+            setEventInfo();
+        }
     }
 
     private void setEventInfo() {
         if (getEvent() != null) {
             startDateTime = new DateTime(getEvent().getDate());
+        } else if (startDateTimeFromArg > 0) {
+            startDateTime = new DateTime(startDateTimeFromArg).withTime(9, 0, 0, 0);
         } else {
             startDateTime = new DateTime().withTime(9, 0, 0, 0);
         }
@@ -118,6 +133,7 @@ public class EventEditFragment extends EventFragment {
     }
 
     private void finishActivity() {
+        getActivity().setResult(Activity.RESULT_OK);
         getActivity().finish();
     }
 

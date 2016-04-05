@@ -2,11 +2,8 @@ package com.miquido.pregnancycalendar.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -16,22 +13,18 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
-import com.miquido.pregnancycalendar.BuildConfig;
 import com.miquido.pregnancycalendar.R;
+import com.miquido.pregnancycalendar.ui.activities.helper.MainFragmentSettings;
 import com.miquido.pregnancycalendar.ui.decorators.PregnancyDayDecorator;
 import com.miquido.pregnancycalendar.ui.fragments.BaseFragment;
+import com.miquido.pregnancycalendar.ui.fragments.event.EventEditFragment;
 import com.miquido.pregnancycalendar.ui.fragments.main.EventsFragment;
 import com.miquido.pregnancycalendar.ui.fragments.main.SettingsFragment;
-import com.miquido.pregnancycalendar.ui.fragments.main.WeightFragment;
 import com.samsistemas.calendarview.decor.DayDecorator;
 import com.samsistemas.calendarview.widget.CalendarView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -43,6 +36,8 @@ public class MainActivity extends AppCompatActivity
 
     private static final String FRAGMENT_TAG = "FRAGMENT_TAG";
     private static final String TAG = "MainActivity";
+    private static final int EVENTS_CHANGED_REQUEST = 45;
+    private static final String SELECTED_DATE = "SELECTED_DATE";
     private Toolbar toolbar;
     private AppBarLayout appBarLayout;
     private CollapsingToolbarLayout toolbarLayout;
@@ -63,8 +58,8 @@ public class MainActivity extends AppCompatActivity
         initToogle();
         initNavDrawer();
         initContent();
+        initCalendar(savedInstanceState);
         showFragment(savedInstanceState);
-        initCalendar();
     }
 
     private void initContent() {
@@ -79,20 +74,31 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void initCalendar() {
+    private void initCalendar(Bundle savedInstanceState) {
 
         calendarView = (CalendarView) findViewById(R.id.calendar_view);
         calendarView.setDecoratorsList(new ArrayList<DayDecorator>(Arrays.asList(new PregnancyDayDecorator())));
         calendarView.setFirstDayOfWeek(Calendar.MONDAY);
         calendarView.setIsOverflowDateVisible(true);
         calendarView.refreshCalendar(Calendar.getInstance(Locale.getDefault()));
-        calendarView.setDateAsSelected(Calendar.getInstance().getTime());
-        calendarView.setOnDateClickListener(selectedDate -> updateEventsList(selectedDate));
+        if (savedInstanceState != null && savedInstanceState.getLong(SELECTED_DATE, 0) > 0) {
+            long selectedDateFromSavedIS = savedInstanceState.getLong(SELECTED_DATE, 0);
+            calendarView.setDateAsSelected(new Date(selectedDateFromSavedIS));
+        } else {
+            calendarView.setDateAsSelected(Calendar.getInstance().getTime());
+        }
+        calendarView.setOnDateClickListener(selectedDate -> updateEventsList());
     }
 
-    private void updateEventsList(Date selectedDate) {
+    private void refreshCalendar() {
+        Date dateToSelect = calendarView.getLastSelectedDay() != null ? calendarView.getLastSelectedDay() : Calendar.getInstance().getTime();
+        calendarView.refreshCalendar(Calendar.getInstance(Locale.getDefault()));
+        calendarView.setDateAsSelected(dateToSelect);
+    }
+
+    private void updateEventsList() {
         if (currentFragment instanceof EventsFragment) {
-            ((EventsFragment) currentFragment).updateEventList(selectedDate);
+            ((EventsFragment) currentFragment).updateEventList(calendarView.getLastSelectedDay());
         }
     }
 
@@ -111,11 +117,17 @@ public class MainActivity extends AppCompatActivity
         toolbarLayout.setTitleEnabled(false);
         setSupportActionBar(toolbar);
         fabTop = (FloatingActionButton) findViewById(R.id.fab_top);
-        fabTop.setOnClickListener(view -> openEventCreatorActivity());
+        fabTop.setOnClickListener(view -> openEventCreatorActivityWithSelectedDate());
     }
 
-    private void openEventCreatorActivity() {
-        startActivity(new Intent(this, EventCreatorActivity.class));
+    private void openEventCreatorActivityWithSelectedDate() {
+        Intent startEventCreatorActIntent = new Intent(this, EventCreatorActivity.class);
+        startEventCreatorActIntent.putExtra(EventEditFragment.ARG_EVENT_START_DATE, calendarView.getLastSelectedDay().getTime());
+        startActivityForEventsChangedResult(startEventCreatorActIntent);
+    }
+
+    private void startActivityForEventsChangedResult(Intent startEventCreatorActIntent) {
+        startActivityForResult(startEventCreatorActIntent, EVENTS_CHANGED_REQUEST);
     }
 
     private void initNavDrawer() {
@@ -135,7 +147,7 @@ public class MainActivity extends AppCompatActivity
         if (savedInstanceState != null) {
             fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
         } else {
-            fragment = EventsFragment.newInstance();
+            fragment = EventsFragment.newInstance(calendarView.getLastSelectedDay());
         }
 
         return fragment;
@@ -154,7 +166,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
-        MainFragment selectedFragment = MainFragment.getFragmentByNavDrawerItem(item);
+        MainFragmentSettings selectedFragment = MainFragmentSettings.getFragmentByNavDrawerItem(item);
 
         if (selectedFragment != null) {
             replaceFragmentAndCloseDrawer(selectedFragment.getFragment());
@@ -176,7 +188,7 @@ public class MainActivity extends AppCompatActivity
                 .replace(R.id.fragment_container, fragment, FRAGMENT_TAG)
                 .commit();
         currentFragment = fragment;
-        MainFragment.findFragmentByClass(fragment.getClass()).setFabBottomVisibility(fabBottom);
+        MainFragmentSettings.findFragmentByClass(fragment.getClass()).setFabBottomVisibility(fabBottom);
     }
 
     private void closeNavDrawer() {
@@ -186,92 +198,24 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onPregnancyStartDateChanged() {
-        //TODO refresh calendar
+        refreshCalendar();
     }
 
-    public void setCurrentFragment(Fragment currentFragment) {
-        this.currentFragment = currentFragment;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == EVENTS_CHANGED_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                refreshCalendar();
+                updateEventsList();
+            }
+        }
     }
 
-    private enum MainFragment {
-        EVENTS(EventsFragment.class, Constants.EXPANDED_APPBAR_ENABLED, !Constants.FAB_BOTTOM_VISIBILE),
-        WEIGHT(WeightFragment.class, !Constants.EXPANDED_APPBAR_ENABLED, Constants.FAB_BOTTOM_VISIBILE),
-        SETTINGS(SettingsFragment.class, !Constants.EXPANDED_APPBAR_ENABLED, !Constants.FAB_BOTTOM_VISIBILE);
-
-        private Class<? extends Fragment>  fragmentClass;
-        private boolean expandedAppBarEnabled;
-        private boolean fabBottomVisible;
-
-        MainFragment(Class<? extends Fragment>  fragmentClass, boolean expandedAppBarEnabled, boolean fabBottomVisible) {
-            this.fragmentClass = fragmentClass;
-            this.expandedAppBarEnabled = expandedAppBarEnabled;
-            this.fabBottomVisible = fabBottomVisible;
-        }
-
-        @Nullable
-        public Fragment getFragment() {
-            try {
-                return fragmentClass.newInstance();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        public void setFragmentAndAppBarBehaviour(AppBarLayout appBarLayout, NestedScrollView nestedScrollView) {
-            appBarLayout.setExpanded(expandedAppBarEnabled, false);
-            CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
-            AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) params.getBehavior();
-            behavior.setDragCallback(new AppBarLayout.Behavior.DragCallback() {
-                @Override
-                public boolean canDrag(@NonNull AppBarLayout appBarLayout) {
-                    return expandedAppBarEnabled;
-                }
-            });
-            nestedScrollView.setNestedScrollingEnabled(expandedAppBarEnabled);
-        }
-
-        public static MainFragment getFragmentByNavDrawerItem(MenuItem item) {
-            int id = item.getItemId();
-
-            if (id == R.id.nav_settings) {
-                return SETTINGS;
-            } else if (id == R.id.nav_weight) {
-                return WEIGHT;
-            } else if (id == R.id.nav_calendar) {
-                return EVENTS;
-            } else {
-                logNoItemFound(item);
-                return null;
-            }
-        }
-
-        private static void logNoItemFound(MenuItem item) {
-            if ( BuildConfig.DEBUG) {
-                Log.d(TAG, "No fragment specified for selected item: " + item.toString());
-            }
-        }
-
-        public void setFabBottomVisibility(FloatingActionButton fabBottom) {
-            if (fabBottomVisible) {
-                fabBottom.setVisibility(View.VISIBLE);
-            } else {
-                fabBottom.setVisibility(View.GONE);
-            }
-        }
-
-        public static MainFragment findFragmentByClass(Class<? extends Fragment> aClass) {
-            for (MainFragment mainFragment: MainFragment.values()) {
-                if (mainFragment.fragmentClass == aClass) {
-                    return mainFragment;
-                }
-            }
-            throw new RuntimeException("No MainFragment found for specified class:" + aClass.toString());
-        }
-
-        private static class Constants {
-            public static final boolean EXPANDED_APPBAR_ENABLED = true;
-            public static final boolean FAB_BOTTOM_VISIBILE = true;
-        }
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putLong(SELECTED_DATE, calendarView.getLastSelectedDay().getTime());
+        super.onSaveInstanceState(savedInstanceState);
     }
+
 }

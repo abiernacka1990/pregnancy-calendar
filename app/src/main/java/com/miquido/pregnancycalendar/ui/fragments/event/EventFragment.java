@@ -5,11 +5,12 @@ import android.support.v4.app.Fragment;
 
 import com.miquido.pregnancycalendar.App;
 import com.miquido.pregnancycalendar.model.Event;
+import com.miquido.pregnancycalendar.ui.fragments.BaseFragment;
 
 /**
  * Created by agnieszka on 02.04.16.
  */
-public class EventFragment extends Fragment {
+public class EventFragment extends BaseFragment {
     private static final int NO_ID_FOUND_VALUE = -1;
     private static final String ARG_EVENT_ID = "argEventId";
     private int argEventId;

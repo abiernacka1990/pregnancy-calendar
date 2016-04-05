@@ -957,6 +957,10 @@ public class CalendarView extends LinearLayout {
         this.mLastSelectedDay = lastSelectedDay;
     }
 
+    public Date getLastSelectedDay() {
+        return mLastSelectedDay;
+    }
+
     public void setTypeface(Typeface typeface) {
         this.mTypeface = typeface;
     }
