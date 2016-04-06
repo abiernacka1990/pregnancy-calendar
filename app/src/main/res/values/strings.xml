@@ -49,6 +49,7 @@
     <!-- Event details -->
     <string name="event_details_title_hint">Write title...</string>
     <string name="event_edit_add_note">Add note...</string>
+    <string name="event_edit_add_address">Add address...</string>
 
 
     <!-- Validation -->

@@ -14,6 +14,7 @@ public class Event {
     public static final String START_DATE_FIELD_NAME = "startDate";
     public static final String END_DATE_FIELD_NAME = "endDate";
     public static final String NOTE_FIELD_NAME = "note";
+    public static final String ADDRESS_FIELD_NAME = "address";
 
     @DatabaseField(generatedId = true)
     private int id;
@@ -29,6 +30,9 @@ public class Event {
 
     @DatabaseField(canBeNull = true, columnName = NOTE_FIELD_NAME)
     private String note;
+
+    @DatabaseField(canBeNull = true, columnName = ADDRESS_FIELD_NAME)
+    private String address;
 
     public int getId() {
         return id;
@@ -64,6 +68,14 @@ public class Event {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public static Event getFakeEvent() {

@@ -104,5 +104,37 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/event_edit_margin">
+
+            <ImageView
+                android:id="@+id/imageview_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_location"
+                android:layout_marginRight="@dimen/event_edit_margin"
+                android:layout_marginEnd="@dimen/event_edit_margin"/>
+
+            <EditText
+                android:id="@+id/edittext_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/imageview_address"
+                android:layout_toEndOf="@id/imageview_address"
+                android:textSize="@dimen/event_font_size"
+                android:background="@android:color/transparent"
+                android:hint="@string/event_edit_add_address"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
     </LinearLayout>
 </ScrollView>

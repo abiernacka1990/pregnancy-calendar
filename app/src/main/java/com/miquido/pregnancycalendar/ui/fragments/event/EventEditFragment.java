@@ -33,6 +33,7 @@ public class EventEditFragment extends EventFragment {
     private EventDate startEventDate;
     private EventDate endEventDate;
     private EditText noteEditText;
+    private EditText addressEditText;
 
     private long startDateTimeFromArg = -1;
 
@@ -79,12 +80,15 @@ public class EventEditFragment extends EventFragment {
     private void setEventInfo(Bundle savedInstanceState) {
 
         setDates(savedInstanceState);
-        setNoteIfExist();
+        if (getEvent() != null) {
+            setFieldIfExist(getEvent().getNote(), noteEditText);
+            setFieldIfExist(getEvent().getAddress(), addressEditText);
+        }
     }
 
-    private void setNoteIfExist() {
-        if (getEvent() != null && getEvent().getNote() != null) {
-            noteEditText.setText(getEvent().getNote());
+    private void setFieldIfExist(String field, EditText editText) {
+        if (field != null) {
+            editText.setText(field);
         }
     }
 
@@ -128,6 +132,7 @@ public class EventEditFragment extends EventFragment {
         TextView endTimeTextView = (TextView) mainView.findViewById(R.id.textview_endtime);
         endEventDate = new EventDate(this, endDateTextView, endTimeTextView);
         noteEditText = (EditText) mainView.findViewById(R.id.edittext_note);
+        addressEditText = (EditText) mainView.findViewById(R.id.edittext_address);
     }
 
     @Override
@@ -171,6 +176,7 @@ public class EventEditFragment extends EventFragment {
         event.setStartDate(startEventDate.getDateTime().getMillis());
         event.setEndDate(endEventDate.getDateTime().getMillis());
         event.setNote(noteEditText.getText().toString());
+        event.setAddress(addressEditText.getText().toString());
         if (getEvent() == null) {
             App.getInstance().getEventsRepository().create(event);
         } else {

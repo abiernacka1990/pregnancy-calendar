@@ -32,7 +32,12 @@
             android:id="@+id/edittext_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/header_margin"
+            android:layout_marginTop="@dimen/header_edittext_margin"
+            android:layout_marginRight="@dimen/header_margin"
+            android:layout_marginLeft="@dimen/header_margin"
+            android:layout_marginBottom="@dimen/header_margin"
+            android:background="@android:color/transparent"
+            android:inputType="text"
             android:hint="@string/event_details_title_hint"
             android:textSize="@dimen/header_font_size"/>
 

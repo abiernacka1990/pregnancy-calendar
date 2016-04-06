@@ -19,6 +19,7 @@
     <!-- Event edit/preview -->
     <dimen name="act_event_creator_app_bar_height">128dp</dimen>
     <dimen name="header_margin">16dp</dimen>
+    <dimen name="header_edittext_margin">12dp</dimen>
     <dimen name="header_font_size">20sp</dimen>
     <dimen name="event_font_size">16sp</dimen>
     <dimen name="event_edit_margin">16dp</dimen>

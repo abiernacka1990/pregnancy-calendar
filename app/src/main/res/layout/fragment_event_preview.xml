@@ -1,12 +1,123 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.fragments.event.EventPreviewFragment">
+    android:layout_height="wrap_content" >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        tools:context=".ui.fragments.event.EventEditFragment"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/event_edit_margin">
+
+            <ImageView
+                android:id="@+id/imageview_clock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_clock"
+                android:layout_marginRight="@dimen/event_edit_margin"
+                android:layout_marginEnd="@dimen/event_edit_margin"/>
+
+            <TextView
+                android:id="@+id/textview_startdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/imageview_clock"
+                android:layout_toEndOf="@id/imageview_clock"
+                android:freezesText="true"
+                android:textSize="@dimen/event_font_size"/>
+
+            <TextView
+                android:id="@+id/textview_starttime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignBottom="@id/textview_startdate"
+                android:freezesText="true"
+                android:textSize="@dimen/event_font_size"/>
+
+            <TextView
+                android:id="@+id/textview_enddate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/textview_startdate"
+                android:layout_below="@id/textview_startdate"
+                android:freezesText="true"
+                android:layout_marginTop="@dimen/eventedit_category_margintop"
+                android:textSize="@dimen/event_font_size"/>
+
+            <TextView
+                android:id="@+id/textview_endtime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignBottom="@id/textview_enddate"
+                android:freezesText="true"
+                android:layout_marginTop="@dimen/eventedit_category_margintop"
+                android:textSize="@dimen/event_font_size"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/view_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/event_edit_margin">
+
+            <ImageView
+                android:id="@+id/imageview_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_location"
+                android:layout_marginRight="@dimen/event_edit_margin"
+                android:layout_marginEnd="@dimen/event_edit_margin"/>
+
+            <TextView
+                android:id="@+id/textview_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/imageview_address"
+                android:layout_toEndOf="@id/imageview_address"
+                android:textSize="@dimen/event_font_size"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/view_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/event_edit_margin">
+
+            <ImageView
+                android:id="@+id/imageview_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_note"
+                android:layout_marginRight="@dimen/event_edit_margin"
+                android:layout_marginEnd="@dimen/event_edit_margin"/>
+
+            <TextView
+                android:id="@+id/textview_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/imageview_note"
+                android:layout_toEndOf="@id/imageview_note"
+                android:textSize="@dimen/event_font_size"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</ScrollView>
