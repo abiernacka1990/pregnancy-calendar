@@ -137,7 +137,7 @@ public class EventEditFragment extends EventFragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_event_creator, menu);
+        inflater.inflate(R.menu.menu_event_edit, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

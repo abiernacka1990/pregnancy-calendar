@@ -44,12 +44,15 @@
     <string name="eventlist_header_without_week" formatted="false">%s</string>
     <string name="eventlist_header_with_week" formatted="false">%s - %d. week</string>
     <string name="title_activity_event_creator">@string/empty</string>
-    <string name="action_save">Save</string>
 
     <!-- Event details -->
     <string name="event_details_title_hint">Write title...</string>
     <string name="event_edit_add_note">Add note...</string>
     <string name="event_edit_add_address">Add address...</string>
+    <string name="action_save">Save</string>
+    <string name="action_delete">Delete</string>
+    <string name="event_snackbar_item_removed">Item was removed.</string>
+    <string name="event_snackbar_click_to_cancel">Click to cancel.</string>
 
 
     <!-- Validation -->

@@ -42,6 +42,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void setDateAnfFindEvents(long date) {
         this.date = date;
         events = App.getInstance().getEventsRepository().getAllEventsForSpecifiedDay(date);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -112,6 +113,14 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public int getItemCount() {
         return events == null ? 1 : (events.size() + 1);
+    }
+
+    public Event itemDissmissed(int position) {
+        int positionWithoutHeader = position - 1;
+        Event deletedItem = events.get(positionWithoutHeader);
+        events.remove(positionWithoutHeader);
+        notifyItemRemoved(position);
+        return deletedItem;
     }
 
     class HeaderViewHolder extends RecyclerView.ViewHolder {
