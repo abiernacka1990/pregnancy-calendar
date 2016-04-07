@@ -21,7 +21,7 @@ import java.util.Calendar;
 /**
  * Fragment with user settings.
  */
-public class SettingsFragment extends BaseFragment implements DatePickerDialog.OnDateSetListener {
+public class SettingsFragment extends MainFragment implements DatePickerDialog.OnDateSetListener {
 
     private TextView dataTextView;
     private EditText weightUnitEditText;
@@ -129,6 +129,16 @@ public class SettingsFragment extends BaseFragment implements DatePickerDialog.O
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, monthOfYear, dayOfMonth, 0, 0, 0);
         return calendar.getTimeInMillis();
+    }
+
+    @Override
+    public boolean isExpandedAppBarEnabled() {
+        return false;
+    }
+
+    @Override
+    public boolean isFabBottomVisible() {
+        return false;
     }
 
     public interface OnSettingsChangesListener {

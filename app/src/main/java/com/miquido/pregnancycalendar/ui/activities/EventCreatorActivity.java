@@ -116,8 +116,9 @@ public class EventCreatorActivity extends AppCompatActivity {
     }
 
     private void setEventInfo() {
-        headerTitleTextView.setText(event.getTitle());
-        headerTitleEditText.setText(event.getTitle());
+        String title = event.getEventTitle(this);
+        headerTitleTextView.setText(title);
+        headerTitleEditText.setText(title);
     }
 
     private void setViewsVisibility(int editViewsVisibility, int previewViewsVisibility) {

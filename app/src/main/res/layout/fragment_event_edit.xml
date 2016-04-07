@@ -95,6 +95,7 @@
                 android:layout_toRightOf="@id/imageview_note"
                 android:layout_toEndOf="@id/imageview_note"
                 android:textSize="@dimen/event_font_size"
+                android:inputType="textCapSentences"
                 android:background="@android:color/transparent"
                 android:hint="@string/event_edit_add_note"/>
 
@@ -127,6 +128,7 @@
                 android:layout_toRightOf="@id/imageview_address"
                 android:layout_toEndOf="@id/imageview_address"
                 android:textSize="@dimen/event_font_size"
+                android:inputType="textCapSentences"
                 android:background="@android:color/transparent"
                 android:hint="@string/event_edit_add_address"/>
 

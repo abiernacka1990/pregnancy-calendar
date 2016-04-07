@@ -35,7 +35,7 @@ import java.util.List;
  * Use the {@link WeightFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WeightFragment extends BaseFragment implements NewWeightDialogFragment.NewWeightListener, com.miquido.pregnancycalendar.adapters.ItemTouchHelper {
+public class WeightFragment extends MainFragment implements NewWeightDialogFragment.NewWeightListener, com.miquido.pregnancycalendar.adapters.ItemTouchHelper {
 
     private static final String DIALOG_NEW_WEIGHT = "DIALOG_NEW_WEIGHT";
 
@@ -195,5 +195,15 @@ public class WeightFragment extends BaseFragment implements NewWeightDialogFragm
     @Override
     public void onBottomFloatingBtClick() {
         addWeightInfo();
+    }
+
+    @Override
+    public boolean isExpandedAppBarEnabled() {
+        return false;
+    }
+
+    @Override
+    public boolean isFabBottomVisible() {
+        return true;
     }
 }

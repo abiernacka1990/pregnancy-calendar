@@ -27,7 +27,8 @@
 
     <!-- Event list -->
     <dimen name="header_padding">16dp</dimen>
-    <dimen name="header_tv">14sp</dimen>
+    <dimen name="header_tv">16sp</dimen>
     <dimen name="eventitem_padding">16dp</dimen>
-    <dimen name="eventitem_tv">14sp</dimen>
+    <dimen name="eventitem_tv">16sp</dimen>
+    <dimen name="eventitem_tv_subtitle">14sp</dimen>
 </resources>

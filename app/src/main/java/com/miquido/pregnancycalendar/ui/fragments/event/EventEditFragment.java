@@ -18,9 +18,6 @@ import com.miquido.pregnancycalendar.ui.fragments.event.helper.EventDate;
 
 import org.joda.time.DateTime;
 
-import com.miquido.pregnancycalendar.validation.Validator;
-import com.miquido.pregnancycalendar.validation.fields.EventTitleEditTextValidator;
-
 public class EventEditFragment extends EventFragment {
 
     public static final String ARG_EVENT_START_DATE = "argEventStartDate";
@@ -176,8 +173,7 @@ public class EventEditFragment extends EventFragment {
     }
 
     private boolean validData() {
-        Validator validator = Validator.create(new EventTitleEditTextValidator(getTitleEditText()));
-        return validator.validate();
+        return true;
     }
 
 

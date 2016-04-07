@@ -24,7 +24,7 @@ import com.miquido.pregnancycalendar.ui.helpers.SimpleItemTouchHelperCallback;
 import java.util.Calendar;
 import java.util.Date;
 
-public class EventsFragment extends BaseFragment implements EventsAdapter.OnItemClickListener, com.miquido.pregnancycalendar.adapters.ItemTouchHelper {
+public class EventsFragment extends MainFragment implements EventsAdapter.OnItemClickListener, com.miquido.pregnancycalendar.adapters.ItemTouchHelper {
 
     public static final String ARG_SELECTED_DATE = "ARG_SELECTED_DATE";
 
@@ -118,5 +118,15 @@ public class EventsFragment extends BaseFragment implements EventsAdapter.OnItem
                 })
                 .show();
         updateEventList();
+    }
+
+    @Override
+    public boolean isExpandedAppBarEnabled() {
+        return true;
+    }
+
+    @Override
+    public boolean isFabBottomVisible() {
+        return false;
     }
 }

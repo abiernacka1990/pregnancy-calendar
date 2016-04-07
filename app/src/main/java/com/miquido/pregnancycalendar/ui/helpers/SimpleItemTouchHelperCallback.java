@@ -1,5 +1,6 @@
 package com.miquido.pregnancycalendar.ui.helpers;
 
+import com.miquido.pregnancycalendar.adapters.EventsAdapter;
 import com.miquido.pregnancycalendar.adapters.ItemTouchHelper;
 
 /**
@@ -31,8 +32,12 @@ public class SimpleItemTouchHelperCallback extends android.support.v7.widget.hel
 
     @Override
     public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-        final int dragFlags = android.support.v7.widget.helper.ItemTouchHelper.UP | android.support.v7.widget.helper.ItemTouchHelper.DOWN;
-        final int swipeFlags = android.support.v7.widget.helper.ItemTouchHelper.START | android.support.v7.widget.helper.ItemTouchHelper.END;
+        int dragFlags = android.support.v7.widget.helper.ItemTouchHelper.UP | android.support.v7.widget.helper.ItemTouchHelper.DOWN;
+        int swipeFlags = android.support.v7.widget.helper.ItemTouchHelper.START | android.support.v7.widget.helper.ItemTouchHelper.END;
+        if (viewHolder instanceof EventsAdapter.HeaderViewHolder) {
+            dragFlags = 0;
+            swipeFlags = 0;
+        }
         return makeMovementFlags(dragFlags, swipeFlags);
     }
 

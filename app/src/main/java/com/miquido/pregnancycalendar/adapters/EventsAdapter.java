@@ -73,7 +73,8 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private void onBindEventViewHolder(EventViewHolder holder, int position) {
         Event currentItem = getItem(position - 1);
-        holder.titleTextView.setText(currentItem.getTitle());
+        holder.titleTextView.setText(currentItem.getEventTitle(holder.view.getContext()));
+        holder.subtitleTextView.setText(currentItem.getSubtitle(holder.view.getContext()));
         holder.view.setOnClickListener(view -> onItemClickListener.onItemClicked(currentItem));
 
     }
@@ -123,7 +124,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return deletedItem;
     }
 
-    class HeaderViewHolder extends RecyclerView.ViewHolder {
+    public class HeaderViewHolder extends RecyclerView.ViewHolder {
         TextView headerTextView;
 
         public HeaderViewHolder(View itemView) {
@@ -132,14 +133,16 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    class EventViewHolder extends RecyclerView.ViewHolder {
+    public class EventViewHolder extends RecyclerView.ViewHolder {
         View view;
         TextView titleTextView;
+        TextView subtitleTextView;
 
         public EventViewHolder(View itemView) {
             super(itemView);
             this.view = itemView;
             this.titleTextView = (TextView) itemView.findViewById(R.id.textview_title);
+            this.subtitleTextView = (TextView) itemView.findViewById(R.id.textview_subtitle);
         }
     }
 

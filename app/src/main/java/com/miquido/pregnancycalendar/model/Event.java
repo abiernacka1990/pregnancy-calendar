@@ -1,7 +1,12 @@
 package com.miquido.pregnancycalendar.model;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import com.miquido.pregnancycalendar.R;
+import com.miquido.pregnancycalendar.utils.StringFormatter;
 
 import org.joda.time.DateTime;
 
@@ -43,7 +48,7 @@ public class Event {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = title.trim();
     }
 
     public long getStartDate() {
@@ -76,6 +81,29 @@ public class Event {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getSubtitle(Context context) {
+        StringBuilder subtitleBuilder = new StringBuilder();
+        subtitleBuilder.append(StringFormatter.withDayOfWeekDate(getStartDateAsDateTime()));
+        subtitleBuilder.append(", ");
+        subtitleBuilder.append(StringFormatter.time(getStartDateAsDateTime()));
+        if (address != null && !address.isEmpty()) {
+            subtitleBuilder.append(" ");
+            subtitleBuilder.append(context.getString(R.string.subtitle_in));
+            subtitleBuilder.append(" ");
+            subtitleBuilder.append(address);
+        }
+        return subtitleBuilder.toString();
+    }
+
+    @NonNull
+    private DateTime getStartDateAsDateTime() {
+        return new DateTime(startDate);
+    }
+
+    public String getEventTitle(Context context) {
+       return title == null || title.isEmpty() ? context.getString(R.string.default_event_title) : title;
     }
 
     public static Event getFakeEvent() {

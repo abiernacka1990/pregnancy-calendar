@@ -37,7 +37,7 @@
             android:layout_marginLeft="@dimen/header_margin"
             android:layout_marginBottom="@dimen/header_margin"
             android:background="@android:color/transparent"
-            android:inputType="text"
+            android:inputType="textCapSentences"
             android:hint="@string/event_details_title_hint"
             android:textSize="@dimen/header_font_size"/>
 

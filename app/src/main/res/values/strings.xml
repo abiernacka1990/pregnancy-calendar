@@ -11,6 +11,7 @@
     <string name="tap_to_undo">Tap to undo</string>
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
+    <string name="default_event_title">(No title)</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -44,6 +45,7 @@
     <string name="eventlist_header_without_week" formatted="false">%s</string>
     <string name="eventlist_header_with_week" formatted="false">%s - %d. week</string>
     <string name="title_activity_event_creator">@string/empty</string>
+    <string name="subtitle_in">in: </string>
 
     <!-- Event details -->
     <string name="event_details_title_hint">Write title...</string>
