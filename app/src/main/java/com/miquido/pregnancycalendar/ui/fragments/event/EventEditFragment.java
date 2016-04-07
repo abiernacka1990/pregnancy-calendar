@@ -1,6 +1,5 @@
 package com.miquido.pregnancycalendar.ui.fragments.event;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,8 +23,6 @@ import com.miquido.pregnancycalendar.validation.fields.EventTitleEditTextValidat
 
 public class EventEditFragment extends EventFragment {
 
-    private static final String START_DATE_PICKER_DIALOG = "START_DATE_PICKER_DIALOG";
-    private static final String END_DATE_PICKER_DIALOG = "END_DATE_PICKER_DIALOG";
     public static final String ARG_EVENT_START_DATE = "argEventStartDate";
     private static final String START_DATE_SIS = "START_DATE_SIS";
     private static final String END_DATE_SIS = "END_DATE_SIS";
@@ -58,7 +55,6 @@ public class EventEditFragment extends EventFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
         if (getArguments() != null) {
             startDateTimeFromArg = getArguments().getLong(ARG_EVENT_START_DATE, -1);
         }
@@ -158,13 +154,8 @@ public class EventEditFragment extends EventFragment {
     private void validDataAndSave() {
         if (validData()) {
             createEventAndSave();
-            finishActivity();
+            finishActivityWithResultOk();
         }
-    }
-
-    private void finishActivity() {
-        getActivity().setResult(Activity.RESULT_OK);
-        getActivity().finish();
     }
 
     private void createEventAndSave() {

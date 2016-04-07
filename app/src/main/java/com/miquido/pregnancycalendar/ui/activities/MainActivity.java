@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity
 
     private static final String FRAGMENT_TAG = "FRAGMENT_TAG";
     private static final String TAG = "MainActivity";
-    private static final int EVENTS_CHANGED_REQUEST = 45;
+    public static final int EVENTS_CHANGED_REQUEST = 45;
     private static final String SELECTED_DATE = "SELECTED_DATE";
     private Toolbar toolbar;
     private AppBarLayout appBarLayout;

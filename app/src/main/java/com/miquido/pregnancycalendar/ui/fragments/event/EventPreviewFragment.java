@@ -3,10 +3,14 @@ package com.miquido.pregnancycalendar.ui.fragments.event;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.miquido.pregnancycalendar.App;
 import com.miquido.pregnancycalendar.R;
 import com.miquido.pregnancycalendar.utils.StringFormatter;
 
@@ -73,6 +77,22 @@ public class EventPreviewFragment extends EventFragment {
         EventPreviewFragment fragment = new EventPreviewFragment();
         fragment = appendEventIdToArgs(fragment, argEventId);
         return fragment;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_event_preview, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_delete) {
+            App.getInstance().getEventsRepository().delete(getEvent());
+            finishActivityWithResultOk();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

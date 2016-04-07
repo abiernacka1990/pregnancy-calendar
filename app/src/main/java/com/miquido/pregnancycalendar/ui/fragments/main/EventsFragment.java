@@ -16,6 +16,7 @@ import com.miquido.pregnancycalendar.R;
 import com.miquido.pregnancycalendar.adapters.EventsAdapter;
 import com.miquido.pregnancycalendar.model.Event;
 import com.miquido.pregnancycalendar.ui.activities.EventCreatorActivity;
+import com.miquido.pregnancycalendar.ui.activities.MainActivity;
 import com.miquido.pregnancycalendar.ui.decorators.DividerItemDecoration;
 import com.miquido.pregnancycalendar.ui.fragments.BaseFragment;
 import com.miquido.pregnancycalendar.ui.helpers.SimpleItemTouchHelperCallback;
@@ -87,7 +88,7 @@ public class EventsFragment extends BaseFragment implements EventsAdapter.OnItem
     public void onItemClicked(Event event) {
         Intent startEventCreatorActIntent = new Intent(getContext(), EventCreatorActivity.class);
         startEventCreatorActIntent.putExtra(EventCreatorActivity.ARG_EVENT_ID, event.getId());
-        startActivity(startEventCreatorActIntent);
+        getActivity().startActivityForResult(startEventCreatorActIntent, MainActivity.EVENTS_CHANGED_REQUEST);
     }
 
     public void updateEventList(Date selectedDate) {
