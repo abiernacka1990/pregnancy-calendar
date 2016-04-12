@@ -14,6 +14,7 @@
     <!-- Menu items -->
     <string name="action_save">Save</string>
     <string name="action_delete">Delete</string>
+    <string name="action_add_to_calendar">Add to calendar</string>
 
     <!-- navigation drawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>

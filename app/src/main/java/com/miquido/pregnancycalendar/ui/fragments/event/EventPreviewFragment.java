@@ -1,7 +1,9 @@
 package com.miquido.pregnancycalendar.ui.fragments.event;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -90,6 +92,9 @@ public class EventPreviewFragment extends EventFragment {
         if (item.getItemId() == R.id.action_delete) {
             onActionDelete();
             return true;
+        } else if (item.getItemId() == R.id.action_add_to_calendar) {
+            onActionAddToCalendar();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -98,4 +103,16 @@ public class EventPreviewFragment extends EventFragment {
         App.getInstance().getEventsRepository().delete(getEvent());
         finishActivityWithResultOk();
     }
+
+    private void onActionAddToCalendar() {
+        Intent insertToCalendarIntent = new Intent(Intent.ACTION_INSERT)
+                .setData(CalendarContract.Events.CONTENT_URI)
+                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, getEvent().getStartDate())
+                .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, getEvent().getEndDate())
+                .putExtra(CalendarContract.Events.TITLE, getEvent().getTitle())
+                .putExtra(CalendarContract.Events.DESCRIPTION, getEvent().getNote())
+                .putExtra(CalendarContract.Events.EVENT_LOCATION, getEvent().getAddress());
+        startActivity(insertToCalendarIntent);
+    }
+
 }
