@@ -142,11 +142,11 @@ public class WeightFragment extends MainFragment implements NewWeightDialogFragm
 
     private void updateChart(List<Weight> weightList) {
 
-        chart.clear();
-
         if (isEmpty(weightList)) {
             return;
         }
+
+        chart.clear();
 
         ArrayList<String> xValsAsString = new ArrayList<>();
         ArrayList<Integer> xVals = new ArrayList<>();
@@ -157,7 +157,7 @@ public class WeightFragment extends MainFragment implements NewWeightDialogFragm
             yVals.add(new Entry((float) weight.getWeight(), weight.getWeek()));
         }
 
-        for (int i = Collections.min(xVals); i <= Collections.max(xVals); i++) {
+        for (int i = 0; i <= Collections.max(xVals); i++) {
             xValsAsString.add(String.valueOf(i));
         }
 
