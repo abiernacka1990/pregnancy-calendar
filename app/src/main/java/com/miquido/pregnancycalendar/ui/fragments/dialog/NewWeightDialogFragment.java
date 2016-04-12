@@ -18,8 +18,10 @@ import android.widget.TextView;
 import com.miquido.pregnancycalendar.App;
 import com.miquido.pregnancycalendar.R;
 import com.miquido.pregnancycalendar.model.Weight;
+import com.miquido.pregnancycalendar.ui.helpers.PregnancyDatesHelper;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -88,12 +90,19 @@ public class NewWeightDialogFragment extends DialogFragment {
     }
 
     private void initWeeksAdapter() {
+
         List<Integer> weeks = new ArrayList<>();
         for (int i = 0; i <= 42; i++) {
             weeks.add(i);
         }
-        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(getContext(), android.R.layout.simple_spinner_item, weeks);
+        ArrayAdapter<Integer> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, weeks);
         spinnerWeek.setAdapter(adapter);
+
+        long now = Calendar.getInstance().getTimeInMillis();
+        if (PregnancyDatesHelper.isInPregnancyTime(now)) {
+            int week = PregnancyDatesHelper.getWeek(now);
+            spinnerWeek.setSelection(week);
+        }
     }
 
     private void findViews(View mainView) {
