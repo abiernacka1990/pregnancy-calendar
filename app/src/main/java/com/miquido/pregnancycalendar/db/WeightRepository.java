@@ -9,16 +9,13 @@ import java.util.List;
 /**
  * Created by agnieszka on 29.12.15.
  */
-public interface WeightRepository {
+public interface WeightRepository extends BaseRepository<Weight> {
 
     int create(Weight weight);
 
     int update(Weight weight);
 
     int delete(Weight weight);
-
-    @Nullable
-    List<Weight> getAll();
 
     boolean exist(int week);
 

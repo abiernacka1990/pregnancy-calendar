@@ -7,12 +7,15 @@
     <string name="default_weight_unit">kg</string>
     <string name="save">Save</string>
     <string name="incorrect_value">Incorrect value</string>
-    <string name="item_deleted">Item deleted</string>
-    <string name="tap_to_undo">Tap to undo</string>
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
     <string name="default_event_title">(No title)</string>
 
+    <!-- Menu items -->
+    <string name="action_save">Save</string>
+    <string name="action_delete">Delete</string>
+
+    <!-- navigation drawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -22,7 +25,7 @@
     <string name="menu_calendar">Calendar</string>
 
     <!-- Settings -->
-    <string name="settings_start_date">Fist day of pregnancy:</string>
+    <string name="settings_start_date">First day of pregnancy:</string>
     <string name="settings_weight_unit">Unit of weight:</string>
 
     <!-- Weight information -->
@@ -38,26 +41,19 @@
     <string name="dialog_confirm_updating_data_message">Information about your weight in this week already exists. Do you want to overwrite it?</string>
 
     <!-- Item weight -->
-    <string name="item_weight_week_of_pregnancy">Week of pregnancy:</string>
-    <string name="item_weight_weight">Weight:</string>
+    <string name="item_weight_text" formatted="false">%d. week: %f %s</string>
 
     <!-- Events list -->
     <string name="eventlist_header_without_week" formatted="false">%s</string>
     <string name="eventlist_header_with_week" formatted="false">%s - %d. week</string>
-    <string name="title_activity_event_creator">@string/empty</string>
-    <string name="subtitle_in">in: </string>
+    <string name="eventlist_subtitle_in">in: </string>
 
-    <!-- Event details -->
-    <string name="event_details_title_hint">Write title...</string>
-    <string name="event_edit_add_note">Add note...</string>
-    <string name="event_edit_add_address">Add address...</string>
-    <string name="action_save">Save</string>
-    <string name="action_delete">Delete</string>
+    <!-- Event creator -->
+    <string name="event_creator_title_activity">@string/empty</string>
+    <string name="event_creator_title_hint">Write title…</string>
+    <string name="event_edit_add_note">Add note…</string>
+    <string name="event_edit_add_address">Add address…</string>
     <string name="event_snackbar_item_removed">Item was removed.</string>
     <string name="event_snackbar_click_to_cancel">Click to cancel.</string>
-
-
-    <!-- Validation -->
-    <string name="validate_empty_field">Field cannot be empty</string>
 
 </resources>

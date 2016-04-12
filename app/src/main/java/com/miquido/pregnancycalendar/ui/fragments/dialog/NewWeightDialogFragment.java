@@ -4,7 +4,8 @@ package com.miquido.pregnancycalendar.ui.fragments.dialog;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.miquido.pregnancycalendar.App;
-import com.miquido.pregnancycalendar.BuildConfig;
 import com.miquido.pregnancycalendar.R;
 import com.miquido.pregnancycalendar.model.Weight;
 
@@ -33,6 +33,8 @@ public class NewWeightDialogFragment extends DialogFragment {
     private EditText editTextWeight;
     private Spinner spinnerWeek;
     private NewWeightListener listener;
+    private TextView weightLabelTextView;
+    private Button buttonSave;
 
     /**
      * Use this factory method to create a new instance of
@@ -59,24 +61,78 @@ public class NewWeightDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         getDialog().setTitle(R.string.dialog_new_weight_title);
         View mainView = inflater.inflate(R.layout.dialog_new_weight, container, false);
-        TextView weightLabelTextView = (TextView) mainView.findViewById(R.id.text_weight_label);
-        weightLabelTextView.setText(String.format(getString(R.string.dialog_new_weight_weight), App.getInstance().getDefaultWeightUnit()));
-        editTextWeight = (EditText) mainView.findViewById(R.id.edittext_weight);
-        spinnerWeek = (Spinner) mainView.findViewById(R.id.spinner_week);
-        List<Integer> weeks = new ArrayList<>();
-        for(int i = 0; i <=42; i++) {
-            weeks.add(i);
-        }
-        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(getContext(),  android.R.layout.simple_spinner_item, weeks);
-        spinnerWeek.setAdapter(adapter);
-        Button buttonSave = (Button) mainView.findViewById(R.id.button_save);
+        initView(mainView);
+        return mainView;
+    }
+
+    private void initView(View mainView) {
+        findViews(mainView);
+        initLabels();
+        initWeeksAdapter();
+        initSaveButton();
+        initWeightTextWatcher();
+    }
+
+    private void initLabels() {
+        weightLabelTextView.setText(String.format(getString(R.string.dialog_new_weight_weight),
+                App.getInstance().getDefaultWeightUnit()));
+    }
+
+    private void initSaveButton() {
+        buttonSave.setEnabled(false);
         buttonSave.setOnClickListener(view -> {
             addNewWeightInfo();
         });
-        return mainView;
+    }
+
+    private void initWeeksAdapter() {
+        List<Integer> weeks = new ArrayList<>();
+        for (int i = 0; i <= 42; i++) {
+            weeks.add(i);
+        }
+        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(getContext(), android.R.layout.simple_spinner_item, weeks);
+        spinnerWeek.setAdapter(adapter);
+    }
+
+    private void findViews(View mainView) {
+        weightLabelTextView = (TextView) mainView.findViewById(R.id.text_weight_label);
+        editTextWeight = (EditText) mainView.findViewById(R.id.edittext_weight);
+        spinnerWeek = (Spinner) mainView.findViewById(R.id.spinner_week);
+        buttonSave = (Button) mainView.findViewById(R.id.button_save);
+    }
+
+    private void initWeightTextWatcher() {
+        editTextWeight.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                setSaveButtonAvailability();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                setSaveButtonAvailability();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                setSaveButtonAvailability();
+            }
+        });
+    }
+
+    private void setSaveButtonAvailability() {
+        buttonSave.setEnabled(isValid());
+    }
+
+    private boolean isValid() {
+        try {
+            Double.valueOf(editTextWeight.getEditableText().toString());
+        } catch (NumberFormatException exc) {
+            return false;
+        }
+        return true;
     }
 
     private void addNewWeightInfo() {
@@ -98,38 +154,25 @@ public class NewWeightDialogFragment extends DialogFragment {
             return;
         }
 
-        if (BuildConfig.DEBUG) {
-            Log.d(TAG, "Size of weight before inserting: " + App.getInstance().getWeightRepository().getAll().size());
-        }
         App.getInstance().getWeightRepository().create(weightInfo);
-        if (BuildConfig.DEBUG) {
-            Log.d(TAG, "Size of weight after inserting: " + App.getInstance().getWeightRepository().getAll().size());
-        }
-
         dismiss();
         listener.onNewWeightsUpdated(weightInfo);
     }
 
     private void confirmUpdatingData(Weight weight) {
         new AlertDialog.Builder(getActivity())
-            .setMessage(R.string.dialog_confirm_updating_data_message)
+                .setMessage(R.string.dialog_confirm_updating_data_message)
                 .setPositiveButton(R.string.yes, (dialog, id) -> {
-                dismiss();
-                updateData(weight);
-            })
-            .setNegativeButton(R.string.cancel, (dialog, id) -> {})
-            .create().show();
+                    dismiss();
+                    updateData(weight);
+                })
+                .setNegativeButton(R.string.cancel, (dialog, id) -> {
+                })
+                .create().show();
     }
 
     private void updateData(Weight weight) {
-        if (BuildConfig.DEBUG) {
-            Log.d(TAG, "Size of weight before updating: " + App.getInstance().getWeightRepository().getAll().size());
-        }
         App.getInstance().getWeightRepository().updateSpecifiedWeek(weight);
-        if (BuildConfig.DEBUG) {
-            Log.d(TAG, "Size of weight after updating: " + App.getInstance().getWeightRepository().getAll().size());
-        }
-
         dismiss();
         listener.onNewWeightsUpdated(weight);
     }

@@ -25,6 +25,7 @@ public class StringFormatter {
     public static String withDayOfWeekDate(DateTime date) {
         return DATE_FORMAT_WITH_DAY_OF_WEEK.format(date.getMillis());
     }
+
     public static String time(DateTime date) {
         return TIME_FORMAT.format(date.getMillis());
     }

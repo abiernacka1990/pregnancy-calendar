@@ -1,34 +1,44 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
+
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
+
     <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="default_margin">16dp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="setting_item_margin">8dp</dimen>
-    <dimen name="default_margin">16dp</dimen>
-    <dimen name="text_space">5dp</dimen>
-    <dimen name="min_weight_unit_edtx_width">100dp</dimen>
-    <dimen name="dialog_margin">24dp</dimen>
 
-    <!-- App bar -->
+    <!-- settings -->
+    <dimen name="settings_item_margin">8dp</dimen>
+    <dimen name="min_weight_unit_edtx_width">100dp</dimen>
+
+    <!-- dialog new weight -->
+    <dimen name="new_weight_text_space">5dp</dimen>
+    <dimen name="new_weight_dialog_margin">24dp</dimen>
+
+    <!-- Item weight -->
+    <dimen name="item_weight_font">16sp</dimen>
+
+    <!-- App bar main -->
     <dimen name="app_bar_height">416dp</dimen>
+
+    <!-- App bar event creator -->
     <dimen name="act_event_creator_actionbar_padding">16dp</dimen>
+    <dimen name="act_event_creator_app_bar_height">128dp</dimen>
+    <dimen name="act_event_creator_header_margin">16dp</dimen>
+    <dimen name="act_event_creator_header_edittext_margin">12dp</dimen>
+    <dimen name="act_event_creator_header_font_size">20sp</dimen>
 
     <!-- Event edit/preview -->
-    <dimen name="act_event_creator_app_bar_height">128dp</dimen>
-    <dimen name="header_margin">16dp</dimen>
-    <dimen name="header_edittext_margin">12dp</dimen>
-    <dimen name="header_font_size">20sp</dimen>
-    <dimen name="event_font_size">16sp</dimen>
+    <dimen name="event_edit_font_size">16sp</dimen>
     <dimen name="event_edit_margin">16dp</dimen>
-    <dimen name="eventedit_category_margintop">8dp</dimen>
+    <dimen name="event_edit_category_margintop">8dp</dimen>
 
     <!-- Event list -->
-    <dimen name="header_padding">16dp</dimen>
-    <dimen name="header_tv">16sp</dimen>
-    <dimen name="eventitem_padding">16dp</dimen>
-    <dimen name="eventitem_tv">16sp</dimen>
-    <dimen name="eventitem_tv_subtitle">14sp</dimen>
+    <dimen name="eventlist_header_padding">16dp</dimen>
+    <dimen name="eventlist_header_tv">16sp</dimen>
+    <dimen name="eventlist_item_padding">16dp</dimen>
+    <dimen name="eventlist_item_tv">16sp</dimen>
+    <dimen name="eventlist_item_tv_subtitle">14sp</dimen>
 </resources>

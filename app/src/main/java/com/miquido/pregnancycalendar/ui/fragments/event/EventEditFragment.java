@@ -1,6 +1,7 @@
 package com.miquido.pregnancycalendar.ui.fragments.event;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -137,7 +138,7 @@ public class EventEditFragment extends EventFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_save) {
-            validDataAndSave();
+            saveDataEndQuit();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -148,23 +149,13 @@ public class EventEditFragment extends EventFragment {
         return eventCreatorActivity.getTitleEditText();
     }
 
-    private void validDataAndSave() {
-        if (validData()) {
-            createEventAndSave();
-            finishActivityWithResultOk();
-        }
+    private void saveDataEndQuit() {
+        Event event = createEvent();
+        saveEvent(event);
+        finishActivityWithResultOk();
     }
 
-    private void createEventAndSave() {
-        Event event = getEvent();
-        if (event == null) {
-            event = new Event();
-        }
-        event.setTitle(getTitleEditText().getText().toString());
-        event.setStartDate(startEventDate.getDateTime().getMillis());
-        event.setEndDate(endEventDate.getDateTime().getMillis());
-        event.setNote(noteEditText.getText().toString());
-        event.setAddress(addressEditText.getText().toString());
+    private void saveEvent(Event event) {
         if (getEvent() == null) {
             App.getInstance().getEventsRepository().create(event);
         } else {
@@ -172,8 +163,19 @@ public class EventEditFragment extends EventFragment {
         }
     }
 
-    private boolean validData() {
-        return true;
+    @Nullable
+    private Event createEvent() {
+        Event event = getEvent();
+        Event.Builder eventBuilder = new Event.Builder();
+        if (event !=  null) {
+            eventBuilder.setId(event.getId());
+        }
+        eventBuilder.setTitle(getTitleEditText().getText().toString())
+                .setStartDate(startEventDate.getDateTime().getMillis())
+                .setEndDate(endEventDate.getDateTime().getMillis())
+                .setNote(noteEditText.getText().toString())
+                .setAddress(addressEditText.getText().toString());
+        return eventBuilder.build();
     }
 
 

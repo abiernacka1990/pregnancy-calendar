@@ -32,7 +32,7 @@
                 android:layout_toRightOf="@id/imageview_clock"
                 android:layout_toEndOf="@id/imageview_clock"
                 android:freezesText="true"
-                android:textSize="@dimen/event_font_size"/>
+                android:textSize="@dimen/event_edit_font_size"/>
 
             <TextView
                 android:id="@+id/textview_starttime"
@@ -42,7 +42,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignBottom="@id/textview_startdate"
                 android:freezesText="true"
-                android:textSize="@dimen/event_font_size"/>
+                android:textSize="@dimen/event_edit_font_size"/>
 
             <TextView
                 android:id="@+id/textview_enddate"
@@ -51,8 +51,8 @@
                 android:layout_alignLeft="@id/textview_startdate"
                 android:layout_below="@id/textview_startdate"
                 android:freezesText="true"
-                android:layout_marginTop="@dimen/eventedit_category_margintop"
-                android:textSize="@dimen/event_font_size"/>
+                android:layout_marginTop="@dimen/event_edit_category_margintop"
+                android:textSize="@dimen/event_edit_font_size"/>
 
             <TextView
                 android:id="@+id/textview_endtime"
@@ -62,8 +62,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignBottom="@id/textview_enddate"
                 android:freezesText="true"
-                android:layout_marginTop="@dimen/eventedit_category_margintop"
-                android:textSize="@dimen/event_font_size"/>
+                android:layout_marginTop="@dimen/event_edit_category_margintop"
+                android:textSize="@dimen/event_edit_font_size"/>
 
         </RelativeLayout>
 
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/imageview_address"
                 android:layout_toEndOf="@id/imageview_address"
-                android:textSize="@dimen/event_font_size"/>
+                android:textSize="@dimen/event_edit_font_size"/>
 
         </RelativeLayout>
 
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/imageview_note"
                 android:layout_toEndOf="@id/imageview_note"
-                android:textSize="@dimen/event_font_size"/>
+                android:textSize="@dimen/event_edit_font_size"/>
 
         </RelativeLayout>
 

@@ -25,21 +25,21 @@
             android:id="@+id/textview_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/header_margin"
-            android:textSize="@dimen/header_font_size"/>
+            android:layout_margin="@dimen/act_event_creator_header_margin"
+            android:textSize="@dimen/act_event_creator_header_font_size"/>
 
         <EditText
             android:id="@+id/edittext_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/header_edittext_margin"
-            android:layout_marginRight="@dimen/header_margin"
-            android:layout_marginLeft="@dimen/header_margin"
-            android:layout_marginBottom="@dimen/header_margin"
+            android:layout_marginTop="@dimen/act_event_creator_header_edittext_margin"
+            android:layout_marginRight="@dimen/act_event_creator_header_margin"
+            android:layout_marginLeft="@dimen/act_event_creator_header_margin"
+            android:layout_marginBottom="@dimen/act_event_creator_header_margin"
             android:background="@android:color/transparent"
             android:inputType="textCapSentences"
-            android:hint="@string/event_details_title_hint"
-            android:textSize="@dimen/header_font_size"/>
+            android:hint="@string/event_creator_title_hint"
+            android:textSize="@dimen/act_event_creator_header_font_size"/>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fab_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_anchor="@id/app_bar"

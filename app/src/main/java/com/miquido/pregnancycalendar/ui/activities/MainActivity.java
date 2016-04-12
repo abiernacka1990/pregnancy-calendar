@@ -40,10 +40,11 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SettingsFragment.OnSettingsChangesListener {
 
+    public static final int EVENTS_CHANGED_REQUEST = 45;
     private static final String FRAGMENT_TAG = "FRAGMENT_TAG";
     private static final String TAG = "MainActivity";
-    public static final int EVENTS_CHANGED_REQUEST = 45;
     private static final String SELECTED_DATE = "SELECTED_DATE";
+
     private Toolbar toolbar;
     private AppBarLayout appBarLayout;
     private CollapsingToolbarLayout toolbarLayout;
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void sendOnBottmFabClickEventToFragment() {
-        if(currentFragment instanceof BaseFragment) {
+        if (currentFragment instanceof BaseFragment) {
             ((BaseFragment) currentFragment).onBottomFloatingBtClick();
         }
     }
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity
     private void initCalendar(Bundle savedInstanceState) {
 
         calendarView = (CalendarView) findViewById(R.id.calendar_view);
-        calendarView.setDecoratorsList(new ArrayList<DayDecorator>(Arrays.asList(new PregnancyDayDecorator())));
+        calendarView.setDecoratorsList(new ArrayList<>(Arrays.asList(new PregnancyDayDecorator())));
         calendarView.setFirstDayOfWeek(Calendar.MONDAY);
         calendarView.setIsOverflowDateVisible(true);
         calendarView.refreshCalendar(Calendar.getInstance(Locale.getDefault()));

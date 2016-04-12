@@ -12,7 +12,6 @@ import com.miquido.pregnancycalendar.utils.Preferences;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -36,8 +35,9 @@ public class WeightsAdapter extends RecyclerView.Adapter<WeightsAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Weight weight = weights.get(position);
-        holder.weightTextView.setText(String.format("%f %s", weight.getWeight(), Preferences.getInstance().getWeightUnit()));
-        holder.weekTextView.setText(String.valueOf(weight.getWeek()));
+        String weightInfoText = holder.weightInfoTextView.getContext().getString(R.string.item_weight_text);
+        String formattedWeightInfoText = String.format(weightInfoText, weight.getWeek(), weight.getWeight(), Preferences.getInstance().getWeightUnit());
+        holder.weightInfoTextView.setText(formattedWeightInfoText);
     }
 
     public void updateList(List<Weight> weights) {
@@ -54,10 +54,6 @@ public class WeightsAdapter extends RecyclerView.Adapter<WeightsAdapter.ViewHold
         return deletedItem;
     }
 
-    public Weight getItem(int position) {
-        return weights.get(position);
-    }
-
     @Override
     public int getItemCount() {
         return weights.size();
@@ -70,13 +66,11 @@ public class WeightsAdapter extends RecyclerView.Adapter<WeightsAdapter.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView weightTextView;
-        public TextView weekTextView;
+        public TextView weightInfoTextView;
 
         public ViewHolder(View view) {
             super(view);
-            weightTextView = (TextView) view.findViewById(R.id.text_weight);
-            weekTextView = (TextView) view.findViewById(R.id.text_week);
+            weightInfoTextView = (TextView) view.findViewById(R.id.textview_weight_info);
         }
     }
 }

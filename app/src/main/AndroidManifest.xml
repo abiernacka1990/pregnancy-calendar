@@ -21,7 +21,7 @@
         </activity>
         <activity
             android:name=".ui.activities.EventCreatorActivity"
-            android:label="@string/title_activity_event_creator"
+            android:label="@string/event_creator_title_activity"
             android:parentActivityName=".ui.activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

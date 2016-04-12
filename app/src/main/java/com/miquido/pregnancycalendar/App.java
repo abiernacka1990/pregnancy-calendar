@@ -3,16 +3,16 @@ package com.miquido.pregnancycalendar;
 import android.app.Application;
 
 import com.miquido.pregnancycalendar.db.EventsRepository;
+import com.miquido.pregnancycalendar.db.WeightRepository;
 import com.miquido.pregnancycalendar.db.fake.FakeEventRepository;
 import com.miquido.pregnancycalendar.db.fake.FakeWeightRepository;
-import com.miquido.pregnancycalendar.db.WeightRepository;
 import com.miquido.pregnancycalendar.db.ormlite.OrmEventRepository;
 import com.miquido.pregnancycalendar.db.ormlite.OrmWeightRepository;
 import com.miquido.pregnancycalendar.utils.DevelopProperties;
 
 /**
  * Created by agnieszka on 03.11.15.
- *
+ * <p>
  * Application
  */
 public class App extends Application {
@@ -23,7 +23,7 @@ public class App extends Application {
     private DevelopProperties properties = new DevelopProperties();
 
 
-    public static App getInstance(){
+    public static App getInstance() {
         return instance;
     }
 

@@ -88,11 +88,14 @@ public class EventPreviewFragment extends EventFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_delete) {
-            App.getInstance().getEventsRepository().delete(getEvent());
-            finishActivityWithResultOk();
+            onActionDelete();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    private void onActionDelete() {
+        App.getInstance().getEventsRepository().delete(getEvent());
+        finishActivityWithResultOk();
+    }
 }

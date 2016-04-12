@@ -15,20 +15,20 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@+id/imageViewStartDate"
-            android:layout_toStartOf="@+id/imageViewStartDate"
+            android:layout_toLeftOf="@+id/image_view_start_date"
+            android:layout_toStartOf="@+id/image_view_start_date"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/text_start_date_label"
+                android:id="@+id/textview_start_date_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/setting_item_margin"
+                android:layout_marginBottom="@dimen/settings_item_margin"
                 android:text="@string/settings_start_date"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                android:id="@+id/text_start_date"
+                android:id="@+id/textview_start_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/unknown_date"
@@ -38,7 +38,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imageViewStartDate"
+            android:id="@+id/image_view_start_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -61,19 +61,19 @@
         android:layout_margin="@dimen/fab_margin">
 
         <TextView
-            android:id="@+id/text_weight_unit_label"
+            android:id="@+id/textview_weight_unit_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/settings_weight_unit"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/text_weight_unit"
-            android:layout_toStartOf="@+id/text_weight_unit"
+            android:layout_toLeftOf="@+id/textview_weight_unit"
+            android:layout_toStartOf="@+id/textview_weight_unit"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
-            android:id="@+id/text_weight_unit"
+            android:id="@+id/textview_weight_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -82,7 +82,9 @@
             android:minWidth="@dimen/min_weight_unit_edtx_width"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            tools:text="kg" />
+            tools:text="kg"
+            android:inputType="text"
+            tools:ignore="TextFields" />
     </RelativeLayout>
 
     <ImageView

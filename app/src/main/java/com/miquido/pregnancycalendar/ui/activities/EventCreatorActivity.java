@@ -20,13 +20,16 @@ import java.util.Calendar;
 
 public class EventCreatorActivity extends AppCompatActivity {
 
-    private static final int NO_ID_FOUND_VALUE = -1;
     public static String ARG_EVENT_ID = "ARG_EVENT_ID";
+    private static final int NO_ID_FOUND_VALUE = -1;
+
     private Integer argEventId;
     private Event event;
+
+    private Mode mode;
+
     private TextView headerTitleTextView;
     private EditText headerTitleEditText;
-    private Mode mode;
     private FloatingActionButton fab;
 
     @Override
@@ -36,25 +39,37 @@ public class EventCreatorActivity extends AppCompatActivity {
 
         loadBundleArgs();
 
-        initToolbar();
         initView();
-
-        if (mode == null) {
-            setMode();
-        }
-
+        setMode();
         showFragmentForMode(savedInstanceState, mode);
-
         updateViewForSpecifiedMode();
 
     }
 
-    private void setMode() {
-        if (checkIntentIfItsNewEvent()) {
-            mode = Mode.EDIT;
-        } else {
-            mode = Mode.PREVIEW;
+    private void initView() {
+        initToolbar();
+        initFab();
+        initHeader();
+    }
+
+    private void initToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_delete);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    private void initHeader() {
+        headerTitleTextView = (TextView) findViewById(R.id.textview_title);
+        headerTitleEditText = (EditText) findViewById(R.id.edittext_title);
+    }
+
+    private void initFab() {
+        fab = (FloatingActionButton) findViewById(R.id.fab_edit);
+        assert fab != null;
+        fab.setOnClickListener(view -> startEdit());
     }
 
     private void loadBundleArgs() {
@@ -65,6 +80,20 @@ public class EventCreatorActivity extends AppCompatActivity {
                 event = App.getInstance().getEventsRepository().get(argEventId);
             }
         }
+    }
+
+    private void setMode() {
+        if (mode == null) {
+            if (checkIntentIfItsNewEvent()) {
+                mode = Mode.EDIT;
+            } else {
+                mode = Mode.PREVIEW;
+            }
+        }
+    }
+
+    private boolean checkIntentIfItsNewEvent() {
+        return event == null;
     }
 
     private void showFragmentForMode(Bundle savedInstanceState, Mode mode) {
@@ -115,37 +144,18 @@ public class EventCreatorActivity extends AppCompatActivity {
         }
     }
 
-    private void setEventInfo() {
-        String title = event.getEventTitle(this);
-        headerTitleTextView.setText(title);
-        headerTitleEditText.setText(title);
-    }
-
     private void setViewsVisibility(int editViewsVisibility, int previewViewsVisibility) {
         headerTitleEditText.setVisibility(editViewsVisibility);
         headerTitleTextView.setVisibility(previewViewsVisibility);
         fab.setVisibility(previewViewsVisibility);
     }
 
-    private boolean checkIntentIfItsNewEvent() {
-        return event == null;
+    private void setEventInfo() {
+        String title = event.getEventTitle(this);
+        headerTitleTextView.setText(title);
+        headerTitleEditText.setText(title);
     }
 
-    private void initView() {
-        initFab();
-        initHeader();
-    }
-
-    private void initHeader() {
-        headerTitleTextView = (TextView) findViewById(R.id.textview_title);
-        headerTitleEditText = (EditText) findViewById(R.id.edittext_title);
-    }
-
-    private void initFab() {
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        assert fab != null;
-        fab.setOnClickListener(view -> startEdit());
-    }
 
     private void startEdit() {
         mode = Mode.EDIT;
@@ -154,15 +164,6 @@ public class EventCreatorActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.content, EventEditFragment.newInstanceWithEvent(argEventId))
                 .commit();
-    }
-
-    private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_delete);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
     }
 
     @Override

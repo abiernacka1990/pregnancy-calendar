@@ -1,14 +1,14 @@
 package com.miquido.pregnancycalendar.ui.helpers;
 
+import android.graphics.Canvas;
+import android.support.v7.widget.RecyclerView;
+
 import com.miquido.pregnancycalendar.adapters.EventsAdapter;
 import com.miquido.pregnancycalendar.adapters.ItemTouchHelper;
 
 /**
  * Created by agnieszka on 08.01.16.
  */
-
-import android.graphics.Canvas;
-import android.support.v7.widget.RecyclerView;
 
 public class SimpleItemTouchHelperCallback extends android.support.v7.widget.helper.ItemTouchHelper.Callback {
 

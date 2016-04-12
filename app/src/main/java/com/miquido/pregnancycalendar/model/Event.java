@@ -43,6 +43,10 @@ public class Event {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -90,7 +94,7 @@ public class Event {
         subtitleBuilder.append(StringFormatter.time(getStartDateAsDateTime()));
         if (address != null && !address.isEmpty()) {
             subtitleBuilder.append(" ");
-            subtitleBuilder.append(context.getString(R.string.subtitle_in));
+            subtitleBuilder.append(context.getString(R.string.eventlist_subtitle_in));
             subtitleBuilder.append(" ");
             subtitleBuilder.append(address);
         }
@@ -112,5 +116,49 @@ public class Event {
         event.setStartDate(new DateTime().getMillis());
         event.setEndDate(new DateTime().getMillis());
         return event;
+    }
+
+    public static class Builder {
+
+        private Event event;
+
+        public Builder() {
+            event = new Event();
+        }
+
+
+        public Event build() {
+            return event;
+        }
+
+        public Builder setId(int id) {
+            event.setId(id);
+            return this;
+        }
+
+        public Builder setTitle(String title) {
+            event.setTitle(title);
+            return this;
+        }
+
+        public Builder setStartDate(long startDate) {
+            event.setStartDate(startDate);
+            return this;
+        }
+
+        public Builder setEndDate(long endDate) {
+            event.setEndDate(endDate);
+            return this;
+        }
+
+        public Builder setNote(String note) {
+            event.setNote(note);
+            return this;
+        }
+
+        public Builder setAddress(String address) {
+            event.setAddress(address);
+            return this;
+        }
     }
 }

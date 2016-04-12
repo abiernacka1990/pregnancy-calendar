@@ -3,6 +3,7 @@ package com.miquido.pregnancycalendar.ui.fragments.main;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -21,10 +22,8 @@ import com.miquido.pregnancycalendar.R;
 import com.miquido.pregnancycalendar.adapters.WeightsAdapter;
 import com.miquido.pregnancycalendar.model.Weight;
 import com.miquido.pregnancycalendar.ui.decorators.DividerItemDecoration;
-import com.miquido.pregnancycalendar.ui.fragments.BaseFragment;
 import com.miquido.pregnancycalendar.ui.fragments.dialog.NewWeightDialogFragment;
 import com.miquido.pregnancycalendar.ui.helpers.SimpleItemTouchHelperCallback;
-import com.miquido.pregnancycalendar.utils.UsefulUIMethods;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -67,8 +66,8 @@ public class WeightFragment extends MainFragment implements NewWeightDialogFragm
         // Inflate the layout for this fragment
         View mainView = inflater.inflate(R.layout.fragment_weight, container, false);
 
-        titleTextView = (TextView) mainView.findViewById(R.id.text_weight_title);
-        noDataTextView = (TextView) mainView.findViewById(R.id.text_weight_no_data);
+        titleTextView = (TextView) mainView.findViewById(R.id.textview_weight_title);
+        noDataTextView = (TextView) mainView.findViewById(R.id.textview_weight_no_data);
 
         recyclerView = (RecyclerView) mainView.findViewById(R.id.recycler_view_weights_list);
         RecyclerView.ItemDecoration itemDecoration = new
@@ -120,16 +119,16 @@ public class WeightFragment extends MainFragment implements NewWeightDialogFragm
 
         List<Weight> weightList = App.getInstance().getWeightRepository().getAll();
 
-        boolean emptyList = weightList == null || weightList.isEmpty();
+        boolean emptyList = isEmpty(weightList);
         updateVisibilityOfViews(emptyList);
 
-        if (emptyList) {
-            return;
-        }
-
         updateChart(weightList);
-
         adapter.updateList(weightList);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private boolean isEmpty(List<Weight> weightList) {
+        return weightList == null || weightList.isEmpty();
     }
 
     private void updateVisibilityOfViews(boolean emptyList) {
@@ -144,6 +143,10 @@ public class WeightFragment extends MainFragment implements NewWeightDialogFragm
     private void updateChart(List<Weight> weightList) {
 
         chart.clear();
+
+        if (isEmpty(weightList)) {
+            return;
+        }
 
         ArrayList<String> xValsAsString = new ArrayList<>();
         ArrayList<Integer> xVals = new ArrayList<>();
@@ -161,8 +164,8 @@ public class WeightFragment extends MainFragment implements NewWeightDialogFragm
         LineDataSet dataSet = new LineDataSet(yVals, "DataSet 1");
 
         //style
-        dataSet.setColor(UsefulUIMethods.getColor(R.color.colorPrimaryDark, getActivity()));
-        dataSet.setCircleColor(UsefulUIMethods.getColor(R.color.colorPrimaryDark, getActivity()));
+        dataSet.setColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+        dataSet.setCircleColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
 
         ArrayList<LineDataSet> dataSets = new ArrayList<>();
         dataSets.add(dataSet);
@@ -183,13 +186,17 @@ public class WeightFragment extends MainFragment implements NewWeightDialogFragm
     public void onItemDismiss(int position) {
         Weight deletedItem = adapter.itemDissmissed(position);
         App.getInstance().getWeightRepository().delete(deletedItem);
+        showOnItemDismissSnackbar(deletedItem);
+        refreshData();
+    }
+
+    private void showOnItemDismissSnackbar(Weight deletedItem) {
         Snackbar.make(getView(), R.string.weight_snackbar_item_removed, Snackbar.LENGTH_LONG)
                 .setAction(getString(R.string.weight_snackbar_click_to_cancel), v -> {
                     App.getInstance().getWeightRepository().create(deletedItem);
-                    refreshData();;
+                    refreshData();
                 })
                 .show();
-        refreshData();
     }
 
     @Override

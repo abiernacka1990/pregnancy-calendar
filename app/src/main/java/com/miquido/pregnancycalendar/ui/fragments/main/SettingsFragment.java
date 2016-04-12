@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.miquido.pregnancycalendar.R;
-import com.miquido.pregnancycalendar.ui.fragments.BaseFragment;
 import com.miquido.pregnancycalendar.utils.Preferences;
 import com.miquido.pregnancycalendar.utils.StringFormatter;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -54,9 +53,9 @@ public class SettingsFragment extends MainFragment implements DatePickerDialog.O
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View mainView = inflater.inflate(R.layout.fragment_settings, container, false);
-        dataTextView = (TextView) mainView.findViewById(R.id.text_start_date);
-        startDateImageView = (ImageView) mainView.findViewById(R.id.imageViewStartDate);
-        weightUnitEditText = (EditText) mainView.findViewById(R.id.text_weight_unit);
+        dataTextView = (TextView) mainView.findViewById(R.id.textview_start_date);
+        startDateImageView = (ImageView) mainView.findViewById(R.id.image_view_start_date);
+        weightUnitEditText = (EditText) mainView.findViewById(R.id.textview_weight_unit);
         showPreferences();
         startDateImageView.setOnClickListener(view -> openDateChooser());
         return mainView;

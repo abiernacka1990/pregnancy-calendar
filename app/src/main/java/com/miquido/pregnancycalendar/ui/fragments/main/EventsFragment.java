@@ -72,16 +72,32 @@ public class EventsFragment extends MainFragment implements EventsAdapter.OnItem
                              Bundle savedInstanceState) {
 
         recyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_events, container, false);
+        initRecycleView();
+        return recyclerView;
+    }
+
+    private void initRecycleView() {
+        initRecycleViewStyle();
+        setAdapter();
+        setSwipe2DismissEnabled();
+    }
+
+    private void setAdapter() {
+        adapter = new EventsAdapter(getContext(), selectedDate, this);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void setSwipe2DismissEnabled() {
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(this);
+        new ItemTouchHelper(callback).attachToRecyclerView(recyclerView);
+    }
+
+    private void initRecycleViewStyle() {
         RecyclerView.ItemDecoration itemDecoration = new
                 DividerItemDecoration(getContext().getResources());
         recyclerView.addItemDecoration(itemDecoration);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new EventsAdapter(getContext(), selectedDate, this);
-        recyclerView.setAdapter(adapter);
-        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(this);
-        new ItemTouchHelper(callback).attachToRecyclerView(recyclerView);
-        return recyclerView;
     }
 
     @Override
@@ -111,13 +127,17 @@ public class EventsFragment extends MainFragment implements EventsAdapter.OnItem
     public void onItemDismiss(int position) {
         Event deletedItem = adapter.itemDissmissed(position);
         App.getInstance().getEventsRepository().delete(deletedItem);
+        showOnItemDismissSnackbar(deletedItem);
+        updateEventList();
+    }
+
+    private void showOnItemDismissSnackbar(Event deletedItem) {
         Snackbar.make(getView(), R.string.event_snackbar_item_removed, Snackbar.LENGTH_LONG)
                 .setAction(getString(R.string.event_snackbar_click_to_cancel), v -> {
                     App.getInstance().getEventsRepository().create(deletedItem);
                     updateEventList();
                 })
                 .show();
-        updateEventList();
     }
 
     @Override

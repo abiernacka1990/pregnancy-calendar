@@ -17,10 +17,6 @@ public abstract class BaseFragment extends Fragment {
         setRetainInstance(true);
     }
 
-    protected AppCompatActivity getAppCompatActivity() {
-        return  (AppCompatActivity) getActivity();
-    }
-
     public void onBottomFloatingBtClick() {
 
     }
