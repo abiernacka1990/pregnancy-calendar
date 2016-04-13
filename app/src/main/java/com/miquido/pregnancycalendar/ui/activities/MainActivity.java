@@ -24,11 +24,11 @@ import com.miquido.pregnancycalendar.R;
 import com.miquido.pregnancycalendar.ui.decorators.PregnancyDayDecorator;
 import com.miquido.pregnancycalendar.ui.fragments.BaseFragment;
 import com.miquido.pregnancycalendar.ui.fragments.event.EventEditFragment;
+import com.miquido.pregnancycalendar.ui.fragments.main.dashboard.DashboardFragmentFactory;
 import com.miquido.pregnancycalendar.ui.fragments.main.EventsFragment;
 import com.miquido.pregnancycalendar.ui.fragments.main.MainFragment;
 import com.miquido.pregnancycalendar.ui.fragments.main.SettingsFragment;
 import com.miquido.pregnancycalendar.ui.fragments.main.WeightFragment;
-import com.samsistemas.calendarview.decor.DayDecorator;
 import com.samsistemas.calendarview.widget.CalendarView;
 
 import java.util.ArrayList;
@@ -50,14 +50,22 @@ public class MainActivity extends AppCompatActivity
     private CollapsingToolbarLayout toolbarLayout;
     private CalendarView calendarView;
     private NestedScrollView nestedScrollViewMain;
-    private Fragment currentFragment;
+    private MainFragment currentFragment;
     private FloatingActionButton fabBottom, fabTop;
+    private DrawerLayout drawer;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView(savedInstanceState);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        setFragmentAndAppBarBehaviour(currentFragment);
     }
 
     private void initView(Bundle savedInstanceState) {
@@ -138,24 +146,24 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initNavDrawer() {
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
     private void showFragment(Bundle savedInstanceState) {
         Fragment fragment = findFragmentToShow(savedInstanceState);
         replaceFragment(fragment);
-        updateActivityViewForSelectedFragment((MainFragment) fragment);
     }
 
 
     private Fragment findFragmentToShow(Bundle savedInstanceState) {
-        Fragment fragment = null;
+        Fragment fragment;
 
         if (savedInstanceState != null) {
             fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
         } else {
-            fragment = EventsFragment.newInstance(calendarView.getLastSelectedDay());
+            fragment = DashboardFragmentFactory.newInstance();
         }
 
         return fragment;
@@ -178,7 +186,6 @@ public class MainActivity extends AppCompatActivity
 
         if (selectedFragment != null) {
             replaceFragmentAndCloseDrawer(selectedFragment);
-            updateActivityViewForSelectedFragment(selectedFragment);
             return true;
         } else {
             return false;
@@ -194,15 +201,16 @@ public class MainActivity extends AppCompatActivity
         boolean isExpandedAppBarEnabled = selectedFragment.isExpandedAppBarEnabled();
         appBarLayout.setExpanded(isExpandedAppBarEnabled, false);
         CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
-        AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) params.getBehavior();
-        if (behavior != null) {
-            behavior.setDragCallback(new AppBarLayout.Behavior.DragCallback() {
-                @Override
-                public boolean canDrag(@NonNull AppBarLayout appBarLayout) {
-                    return isExpandedAppBarEnabled;
-                }
-            });
+        if (params.getBehavior() == null) {
+            params.setBehavior(new AppBarLayout.Behavior() {});
         }
+        AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) params.getBehavior();
+        behavior.setDragCallback(new AppBarLayout.Behavior.DragCallback() {
+            @Override
+            public boolean canDrag(@NonNull AppBarLayout appBarLayout) {
+                return isExpandedAppBarEnabled;
+            }
+        });
         nestedScrollViewMain.setNestedScrollingEnabled(isExpandedAppBarEnabled);
     }
 
@@ -225,11 +233,11 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment, FRAGMENT_TAG)
                 .commit();
-        currentFragment = fragment;
+        currentFragment = (MainFragment) fragment;
+        updateActivityViewForSelectedFragment(currentFragment);
     }
 
     private void closeNavDrawer() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }
 
@@ -241,7 +249,9 @@ public class MainActivity extends AppCompatActivity
     public MainFragment getFragmentByNavDrawerItem(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_settings) {
+        if (id == R.id.nav_dashboard) {
+            return DashboardFragmentFactory.newInstance();
+        } else if (id == R.id.nav_settings) {
             return SettingsFragment.newInstance();
         } else if (id == R.id.nav_weight) {
             return WeightFragment.newInstance();
@@ -276,4 +286,8 @@ public class MainActivity extends AppCompatActivity
         super.onSaveInstanceState(savedInstanceState);
     }
 
+    public void goToSettings() {
+        navigationView.setCheckedItem(R.id.nav_settings);
+        replaceFragment(SettingsFragment.newInstance());
+    }
 }

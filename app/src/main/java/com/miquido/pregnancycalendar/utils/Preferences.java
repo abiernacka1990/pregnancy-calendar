@@ -33,6 +33,10 @@ public class Preferences {
         return sharedpreferences.getLong(PREGNANCY_START_DATE_KEY, 0);
     }
 
+    public boolean isPregnancyStartDateSet() {
+        return sharedpreferences.contains(PREGNANCY_START_DATE_KEY);
+    }
+
     public void setPregnancyStartDate(long date) {
         editor.putLong(PREGNANCY_START_DATE_KEY, date);
         editor.apply();

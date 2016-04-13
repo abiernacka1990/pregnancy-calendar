@@ -41,4 +41,10 @@
     <dimen name="eventlist_item_padding">16dp</dimen>
     <dimen name="eventlist_item_tv">16sp</dimen>
     <dimen name="eventlist_item_tv_subtitle">14sp</dimen>
+
+    <!-- Dashboard -->
+    <dimen name="dashboard_empty_label_font">24sp</dimen>
+    <dimen name="dashboard_empty_label_margin">32dp</dimen>
+    <dimen name="dashboard_empty_label_margin_top">64dp</dimen>
+    <dimen name="dashboard_empty_yes_margin_top">128dp</dimen>
 </resources>

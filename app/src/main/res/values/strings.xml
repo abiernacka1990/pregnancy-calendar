@@ -24,6 +24,7 @@
     <string name="menu_settings">Settings</string>
     <string name="menu_weight">Weight</string>
     <string name="menu_calendar">Calendar</string>
+    <string name="menu_dashboard">Dashboard</string>
 
     <!-- Settings -->
     <string name="settings_start_date">First day of pregnancy:</string>
@@ -57,4 +58,7 @@
     <string name="event_snackbar_item_removed">Item was removed.</string>
     <string name="event_snackbar_click_to_cancel">Click to cancel.</string>
 
+
+    <!-- Empty dashboard -->
+    <string name="dashboard_empty_label">You haven\'t set first day of pregnancy yet.\n\nDo you want to do it now?</string>
 </resources>
