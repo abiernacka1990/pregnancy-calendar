@@ -1,4 +1,4 @@
-package com.miquido.pregnancycalendar.ui.fragments.main;
+package com.miquido.pregnancycalendar.ui.fragments.main.app;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.miquido.pregnancycalendar.R;
+import com.miquido.pregnancycalendar.ui.fragments.main.MainFragment;
 import com.miquido.pregnancycalendar.utils.Preferences;
 import com.miquido.pregnancycalendar.utils.StringFormatter;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;

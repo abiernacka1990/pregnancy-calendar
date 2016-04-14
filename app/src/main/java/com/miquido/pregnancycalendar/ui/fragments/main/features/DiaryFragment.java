@@ -1,4 +1,4 @@
-package com.miquido.pregnancycalendar.ui.fragments.main;
+package com.miquido.pregnancycalendar.ui.fragments.main.features;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -20,6 +20,7 @@ import com.miquido.pregnancycalendar.adapters.DiaryEntriesAdapter;
 import com.miquido.pregnancycalendar.adapters.ItemTouchHelper;
 import com.miquido.pregnancycalendar.adapters.SimpleSectionedRecyclerViewAdapter;
 import com.miquido.pregnancycalendar.model.DiaryEntry;
+import com.miquido.pregnancycalendar.ui.fragments.main.MainFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;

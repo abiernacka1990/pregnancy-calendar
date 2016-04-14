@@ -1,12 +1,10 @@
-package com.miquido.pregnancycalendar.ui.fragments.main;
+package com.miquido.pregnancycalendar.ui.fragments.main.features;
 
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +16,8 @@ import com.miquido.pregnancycalendar.model.Event;
 import com.miquido.pregnancycalendar.ui.activities.EventCreatorActivity;
 import com.miquido.pregnancycalendar.ui.activities.MainActivity;
 import com.miquido.pregnancycalendar.ui.decorators.DividerItemDecoration;
-import com.miquido.pregnancycalendar.ui.fragments.BaseFragment;
-import com.miquido.pregnancycalendar.ui.helpers.SimpleItemTouchHelperCallback;
+import com.miquido.pregnancycalendar.ui.fragments.main.MainFragment;
 
-import java.util.Calendar;
 import java.util.Date;
 
 public class EventsFragment extends MainFragment implements EventsAdapter.OnItemClickListener, com.miquido.pregnancycalendar.adapters.ItemTouchHelper {

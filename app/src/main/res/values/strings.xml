@@ -26,6 +26,7 @@
     <string name="menu_calendar">Calendar</string>
     <string name="menu_dashboard">Dashboard</string>
     <string name="menu_diary">Diary</string>
+    <string name="menu_about_app">About app</string>
 
     <!-- Settings -->
     <string name="settings_start_date">First day of pregnancy:</string>
@@ -62,4 +63,10 @@
 
     <!-- Empty dashboard -->
     <string name="dashboard_empty_label">You haven\'t set first day of pregnancy yet.\n\nDo you want to do it now?</string>
+
+    <!-- Diary -->
+    <string name="fragment_diary_write_new">Write new note...</string>
+
+    <!-- About app -->
+    <string name="about_app_rate_us">Rate us on Google Play</string>
 </resources>

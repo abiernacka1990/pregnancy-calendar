@@ -52,4 +52,8 @@
     <dimen name="diary_font">16sp</dimen>
     <dimen name="diary_margin">@dimen/default_margin</dimen>
     <dimen name="diary_margin_small">8dp</dimen>
+
+    <!-- About app -->
+    <dimen name="about_app_margin">@dimen/default_margin</dimen>
+    <dimen name="about_app_font">24sp</dimen>
 </resources>

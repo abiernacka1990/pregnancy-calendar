@@ -1,4 +1,4 @@
-package com.miquido.pregnancycalendar.ui.fragments.main;
+package com.miquido.pregnancycalendar.ui.fragments.main.features;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -23,6 +23,7 @@ import com.miquido.pregnancycalendar.adapters.WeightsAdapter;
 import com.miquido.pregnancycalendar.model.Weight;
 import com.miquido.pregnancycalendar.ui.decorators.DividerItemDecoration;
 import com.miquido.pregnancycalendar.ui.fragments.dialog.NewWeightDialogFragment;
+import com.miquido.pregnancycalendar.ui.fragments.main.MainFragment;
 import com.miquido.pregnancycalendar.ui.helpers.SimpleItemTouchHelperCallback;
 
 import java.util.ArrayList;

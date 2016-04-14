@@ -39,6 +39,7 @@
             android:layout_alignParentStart="true"
             android:layout_toLeftOf="@id/imageview_save"
             android:layout_toStartOf="@id/imageview_save"
-            android:background="@android:color/transparent"/>
+            android:background="@android:color/transparent"
+            android:hint="@string/fragment_diary_write_new"/>
     </RelativeLayout>
 </RelativeLayout>

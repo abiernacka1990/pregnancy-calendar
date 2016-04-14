@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/about_app_margin">
+
+    <TextView
+        android:id="@+id/textview_rate_us"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/about_app_margin"
+        android:layout_marginBottom="@dimen/about_app_margin"
+        android:gravity="center_horizontal"
+        android:clickable="true"
+        android:textSize="@dimen/about_app_font"
+        android:text="@string/about_app_rate_us"/>
+
+    <ImageView
+        android:id="@+id/imageview_googleplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/google_play_logo"/>
+</LinearLayout>

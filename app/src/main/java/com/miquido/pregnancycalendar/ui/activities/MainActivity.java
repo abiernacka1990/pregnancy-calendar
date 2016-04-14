@@ -24,12 +24,13 @@ import com.miquido.pregnancycalendar.R;
 import com.miquido.pregnancycalendar.ui.decorators.PregnancyDayDecorator;
 import com.miquido.pregnancycalendar.ui.fragments.BaseFragment;
 import com.miquido.pregnancycalendar.ui.fragments.event.EventEditFragment;
-import com.miquido.pregnancycalendar.ui.fragments.main.DiaryFragment;
+import com.miquido.pregnancycalendar.ui.fragments.main.app.AboutAppFragment;
+import com.miquido.pregnancycalendar.ui.fragments.main.features.DiaryFragment;
 import com.miquido.pregnancycalendar.ui.fragments.main.dashboard.DashboardFragmentFactory;
-import com.miquido.pregnancycalendar.ui.fragments.main.EventsFragment;
+import com.miquido.pregnancycalendar.ui.fragments.main.features.EventsFragment;
 import com.miquido.pregnancycalendar.ui.fragments.main.MainFragment;
-import com.miquido.pregnancycalendar.ui.fragments.main.SettingsFragment;
-import com.miquido.pregnancycalendar.ui.fragments.main.WeightFragment;
+import com.miquido.pregnancycalendar.ui.fragments.main.app.SettingsFragment;
+import com.miquido.pregnancycalendar.ui.fragments.main.features.WeightFragment;
 import com.samsistemas.calendarview.widget.CalendarView;
 
 import java.util.ArrayList;
@@ -260,6 +261,8 @@ public class MainActivity extends AppCompatActivity
             return EventsFragment.newInstance(calendarView.getLastSelectedDay());
         } else if (id == R.id.nav_diary) {
             return DiaryFragment.newInstance();
+        } else if (id == R.id.nav_about_app) {
+            return AboutAppFragment.newInstance();
         } else {
             logNoItemFound(item);
             return null;
