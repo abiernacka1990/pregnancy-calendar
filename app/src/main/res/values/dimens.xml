@@ -47,4 +47,9 @@
     <dimen name="dashboard_empty_label_margin">32dp</dimen>
     <dimen name="dashboard_empty_label_margin_top">64dp</dimen>
     <dimen name="dashboard_empty_yes_margin_top">128dp</dimen>
+
+    <!-- Diary entry -->
+    <dimen name="diary_font">16sp</dimen>
+    <dimen name="diary_margin">@dimen/default_margin</dimen>
+    <dimen name="diary_margin_small">8dp</dimen>
 </resources>

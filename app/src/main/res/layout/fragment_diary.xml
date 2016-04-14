@@ -1,0 +1,44 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleview_entries"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/layout_new_entry"
+        android:scrollbars="vertical"/>
+
+    <RelativeLayout
+        android:id="@+id/layout_new_entry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/diary_margin"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white">
+
+        <ImageView
+            android:id="@+id/imageview_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="@dimen/diary_margin"
+            android:layout_marginStart="@dimen/diary_margin"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_letter"/>
+
+        <EditText
+            android:id="@+id/edittext_new_entry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@id/imageview_save"
+            android:layout_toStartOf="@id/imageview_save"
+            android:background="@android:color/transparent"/>
+    </RelativeLayout>
+</RelativeLayout>

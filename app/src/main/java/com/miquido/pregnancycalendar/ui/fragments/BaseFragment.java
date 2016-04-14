@@ -3,6 +3,11 @@ package com.miquido.pregnancycalendar.ui.fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
+
+import com.miquido.pregnancycalendar.ui.helpers.SimpleItemTouchHelperCallback;
 
 /**
  * Created by agnieszka on 03.11.15.
@@ -20,4 +25,12 @@ public abstract class BaseFragment extends Fragment {
     public void onBottomFloatingBtClick() {
 
     }
+
+    protected void setSwipe2DismissEnabled(RecyclerView recyclerView, com.miquido.pregnancycalendar.adapters.ItemTouchHelper itemTouchHelper) {
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(itemTouchHelper);
+        new ItemTouchHelper(callback).attachToRecyclerView(recyclerView);
+    }
+
 }

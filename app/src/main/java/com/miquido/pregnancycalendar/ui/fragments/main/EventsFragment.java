@@ -31,7 +31,6 @@ public class EventsFragment extends MainFragment implements EventsAdapter.OnItem
     private RecyclerView recyclerView;
 
     private EventsAdapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
     private long selectedDate;
 
     public EventsFragment() {
@@ -79,7 +78,7 @@ public class EventsFragment extends MainFragment implements EventsAdapter.OnItem
     private void initRecycleView() {
         initRecycleViewStyle();
         setAdapter();
-        setSwipe2DismissEnabled();
+        setSwipe2DismissEnabled(recyclerView, this);
     }
 
     private void setAdapter() {
@@ -87,17 +86,10 @@ public class EventsFragment extends MainFragment implements EventsAdapter.OnItem
         recyclerView.setAdapter(adapter);
     }
 
-    private void setSwipe2DismissEnabled() {
-        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(this);
-        new ItemTouchHelper(callback).attachToRecyclerView(recyclerView);
-    }
-
     private void initRecycleViewStyle() {
         RecyclerView.ItemDecoration itemDecoration = new
                 DividerItemDecoration(getContext().getResources());
         recyclerView.addItemDecoration(itemDecoration);
-        layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
     }
 
     @Override

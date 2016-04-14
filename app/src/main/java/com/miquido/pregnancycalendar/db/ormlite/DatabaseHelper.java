@@ -8,6 +8,7 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import com.miquido.pregnancycalendar.model.DiaryEntry;
 import com.miquido.pregnancycalendar.model.Event;
 import com.miquido.pregnancycalendar.model.Weight;
 
@@ -15,53 +16,36 @@ import java.sql.SQLException;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
-    /**
-     * name of the database file for application
-     */
     private static final String DATABASE_NAME = "pregnancyCalendar.db";
-    /**
-     * database version
-     */
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
-    /**
-     * the DAO object we use to access weight
-     */
     private Dao<Weight, Integer> weights = null;
-    /**
-     * the DAO object we use to access event
-     */
     private Dao<Event, Integer> events = null;
+    private Dao<DiaryEntry, Integer> diaryEntries = null;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    /**
-     * This is called when the database is first created. Usually you should call createTable statements here to create
-     * the tables that will store your data.
-     */
     @Override
     public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
         try {
             TableUtils.createTable(connectionSource, Weight.class);
             TableUtils.createTable(connectionSource, Event.class);
+            TableUtils.createTable(connectionSource, DiaryEntry.class);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
             throw new RuntimeException(e);
         }
     }
 
-    /**
-     * This is called when your application is upgraded and it has a higher version number. This allows you to adjust
-     * the various data to match the new version number.
-     */
     @Override
     public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
             Log.i(DatabaseHelper.class.getName(), "onUpgrade");
             TableUtils.dropTable(connectionSource, Weight.class, true);
             TableUtils.dropTable(connectionSource, Event.class, true);
+            TableUtils.dropTable(connectionSource, DiaryEntry.class, true);
             onCreate(db, connectionSource);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Can't drop databases", e);
@@ -69,10 +53,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
-    /**
-     * Returns the DAO for weights
-     * value.
-     */
     public Dao<Weight, Integer> getWeightInfoDao() throws SQLException {
         if (weights == null) {
             weights = getDao(Weight.class);
@@ -80,10 +60,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return weights;
     }
 
-    /**
-     * Returns the DAO for events
-     * value.
-     */
     public Dao<Event, Integer> getEventsDao() throws SQLException {
         if (events == null) {
             events = getDao(Event.class);
@@ -91,14 +67,17 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return events;
     }
 
-    /**
-     * Close the database connections and clear any cached DAOs.
-     */
+    public Dao<DiaryEntry, Integer> getDiaryEntriesDao() throws SQLException {
+        if (diaryEntries == null) {
+            diaryEntries = getDao(DiaryEntry.class);
+        }
+        return diaryEntries;
+    }
+
     @Override
     public void close() {
         super.close();
         weights = null;
         events = null;
     }
-
 }

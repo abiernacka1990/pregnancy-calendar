@@ -24,6 +24,7 @@ import com.miquido.pregnancycalendar.R;
 import com.miquido.pregnancycalendar.ui.decorators.PregnancyDayDecorator;
 import com.miquido.pregnancycalendar.ui.fragments.BaseFragment;
 import com.miquido.pregnancycalendar.ui.fragments.event.EventEditFragment;
+import com.miquido.pregnancycalendar.ui.fragments.main.DiaryFragment;
 import com.miquido.pregnancycalendar.ui.fragments.main.dashboard.DashboardFragmentFactory;
 import com.miquido.pregnancycalendar.ui.fragments.main.EventsFragment;
 import com.miquido.pregnancycalendar.ui.fragments.main.MainFragment;
@@ -257,6 +258,8 @@ public class MainActivity extends AppCompatActivity
             return WeightFragment.newInstance();
         } else if (id == R.id.nav_calendar) {
             return EventsFragment.newInstance(calendarView.getLastSelectedDay());
+        } else if (id == R.id.nav_diary) {
+            return DiaryFragment.newInstance();
         } else {
             logNoItemFound(item);
             return null;

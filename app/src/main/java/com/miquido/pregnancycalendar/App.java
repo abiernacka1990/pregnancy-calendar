@@ -2,13 +2,18 @@ package com.miquido.pregnancycalendar;
 
 import android.app.Application;
 
+import com.miquido.pregnancycalendar.db.DiaryEntriesRepository;
 import com.miquido.pregnancycalendar.db.EventsRepository;
 import com.miquido.pregnancycalendar.db.WeightRepository;
 import com.miquido.pregnancycalendar.db.fake.FakeEventRepository;
 import com.miquido.pregnancycalendar.db.fake.FakeWeightRepository;
+import com.miquido.pregnancycalendar.db.ormlite.OrmDiaryEntryRepository;
 import com.miquido.pregnancycalendar.db.ormlite.OrmEventRepository;
 import com.miquido.pregnancycalendar.db.ormlite.OrmWeightRepository;
+import com.miquido.pregnancycalendar.model.DiaryEntry;
 import com.miquido.pregnancycalendar.utils.DevelopProperties;
+
+import java.util.List;
 
 /**
  * Created by agnieszka on 03.11.15.
@@ -20,6 +25,7 @@ public class App extends Application {
     private static App instance;
     private WeightRepository weightRepository;
     private EventsRepository eventsRepository;
+    private DiaryEntriesRepository diaryEntriesRepository;
     private DevelopProperties properties = new DevelopProperties();
 
 
@@ -41,6 +47,7 @@ public class App extends Application {
         } else {
             eventsRepository = new OrmEventRepository(getApplicationContext());
         }
+        diaryEntriesRepository = new OrmDiaryEntryRepository(getApplicationContext());
     }
 
     public WeightRepository getWeightRepository() {
@@ -49,6 +56,10 @@ public class App extends Application {
 
     public EventsRepository getEventsRepository() {
         return eventsRepository;
+    }
+
+    public DiaryEntriesRepository getDiaryEntriesRepository() {
+        return diaryEntriesRepository;
     }
 
     public String getDefaultWeightUnit() {

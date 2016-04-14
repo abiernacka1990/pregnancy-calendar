@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/diary_margin"
+    android:layout_marginRight="@dimen/diary_margin"
+    android:layout_marginBottom="@dimen/diary_margin_small"
+    android:layout_marginTop="@dimen/diary_margin_small">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/texview_diary_entry_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/diary_margin"
+            android:textStyle="italic"
+            android:textSize="@dimen/diary_font"
+            android:layout_marginBottom="@dimen/diary_margin_small"/>
+
+        <TextView
+            android:id="@+id/texview_diary_entry_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/diary_margin"
+            android:textSize="@dimen/diary_font"/>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

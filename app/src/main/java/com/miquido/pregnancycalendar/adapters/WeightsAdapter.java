@@ -17,51 +17,33 @@ import java.util.List;
 /**
  * Created by agnieszka on 08.01.16.
  */
-public class WeightsAdapter extends RecyclerView.Adapter<WeightsAdapter.ViewHolder> {
+public class WeightsAdapter extends BaseRecycleViewAdapter<Weight, WeightsAdapter.ViewHolder> {
 
-    private List<Weight> weights = new ArrayList<>();
+    @Override
+    protected int getItemLayoutResId() {
+        return R.layout.item_weight;
+    }
 
-    public WeightsAdapter() {
+    protected ViewHolder getViewHolder(View view) {
+        return new ViewHolder(view);
     }
 
     @Override
-    public WeightsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_weight, parent, false);
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
-    }
-
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Weight weight = weights.get(position);
+    public void updateViewHolder(WeightsAdapter.ViewHolder holder, Weight weight) {
         String weightInfoText = holder.weightInfoTextView.getContext().getString(R.string.item_weight_text);
         String formattedWeightInfoText = String.format(weightInfoText, weight.getWeek(), weight.getWeight(), Preferences.getInstance().getWeightUnit());
         holder.weightInfoTextView.setText(formattedWeightInfoText);
     }
 
-    public void updateList(List<Weight> weights) {
-        this.weights.clear();
-        this.weights.addAll(weights);
-        Collections.sort(this.weights, (lhs, rhs) -> lhs.getWeek() - rhs.getWeek());
-        notifyDataSetChanged();
-    }
-
-    public Weight itemDissmissed(int position) {
-        Weight deletedItem = weights.get(position);
-        weights.remove(position);
-        notifyItemRemoved(position);
-        return deletedItem;
-    }
-
     @Override
-    public int getItemCount() {
-        return weights.size();
+    protected List<Weight> getPreparedListOfItems(List<Weight> weights) {
+        Collections.sort(weights, (lhs, rhs) -> lhs.getWeek() - rhs.getWeek());
+        return weights;
     }
 
     @Override
     public long getItemId(int i) {
-        return weights.get(i).getId();
+        return getItem(i).getId();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

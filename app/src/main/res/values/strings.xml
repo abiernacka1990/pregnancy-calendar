@@ -25,6 +25,7 @@
     <string name="menu_weight">Weight</string>
     <string name="menu_calendar">Calendar</string>
     <string name="menu_dashboard">Dashboard</string>
+    <string name="menu_diary">Diary</string>
 
     <!-- Settings -->
     <string name="settings_start_date">First day of pregnancy:</string>
