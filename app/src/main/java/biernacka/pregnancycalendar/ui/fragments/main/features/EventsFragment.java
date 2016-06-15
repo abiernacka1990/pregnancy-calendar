@@ -137,4 +137,9 @@ public class EventsFragment extends MainFragment implements EventsAdapter.OnItem
     public boolean isFabBottomVisible() {
         return false;
     }
+
+    @Override
+    public int getTitleRes() {
+        return R.string.title_calendar;
+    }
 }

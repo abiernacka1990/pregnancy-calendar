@@ -29,13 +29,14 @@
         <ImageView
             android:id="@+id/imageview_photo"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
 
         <EditText
             android:id="@+id/edittext_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/default_margin"
+            android:inputType="textCapSentences"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/white"
             android:background="@color/mdtp_transparent_black"

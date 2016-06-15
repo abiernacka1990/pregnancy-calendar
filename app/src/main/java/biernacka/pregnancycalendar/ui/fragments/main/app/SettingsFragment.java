@@ -141,12 +141,17 @@ public class SettingsFragment extends MainFragment implements DatePickerDialog.O
         return false;
     }
 
+    @Override
+    public int getTitleRes() {
+        return R.string.title_settings;
+    }
+
     public interface OnSettingsChangesListener {
         void onPlannedBirthDateChanged();
     }
 
-    private void savePlannedBirthDate(long plannedBirthDate) {
-        Preferences.getInstance().setPlannedBirthDate(plannedBirthDate);
+    private void savePlannedBirthDate(long startDateInMillis) {
+        Preferences.getInstance().setPlannedBirthDate(startDateInMillis);
         showPreferences();
     }
 

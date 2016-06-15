@@ -22,13 +22,23 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <!-- Titles -->
+    <string name="title_settings">Settings</string>
+    <string name="title_weight">Weight</string>
+    <string name="title_calendar">Calendar</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_diary">Diary</string>
+    <string name="title_about_app">About app</string>
+    <string name="title_add_photo">Photo</string>
+    <string name="title_dafault">@string/title_dashboard</string>
+
     <!-- Main menu -->
-    <string name="menu_settings">Settings</string>
-    <string name="menu_weight">Weight</string>
-    <string name="menu_calendar">Calendar</string>
-    <string name="menu_dashboard">Dashboard</string>
-    <string name="menu_diary">Diary</string>
-    <string name="menu_about_app">About app</string>
+    <string name="menu_settings">@string/title_settings</string>
+    <string name="menu_weight">@string/title_weight</string>
+    <string name="menu_calendar">@string/title_calendar</string>
+    <string name="menu_dashboard">@string/title_dashboard</string>
+    <string name="menu_diary">@string/title_diary</string>
+    <string name="menu_about_app">@string/title_about_app</string>
 
     <!-- Settings -->
     <string name="settings_birth_date">Planned date of birth:</string>

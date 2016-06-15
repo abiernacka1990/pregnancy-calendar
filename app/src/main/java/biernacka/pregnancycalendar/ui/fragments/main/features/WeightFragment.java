@@ -214,4 +214,9 @@ public class WeightFragment extends MainFragment implements NewWeightDialogFragm
     public boolean isFabBottomVisible() {
         return true;
     }
+
+    @Override
+    public int getTitleRes() {
+        return R.string.title_weight;
+    }
 }

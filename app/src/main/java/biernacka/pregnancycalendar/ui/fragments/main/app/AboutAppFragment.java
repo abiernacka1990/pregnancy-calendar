@@ -63,4 +63,9 @@ public class AboutAppFragment extends MainFragment {
     public boolean isFabBottomVisible() {
         return false;
     }
+
+    @Override
+    public int getTitleRes() {
+        return R.string.title_about_app;
+    }
 }

@@ -187,6 +187,7 @@ public class MainActivity extends AppCompatActivity
         MainFragment selectedFragment = getFragmentByNavDrawerItem(item);
 
         if (selectedFragment != null) {
+            setTitle(selectedFragment.getTitleRes());
             replaceFragmentAndCloseDrawer(selectedFragment);
             return true;
         } else {

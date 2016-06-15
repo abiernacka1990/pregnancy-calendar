@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import biernacka.pregnancycalendar.R;
 import biernacka.pregnancycalendar.model.DiaryEntry;
+import biernacka.pregnancycalendar.ui.helpers.ImageHelper;
 import biernacka.pregnancycalendar.utils.StringFormatter;
 
 import org.joda.time.DateTime;
@@ -95,7 +96,7 @@ public class DiaryEntriesAdapter extends BaseRecycleViewAdapter<DiaryEntry, Diar
             height = smallerImageDimension;
             width = Math.round(height * aspectRatio);
         }
-        return Bitmap.createScaledBitmap(bitmap, width, height, false);
+        return ImageHelper.decodeSampledBitmapFromFile(item.getImagePath(), width, height);
 
     }
 

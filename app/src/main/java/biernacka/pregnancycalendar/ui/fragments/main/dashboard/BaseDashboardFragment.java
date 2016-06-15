@@ -1,5 +1,6 @@
 package biernacka.pregnancycalendar.ui.fragments.main.dashboard;
 
+import biernacka.pregnancycalendar.R;
 import biernacka.pregnancycalendar.ui.fragments.main.MainFragment;
 
 /**
@@ -15,5 +16,10 @@ public abstract class BaseDashboardFragment extends MainFragment {
     @Override
     public boolean isFabBottomVisible() {
         return false;
+    }
+
+    @Override
+    public int getTitleRes() {
+        return R.string.title_dashboard;
     }
 }

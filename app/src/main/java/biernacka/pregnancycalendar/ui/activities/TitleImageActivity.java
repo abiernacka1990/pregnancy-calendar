@@ -27,6 +27,7 @@ public class TitleImageActivity extends AppCompatActivity {
 
     public static final String APP_IMAGES_DIR_NAME = "/PregnancyCalendar";
     public static String ARG_IMAGE_URI = "ARG_IMAGE_URI";
+    public static String ARG_IMAGE_TITLE = "ARG_IMAGE_TITLE";
     public static String ARG_IMAGE_BITMAP = "ARG_IMAGE_BITMAP";
     private ImageView photoImageView;
     private EditText titleEditText;
@@ -45,7 +46,15 @@ public class TitleImageActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         photoImageView = (ImageView) findViewById(R.id.imageview_photo);
         titleEditText = (EditText) findViewById(R.id.edittext_title);
+        setImageTitle();
         setImage();
+    }
+
+    private void setImageTitle() {
+        String imageTitle = getIntent().getStringExtra(ARG_IMAGE_TITLE);
+        if (imageTitle != null) {
+            titleEditText.setText(imageTitle);
+        }
     }
 
 

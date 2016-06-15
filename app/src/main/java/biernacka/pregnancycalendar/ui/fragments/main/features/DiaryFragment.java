@@ -142,12 +142,19 @@ public class DiaryFragment extends MainFragment implements ItemTouchHelper {
     private void startActivityToTitleImage(Bitmap selectedImage) {
         Intent titleImageIntent = new Intent(getContext(), TitleImageActivity.class);
         titleImageIntent.putExtra(TitleImageActivity.ARG_IMAGE_BITMAP, selectedImage);
+        titleImageIntent = appendImageTitleToIntent(titleImageIntent);
         startActivityForResult(titleImageIntent, REQUEST_TITLE_IMAGE);
+    }
+
+    private Intent appendImageTitleToIntent(Intent intent) {
+        intent.putExtra(TitleImageActivity.ARG_IMAGE_TITLE, newEntryEditText.getText().toString());
+        return intent;
     }
 
     private void startActivityToTitleImage(Uri selectedImage) {
         Intent titleImageIntent = new Intent(getContext(), TitleImageActivity.class);
         titleImageIntent.putExtra(TitleImageActivity.ARG_IMAGE_URI, selectedImage);
+        titleImageIntent = appendImageTitleToIntent(titleImageIntent);
         startActivityForResult(titleImageIntent, REQUEST_TITLE_IMAGE);
     }
 
@@ -238,6 +245,11 @@ public class DiaryFragment extends MainFragment implements ItemTouchHelper {
     @Override
     public boolean isFabBottomVisible() {
         return false;
+    }
+
+    @Override
+    public int getTitleRes() {
+        return R.string.title_diary;
     }
 
     @Override

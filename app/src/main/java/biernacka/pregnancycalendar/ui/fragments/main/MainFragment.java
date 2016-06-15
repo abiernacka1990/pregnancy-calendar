@@ -8,4 +8,6 @@ import biernacka.pregnancycalendar.ui.fragments.BaseFragment;
 public abstract class MainFragment extends BaseFragment {
     public abstract boolean isExpandedAppBarEnabled();
     public abstract boolean isFabBottomVisible();
+
+    public abstract int getTitleRes();
 }
