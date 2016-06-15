@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Pregnancy Calendar</string>
+    <string name="facebook_app_id">1588267688149933</string>
 
     <!-- Base -->
-    <string name="empty"/>
+    <string name="empty" />
+    <string name="ok_button_label">OK</string>
     <string name="unknown_date">\?\?/\?\?/\?\?</string>
     <string name="default_weight_unit">kg</string>
     <string name="save">Save</string>
@@ -29,7 +31,7 @@
     <string name="menu_about_app">About app</string>
 
     <!-- Settings -->
-    <string name="settings_start_date">First day of pregnancy:</string>
+    <string name="settings_birth_date">Planned date of birth:</string>
     <string name="settings_weight_unit">Unit of weight:</string>
 
     <!-- Weight information -->
@@ -62,10 +64,15 @@
 
 
     <!-- Empty dashboard -->
-    <string name="dashboard_empty_label">You haven\'t set first day of pregnancy yet.\n\nDo you want to do it now?</string>
+    <string name="dashboard_empty_label">You haven\'t set planned date of birth yet.\n\nDo you want to do it now?</string>
 
     <!-- Diary -->
-    <string name="fragment_diary_write_new">Write new note...</string>
+    <string name="fragment_diary_write_new">Write new note…</string>
+    <string-array name="diary_photo_src">
+        <item>Take a photo</item>
+        <item>Choose a photo</item>
+    </string-array>
+    <string name="write_image_title">Write title…</string>
 
     <!-- About app -->
     <string name="about_app_rate_us">Rate us on Google Play</string>

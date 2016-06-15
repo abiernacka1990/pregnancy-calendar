@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.miquido.pregnancycalendar.ui.activities.EventCreatorActivity">
+    tools:context="biernacka.pregnancycalendar.ui.activities.EventCreatorActivity">
     <item
         android:id="@+id/action_save"
         android:orderInCategory="100"

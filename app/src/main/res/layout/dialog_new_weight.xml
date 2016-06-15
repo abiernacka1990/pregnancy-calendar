@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="@dimen/new_weight_dialog_margin"
-    tools:context="com.miquido.pregnancycalendar.ui.fragments.dialog.NewWeightDialogFragment">
+    tools:context="biernacka.pregnancycalendar.ui.fragments.dialog.NewWeightDialogFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
