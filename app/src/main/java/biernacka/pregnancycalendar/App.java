@@ -11,6 +11,8 @@ import biernacka.pregnancycalendar.db.ormlite.OrmDiaryEntryRepository;
 import biernacka.pregnancycalendar.db.ormlite.OrmEventRepository;
 import biernacka.pregnancycalendar.db.ormlite.OrmWeightRepository;
 import biernacka.pregnancycalendar.utils.DevelopProperties;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by agnieszka on 03.11.15.
@@ -33,6 +35,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         instance = this;
         if (properties.useFakeWeightDatabase()) {
             weightRepository = new FakeWeightRepository();

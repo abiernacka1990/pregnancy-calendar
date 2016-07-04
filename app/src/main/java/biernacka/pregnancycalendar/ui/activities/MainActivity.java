@@ -31,6 +31,9 @@ import biernacka.pregnancycalendar.ui.fragments.main.features.EventsFragment;
 import biernacka.pregnancycalendar.ui.fragments.main.MainFragment;
 import biernacka.pregnancycalendar.ui.fragments.main.app.SettingsFragment;
 import biernacka.pregnancycalendar.ui.fragments.main.features.WeightFragment;
+
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.samsistemas.calendarview.widget.CalendarView;
 
 import java.util.ArrayList;
@@ -60,8 +63,14 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        logToFacebook();
         setContentView(R.layout.activity_main);
         initView(savedInstanceState);
+    }
+
+    private void logToFacebook() {
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
     }
 
     @Override

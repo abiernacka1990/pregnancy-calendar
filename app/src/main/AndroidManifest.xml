@@ -17,7 +17,7 @@
 
         <activity
             android:name="biernacka.pregnancycalendar.ui.activities.MainActivity"
-            android:label="@string/title_dafault"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -38,6 +38,13 @@
         <activity android:name="biernacka.pregnancycalendar.ui.activities.TitleImageActivity"
             android:label="@string/title_add_photo"
             android:theme="@style/AppTheme.NoActionBar" android:windowSoftInputMode="adjustResize"></activity>
+
+        <provider android:authorities="com.facebook.app.FacebookContentProvider1248913435128506"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true"/>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="5d2d2adf103fe283136064b90c29b0592d324d4e" />
     </application>
 
 </manifest>

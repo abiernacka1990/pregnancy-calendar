@@ -195,14 +195,13 @@ public class DiaryFragment extends MainFragment implements ItemTouchHelper {
 
     private void initAdapter() {
         setSwipe2DismissEnabled(recyclerView, this);
-        diaryEntriesAdapter = new DiaryEntriesAdapter(getContext());
+        diaryEntriesAdapter = new DiaryEntriesAdapter(getContext(), getActivity());
         refreshAdapter();
         //setSections();
     }
 
     private void refreshAdapter() {
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setAutoMeasureEnabled(false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setLayoutManager(linearLayoutManager);
