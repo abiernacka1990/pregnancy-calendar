@@ -76,6 +76,16 @@
     <!-- Empty dashboard -->
     <string name="dashboard_empty_label">You haven\'t set planned date of birth yet.\n\nDo you want to do it now?</string>
 
+    <!-- Dashboard -->
+    <string name="dashboard_calend_info_week_info" formatted="false">"%d %s of pregnancy, "</string>
+    <string name="dashboard_calend_info_day_info" formatted="false">%d %s %s planned date of birth</string>
+    <string name="dashboard_calend_info_days">days</string>
+    <string name="dashboard_calend_info_day">day</string>
+    <string name="dashboard_calend_info_week">week</string>
+    <string name="dashboard_calend_info_weeks">weeks</string>
+    <string name="dashboard_calend_info_after">after</string>
+    <string name="dashboard_calend_info_before">before</string>
+
     <!-- Diary -->
     <string name="fragment_diary_write_new">Write new note…</string>
     <string-array name="diary_photo_src">

@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="horizontal"
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="@dimen/default_margin">
 
-    <TextView
-        android:id="@+id/textview_week"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="30 tydzień ciąży"
-        android:layout_marginBottom="@dimen/default_margin"/>
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/dash_calend_padding_left"
+        android:paddingRight="@dimen/dash_calend_padding_right"
+        android:paddingTop="@dimen/dash_calend_padding_top"
+        android:paddingBottom="@dimen/dash_calend_padding_bottom"
+        android:background="@drawable/dashboard_calendar_bg">
 
-    <ImageView
-        android:id="@+id/imageview_heart"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@drawable/ic_heart"
-        android:tint="@color/colorPrimaryDark"
-        android:layout_below="@id/textview_week"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        <TextView
+            android:id="@+id/textview_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textSize="@dimen/dash_font_day"
+            tools:text="15 marca 2015"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textview_week"
-        android:layout_toRightOf="@+id/imageview_heart"
-        android:layout_marginLeft="@dimen/default_margin"
-        tools:text="3 dni do porodu"/>
+        <TextView
+            android:id="@+id/textview_calend_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dash_calend_info_margin_top"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/dash_font_small"
+            tools:text="(3 dni do porodu, 30 tydzień ciąży)"/>
+    </LinearLayout>
 
 
-</RelativeLayout>
+</LinearLayout>

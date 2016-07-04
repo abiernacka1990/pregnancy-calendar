@@ -58,4 +58,13 @@
     <!-- About app -->
     <dimen name="about_app_margin">@dimen/default_margin</dimen>
     <dimen name="about_app_font">24sp</dimen>
+
+    <!-- Dashboard -->
+    <dimen name="dash_calend_padding_left">32dp</dimen>
+    <dimen name="dash_calend_padding_right">32dp</dimen>
+    <dimen name="dash_calend_padding_top">40dp</dimen>
+    <dimen name="dash_calend_padding_bottom">32dp</dimen>
+    <dimen name="dash_font_small">14sp</dimen>
+    <dimen name="dash_font_day">30sp</dimen>
+    <dimen name="dash_calend_info_margin_top">8dp</dimen>
 </resources>
