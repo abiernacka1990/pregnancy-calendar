@@ -19,6 +19,7 @@ import biernacka.pregnancycalendar.App;
 import biernacka.pregnancycalendar.R;
 import biernacka.pregnancycalendar.model.Weight;
 import biernacka.pregnancycalendar.ui.helpers.PregnancyDatesHelper;
+import biernacka.pregnancycalendar.utils.DatesHelper;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -98,9 +99,9 @@ public class NewWeightDialogFragment extends DialogFragment {
         ArrayAdapter<Integer> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, weeks);
         spinnerWeek.setAdapter(adapter);
 
-        long now = Calendar.getInstance().getTimeInMillis();
-        if (PregnancyDatesHelper.isInPregnancyTime(now)) {
-            int week = PregnancyDatesHelper.getWeek(now);
+        long today = DatesHelper.today().getMillis();
+        if (PregnancyDatesHelper.isTodayPregnancyTime()) {
+            int week = PregnancyDatesHelper.getWeek(today);
             spinnerWeek.setSelection(week);
         }
     }

@@ -41,4 +41,9 @@ public class FakeWeightRepository implements WeightRepository {
     public int updateSpecifiedWeek(Weight weight) {
         return 0;
     }
+
+    @Override
+    public double getWeightForWeek(int week) throws Exception {
+        return 0;
+    }
 }

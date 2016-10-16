@@ -25,7 +25,7 @@ public abstract class BaseFragment extends Fragment {
 
     }
 
-    protected void setSwipe2DismissEnabled(RecyclerView recyclerView, biernacka.pregnancycalendar.adapters.ItemTouchHelper itemTouchHelper) {
+    protected void setSwipe2DismissEnabled(RecyclerView recyclerView, biernacka.pregnancycalendar.adapters.helper.ItemTouchHelper itemTouchHelper) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(itemTouchHelper);

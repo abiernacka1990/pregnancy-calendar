@@ -90,4 +90,9 @@ public class OrmWeightRepository implements WeightRepository {
         }
         return false;
     }
+
+    @Override
+    public double getWeightForWeek(int week) throws Exception {
+        return weights.queryBuilder().where().eq(Weight.WEEK_FIELD_NAME, week).query().get(0).getWeight();
+    }
 }

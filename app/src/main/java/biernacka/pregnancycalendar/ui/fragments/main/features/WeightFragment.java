@@ -35,7 +35,7 @@ import java.util.List;
  * Use the {@link WeightFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WeightFragment extends MainFragment implements NewWeightDialogFragment.NewWeightListener, biernacka.pregnancycalendar.adapters.ItemTouchHelper {
+public class WeightFragment extends MainFragment implements NewWeightDialogFragment.NewWeightListener, biernacka.pregnancycalendar.adapters.helper.ItemTouchHelper {
 
     private static final String DIALOG_NEW_WEIGHT = "DIALOG_NEW_WEIGHT";
 

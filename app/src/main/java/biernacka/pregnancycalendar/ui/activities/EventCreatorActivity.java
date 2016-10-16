@@ -151,9 +151,9 @@ public class EventCreatorActivity extends AppCompatActivity {
     }
 
     private void setEventInfo() {
-        String title = event.getEventTitle(this);
-        headerTitleTextView.setText(title);
-        headerTitleEditText.setText(title);
+        String titleToShow = event.getEventTitleToShow(this);
+        headerTitleTextView.setText(titleToShow);
+        headerTitleEditText.setText(event.getTitle());
     }
 
 

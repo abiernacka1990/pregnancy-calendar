@@ -45,4 +45,9 @@ public class FakeEventRepository implements EventsRepository {
     public List<Event> getAllEventsForSpecifiedDay(long date) {
         return null;
     }
+
+    @Override
+    public List<Event> findUpcomingEvents(long date, long numberOfEvents) {
+        return null;
+    }
 }

@@ -106,7 +106,7 @@ public class Event {
         return new DateTime(startDate);
     }
 
-    public String getEventTitle(Context context) {
+    public String getEventTitleToShow(Context context) {
        return title == null || title.isEmpty() ? context.getString(R.string.default_event_title) : title;
     }
 

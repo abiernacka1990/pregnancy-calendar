@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.share.ShareApi;
-import com.facebook.share.model.ShareHashtag;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareDialog;
@@ -33,11 +32,9 @@ import java.io.File;
  */
 public class DiaryEntriesAdapter extends BaseRecycleViewAdapter<DiaryEntry, DiaryEntriesAdapter.ViewHolder> {
 
-    private int smallerImageDimension;
     private Activity activity;
 
-    public DiaryEntriesAdapter(Context context, Activity activity) {
-        smallerImageDimension = (int) context.getResources().getDimension(R.dimen.diary_image_smaller_size);
+    public DiaryEntriesAdapter(Activity activity) {
         this.activity = activity;
     }
 
@@ -54,7 +51,7 @@ public class DiaryEntriesAdapter extends BaseRecycleViewAdapter<DiaryEntry, Diar
     @Override
     protected void updateViewHolder(ViewHolder holder, DiaryEntry item) {
 
-        Bitmap image = getBitmap(item);
+        Bitmap image = ImageHelper.getBitmap(item, activity);
         setText(holder, item);
         setDate(holder, item);
         setImage(holder, item, image);
@@ -77,7 +74,7 @@ public class DiaryEntriesAdapter extends BaseRecycleViewAdapter<DiaryEntry, Diar
     }
 
     private void setImage(ViewHolder holder, DiaryEntry item, Bitmap image) {
-        if (item.getImagePath() == null) {
+        if (item.getImagePath() == null || image == null) {
             holder.photoImageView.setVisibility(View.GONE);
         } else {
             holder.photoImageView.setVisibility(View.VISIBLE);
@@ -98,21 +95,9 @@ public class DiaryEntriesAdapter extends BaseRecycleViewAdapter<DiaryEntry, Diar
         }
     }
 
-    @Nullable
-    private Bitmap getBitmap(DiaryEntry item) {
-        Bitmap image = null;
-        try {
-            image = getImageBitmap(item);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return image;
-    }
-
     private void shareToFbEntry(Bitmap image, String text) {
         SharePhoto photo = new SharePhoto.Builder()
                 .setBitmap(image)
-                .setCaption(text)
                 .build();
         SharePhotoContent shareContent = new SharePhotoContent.Builder()
                 .addPhoto(photo)
@@ -145,23 +130,6 @@ public class DiaryEntriesAdapter extends BaseRecycleViewAdapter<DiaryEntry, Diar
             e.printStackTrace();
         }
         return null;
-    }
-
-    private Bitmap getImageBitmap(DiaryEntry item) throws Exception {
-        int width, height;
-        Bitmap bitmap = BitmapFactory.decodeFile(item.getImagePath());
-        int originalBitmapWidth = bitmap.getWidth();
-        int originalBitmapHeight = bitmap.getHeight();
-        float aspectRatio =  originalBitmapWidth / (float) originalBitmapHeight;
-        if (originalBitmapHeight > originalBitmapWidth) {
-            width = smallerImageDimension;
-            height = Math.round(width / aspectRatio);
-        } else {
-            height = smallerImageDimension;
-            width = Math.round(height * aspectRatio);
-        }
-        return ImageHelper.decodeSampledBitmapFromFile(item.getImagePath(), width, height);
-
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

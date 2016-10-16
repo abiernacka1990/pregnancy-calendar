@@ -119,7 +119,7 @@ public class TitleImageActivity extends AppCompatActivity {
 
     @NonNull
     private File getImageFile() {
-        String root = Environment.getExternalStorageDirectory().toString();
+        String root = getExternalFilesDir(null).toString();
         File imagesDir = new File(root + APP_IMAGES_DIR_NAME);
         imagesDir.mkdirs();
         String fileName = "Image-" + Calendar.getInstance().getTimeInMillis() + ".jpg";

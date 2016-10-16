@@ -1,39 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="@dimen/default_margin">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/dash_calend_padding_left"
-        android:paddingRight="@dimen/dash_calend_padding_right"
-        android:paddingTop="@dimen/dash_calend_padding_top"
-        android:paddingBottom="@dimen/dash_calend_padding_bottom"
-        android:background="@drawable/dashboard_calendar_bg">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textview_date"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textSize="@dimen/dash_font_day"
-            tools:text="15 marca 2015"/>
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/dash_calend_padding_left"
+            android:paddingRight="@dimen/dash_calend_padding_right"
+            android:paddingTop="@dimen/dash_calend_padding_top"
+            android:paddingBottom="@dimen/dash_calend_padding_bottom"
+            android:background="@drawable/dashboard_calendar_bg">
 
-        <TextView
-            android:id="@+id/textview_calend_info"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/textview_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/dash_font_day"
+                tools:text="15 marca 2015"/>
+
+            <TextView
+                android:id="@+id/textview_calend_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dash_calend_info_margin_top"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/dash_font_small"
+                tools:text="(3 dni do porodu, 30 tydzień ciąży)"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/layout_weight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true">
+
+                <ImageView
+                    android:id="@+id/imageview_weight"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/default_margin"
+                    android:src="@mipmap/ic_weight"/>
+
+                <TextView
+                    android:id="@+id/textview_weight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/dash_font_small"
+                    android:layout_toRightOf="@id/imageview_weight"
+                    android:layout_centerVertical="true"
+                    tools:text="sdfsdf"/>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/dash_calend_info_margin_top"
-            android:gravity="center_horizontal"
-            android:textSize="@dimen/dash_font_small"
-            tools:text="(3 dni do porodu, 30 tydzień ciąży)"/>
+            android:layout_marginTop="@dimen/default_margin">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/layout_events"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:id="@+id/imageview_events"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="@dimen/default_margin"
+                        android:src="@mipmap/ic_calendar"/>
+
+                    <TextView
+                        android:id="@+id/textview_events"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/dash_font_small"
+                        android:layout_toRightOf="@id/imageview_events"
+                        android:layout_centerVertical="true"
+                        tools:text="Nadchodzące wydarzenia:"/>
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/layout_upcoming_events"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/default_margin"
+                    android:layout_marginLeft="48dp"
+                    android:scrollbars="none"/>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/layout_diary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:id="@+id/imageview_diary"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="@dimen/default_margin"
+                        android:src="@drawable/ic_diary"/>
+
+                    <TextView
+                        android:id="@+id/textview_diary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/dash_font_small"
+                        android:layout_toRightOf="@id/imageview_diary"
+                        android:layout_centerVertical="true"/>
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/texview_dashboard_diary_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/diary_margin"
+                    android:layout_marginRight="@dimen/diary_margin"
+                    android:layout_marginTop="@dimen/diary_margin"
+                    android:layout_marginBottom="@dimen/diary_margin_small"
+                    android:textStyle="italic"
+                    android:textSize="@dimen/diary_font"/>
+
+                <ImageView
+                    android:id="@+id/imageview_diary_entry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/diary_margin"
+                    android:layout_marginRight="@dimen/diary_margin"
+                    android:layout_marginBottom="@dimen/diary_margin_small"
+                    android:adjustViewBounds="true"
+                    android:layout_gravity="left"/>
+
+                <TextView
+                    android:id="@+id/texview_dashboard_diary_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/diary_margin"
+                    android:textSize="@dimen/diary_font"/>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
     </LinearLayout>
-
-
-</LinearLayout>
+</ScrollView>

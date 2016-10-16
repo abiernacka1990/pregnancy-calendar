@@ -3,8 +3,9 @@ package biernacka.pregnancycalendar.ui.helpers;
 import android.graphics.Canvas;
 import android.support.v7.widget.RecyclerView;
 
-import biernacka.pregnancycalendar.adapters.EventsAdapter;
-import biernacka.pregnancycalendar.adapters.ItemTouchHelper;
+import biernacka.pregnancycalendar.adapters.events.BaseEventsAdapter;
+import biernacka.pregnancycalendar.adapters.events.DateEventsAdapter;
+import biernacka.pregnancycalendar.adapters.helper.ItemTouchHelper;
 
 /**
  * Created by agnieszka on 08.01.16.
@@ -34,7 +35,7 @@ public class SimpleItemTouchHelperCallback extends android.support.v7.widget.hel
     public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
         int dragFlags = android.support.v7.widget.helper.ItemTouchHelper.UP | android.support.v7.widget.helper.ItemTouchHelper.DOWN;
         int swipeFlags = android.support.v7.widget.helper.ItemTouchHelper.START | android.support.v7.widget.helper.ItemTouchHelper.END;
-        if (viewHolder instanceof EventsAdapter.HeaderViewHolder) {
+        if (viewHolder instanceof DateEventsAdapter.HeaderViewHolder) {
             dragFlags = 0;
             swipeFlags = 0;
         }

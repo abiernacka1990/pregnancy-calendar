@@ -16,4 +16,6 @@ public interface WeightRepository extends BaseRepository<Weight> {
     boolean exist(int week);
 
     int updateSpecifiedWeek(Weight weight);
+
+    double getWeightForWeek(int week) throws Exception;
 }

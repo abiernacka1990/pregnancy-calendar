@@ -68,4 +68,19 @@ public class OrmDiaryEntryRepository implements DiaryEntriesRepository {
         }
         return null;
     }
+
+    @Override
+    public DiaryEntry getRecentEntry() {
+        try {
+            List<DiaryEntry> list = diaryEntries.queryBuilder().limit(1).orderBy(DiaryEntry.DATE_FIELD_NAME, false).query();
+            if (list == null || list.isEmpty()) {
+                return null;
+            } else {
+                return list.get(0);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

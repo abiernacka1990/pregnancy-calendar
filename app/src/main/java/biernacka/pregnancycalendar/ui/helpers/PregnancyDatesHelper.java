@@ -1,5 +1,8 @@
 package biernacka.pregnancycalendar.ui.helpers;
 
+import org.joda.time.DateTime;
+
+import biernacka.pregnancycalendar.utils.DatesHelper;
 import biernacka.pregnancycalendar.utils.Preferences;
 
 /**
@@ -12,9 +15,11 @@ public final class PregnancyDatesHelper {
 
     public static int getWeek(long date) {
 
-        long timeDiff = getTimeDiff(getPlannedBirthDate(), date);
+        DateTime dateTime = new DateTime(date).withTimeAtStartOfDay();
 
-        if (isInPregnancyTime(date)) {
+        long timeDiff = getTimeDiff(getPlannedBirthDate(), dateTime.getMillis());
+
+        if (isInPregnancyTime(dateTime.getMillis())) {
             int week = ALL_PREGNANCY_WEEKS - (int) (timeDiff / WEEK_TIME_IN_MILLIS);
             return week;
         } else {
@@ -22,14 +27,19 @@ public final class PregnancyDatesHelper {
         }
     }
 
-    public static  boolean isInPregnancyTime(long date) {
+    public static boolean isTodayPregnancyTime() {
+        return isInPregnancyTime(DatesHelper.today().getMillis());
+    }
+
+    public static boolean isInPregnancyTime(long date) {
 
         if(!isPlannedBirthDateSet()) {
             return false;
         }
 
-        long timeDiff = getTimeDiff(getPlannedBirthDate(), date);
-        return timeDiff >=0 && timeDiff <= (WEEK_TIME_IN_MILLIS * 40);
+        DateTime dateTime = new DateTime(date).withTimeAtStartOfDay();
+        long timeDiff = getTimeDiff(getPlannedBirthDate(), dateTime.getMillis());
+        return timeDiff >=0 && timeDiff <= (WEEK_TIME_IN_MILLIS * ALL_PREGNANCY_WEEKS);
     }
 
     private static boolean isPlannedBirthDateSet() {

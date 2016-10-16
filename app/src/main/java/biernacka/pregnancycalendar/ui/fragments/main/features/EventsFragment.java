@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 
 import biernacka.pregnancycalendar.App;
 import biernacka.pregnancycalendar.R;
-import biernacka.pregnancycalendar.adapters.EventsAdapter;
+import biernacka.pregnancycalendar.adapters.events.BaseEventsAdapter;
+import biernacka.pregnancycalendar.adapters.events.DateEventsAdapter;
+import biernacka.pregnancycalendar.adapters.helper.ItemTouchHelper;
 import biernacka.pregnancycalendar.model.Event;
 import biernacka.pregnancycalendar.ui.activities.EventCreatorActivity;
 import biernacka.pregnancycalendar.ui.activities.MainActivity;
@@ -20,13 +22,13 @@ import biernacka.pregnancycalendar.ui.fragments.main.MainFragment;
 
 import java.util.Date;
 
-public class EventsFragment extends MainFragment implements EventsAdapter.OnItemClickListener, biernacka.pregnancycalendar.adapters.ItemTouchHelper {
+public class EventsFragment extends MainFragment implements BaseEventsAdapter.OnItemClickListener, ItemTouchHelper {
 
     public static final String ARG_SELECTED_DATE = "ARG_SELECTED_DATE";
 
     private RecyclerView recyclerView;
 
-    private EventsAdapter adapter;
+    private DateEventsAdapter adapter;
     private long selectedDate;
 
     public EventsFragment() {
@@ -78,7 +80,7 @@ public class EventsFragment extends MainFragment implements EventsAdapter.OnItem
     }
 
     private void setAdapter() {
-        adapter = new EventsAdapter(getContext(), selectedDate, this);
+        adapter = new DateEventsAdapter(getContext(), selectedDate, this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -101,8 +103,9 @@ public class EventsFragment extends MainFragment implements EventsAdapter.OnItem
     }
 
     private void updateEventList() {
-        adapter.setDateAnfFindEvents(selectedDate);
+        adapter.setDateAndFindEvents(selectedDate);
         recyclerView.setAdapter(adapter);
+        ((MainActivity) getActivity()).refreshCalendar();
     }
 
     @Override

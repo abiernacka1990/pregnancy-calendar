@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">Pregnancy Calendar</string>
-    <string name="facebook_app_id">1248913435128506</string>
+    <string name="facebook_app_id" translatable="false">1248913435128506</string>
 
     <!-- Base -->
-    <string name="empty" />
-    <string name="ok_button_label">OK</string>
-    <string name="unknown_date">\?\?/\?\?/\?\?</string>
-    <string name="default_weight_unit">kg</string>
+    <string name="empty" translatable="false" />
+    <string name="ok_button_label" translatable="false">OK</string>
+    <string name="unknown_date" translatable="false">\?\?/\?\?/\?\?</string>
+    <string name="default_weight_unit" translatable="false">kg</string>
     <string name="save">Save</string>
     <string name="incorrect_value">Incorrect value</string>
     <string name="yes">Yes</string>
@@ -30,15 +30,15 @@
     <string name="title_diary">Diary</string>
     <string name="title_about_app">About app</string>
     <string name="title_add_photo">Photo</string>
-    <string name="title_dafault">@string/title_dashboard</string>
+    <string name="title_dafault" translatable="false">@string/title_dashboard</string>
 
     <!-- Main menu -->
-    <string name="menu_settings">@string/title_settings</string>
-    <string name="menu_weight">@string/title_weight</string>
-    <string name="menu_calendar">@string/title_calendar</string>
-    <string name="menu_dashboard">@string/title_dashboard</string>
-    <string name="menu_diary">@string/title_diary</string>
-    <string name="menu_about_app">@string/title_about_app</string>
+    <string name="menu_settings" translatable="false">@string/title_settings</string>
+    <string name="menu_weight" translatable="false">@string/title_weight</string>
+    <string name="menu_calendar" translatable="false">@string/title_calendar</string>
+    <string name="menu_dashboard" translatable="false">@string/title_dashboard</string>
+    <string name="menu_diary" translatable="false">@string/title_diary</string>
+    <string name="menu_about_app" translatable="false">@string/title_about_app</string>
 
     <!-- Settings -->
     <string name="settings_birth_date">Planned date of birth:</string>
@@ -46,8 +46,8 @@
 
     <!-- Weight information -->
     <string name="weight_title">Weight gain in the subsequent weeks of pregnancy</string>
-    <string name="weight_no_data">You did not added any information about weight yet.</string>
-    <string name="weight_snackbar_item_removed">Item was removed.</string>
+    <string name="weight_no_data">You haven\'t added any information about your weight yet.</string>
+    <string name="weight_snackbar_item_removed">Item removed.</string>
     <string name="weight_snackbar_click_to_cancel">Click to cancel.</string>
 
     <!-- Weight information: DialogFragment to add new info -->
@@ -57,19 +57,18 @@
     <string name="dialog_confirm_updating_data_message">Information about your weight in this week already exists. Do you want to overwrite it?</string>
 
     <!-- Item weight -->
-    <string name="item_weight_text" formatted="false">%d. week: %f %s</string>
+    <string name="item_weight_text" formatted="false">%d. week: %.2f %s</string>
 
     <!-- Events list -->
-    <string name="eventlist_header_without_week" formatted="false">%s</string>
     <string name="eventlist_header_with_week" formatted="false">%s - %d. week</string>
     <string name="eventlist_subtitle_in">in: </string>
 
     <!-- Event creator -->
-    <string name="event_creator_title_activity">@string/empty</string>
+    <string name="event_creator_title_activity" translatable="false">@string/empty</string>
     <string name="event_creator_title_hint">Write title…</string>
     <string name="event_edit_add_note">Add note…</string>
     <string name="event_edit_add_address">Add address…</string>
-    <string name="event_snackbar_item_removed">Item was removed.</string>
+    <string name="event_snackbar_item_removed">Item removed.</string>
     <string name="event_snackbar_click_to_cancel">Click to cancel.</string>
 
 
@@ -77,17 +76,22 @@
     <string name="dashboard_empty_label">You haven\'t set planned date of birth yet.\n\nDo you want to do it now?</string>
 
     <!-- Dashboard -->
-    <string name="dashboard_calend_info_week_info" formatted="false">"%d %s of pregnancy, "</string>
+    <string name="dashboard_calend_info_week_info" formatted="false">"%d week of pregnancy, "</string>
     <string name="dashboard_calend_info_day_info" formatted="false">%d %s %s planned date of birth</string>
     <string name="dashboard_calend_info_days">days</string>
+    <string name="dashboard_calend_info_big_day">The Big Day is Today!</string>
     <string name="dashboard_calend_info_day">day</string>
-    <string name="dashboard_calend_info_week">week</string>
-    <string name="dashboard_calend_info_weeks">weeks</string>
     <string name="dashboard_calend_info_after">after</string>
     <string name="dashboard_calend_info_before">before</string>
+    <string name="dashboard_weight_add">You haven\'t added your weight in the current week yet. Let\'s do this now!</string>
+    <string name="dashboard_weight" formatted="false">Your weight in the current week: %.2f.</string>
+    <string name="dashboard_upcoming_events">Upcoming events:</string>
+    <string name="dashboard_no_upcoming_events">No upcoming events. Click to add a new one.</string>
+    <string name="dashboard_recent_diary_entry">Latest entry in your diary:</string>
+    <string name="dashboard_no_diary_entries">No entries in the diary. Click to add a new one.</string>
 
     <!-- Diary -->
-    <string name="fragment_diary_write_new">Write new note…</string>
+    <string name="fragment_diary_write_new">Write a new note…</string>
     <string-array name="diary_photo_src">
         <item>Take a photo</item>
         <item>Choose a photo</item>

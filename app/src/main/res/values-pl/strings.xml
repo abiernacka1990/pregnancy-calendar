@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kalendarz ciąży</string>
+    <string name="about_app_rate_us">Oceń nas na Google Play</string>
+    <string name="action_add_to_calendar">Dodaj do kalendarza</string>
+    <string name="action_delete">Usuń</string>
+    <string name="action_save">Zapisz</string>
+    <string name="cancel">Anuluj</string>
+    <string name="dashboard_calend_info_after">po</string>
+    <string name="dashboard_calend_info_before">przed</string>
+    <string name="dashboard_calend_info_big_day">Dziś jest Wielki Dzień!</string>
+    <string name="dashboard_calend_info_day">dzień</string>
+    <string name="dashboard_calend_info_day_info" formatted="false">%d %s %s planowanym porodem</string>
+    <string name="dashboard_calend_info_days">dni</string>
+    <string name="dashboard_calend_info_week_info" formatted="false">"%d tydzień ciąży, "</string>
+    <string name="dashboard_empty_label">Nie ustawiłaś jeszcze planowanej daty porodu.\n\nCzy chciałabyś zrobić to teraz?</string>
+    <string name="dashboard_no_diary_entries">Brak wpisów w pamiętniku. Kliknij by dodać nowy wpis.</string>
+    <string name="dashboard_no_upcoming_events">Brak nadchodzących wydarzeń. Kliknij by dodać nowe wydarzenie.</string>
+    <string name="dashboard_recent_diary_entry">Ostatni wpis w pamiętniku.</string>
+    <string name="dashboard_upcoming_events">Nadchodzące wydarzenia:</string>
+    <string name="dashboard_weight" formatted="false">Twoja waga w aktualnym tygodniu: %.2f.</string>
+    <string name="dashboard_weight_add">Nie dodałaś jeszcze wagi dla aktualnego tygodnia. Zrób to teraz!</string>
+    <string name="default_event_title">(Brak tytułu)</string>
+    <string name="dialog_confirm_updating_data_message">Informacja o Twojej wadze dla danego tygodnia już istnieje. Czy chcesz ją zmienić?</string>
+    <string name="dialog_new_weight_title">Dodaj nową wagę</string>
+    <string name="dialog_new_weight_week_of_pregnancy">Tydzień ciąży:</string>
+    <string name="dialog_new_weight_weight" formatted="false">Waga [%s]:</string>
+    <string name="event_creator_title_hint">Wpisz tytuł...</string>
+    <string name="yes">Tak</string>
+    <string name="write_image_title">Wpisz tytuł…</string>
+    <string name="weight_title"> Przyrost masy ciała w kolejnych tygodniach ciąży</string>
+    <string name="weight_snackbar_item_removed">Element został usunięty.</string>
+    <string name="weight_snackbar_click_to_cancel">Kliknij aby anulować.</string>
+    <string name="weight_no_data">Nie dodałaś jeszcze żadnych informacji o wadze.</string>
+    <string name="title_weight">Waga</string>
+    <string name="title_settings">Ustawienia</string>
+    <string name="title_diary">Pamiętnik</string>
+    <string name="title_dashboard">Tablica</string>
+    <string name="title_calendar">Kalendarz</string>
+    <string name="title_add_photo">Zdjęcie</string>
+    <string name="title_about_app">O aplikacji</string>
+    <string name="settings_weight_unit">Jendostka wagi:</string>
+    <string name="settings_birth_date">Planowany dzień porodu:</string>
+    <string name="save">Zapisz</string>
+    <string name="navigation_drawer_open">Otwórz menu</string>
+    <string name="navigation_drawer_close">Zamknij menu</string>
+    <string name="item_weight_text" formatted="false">%d. tydzień: %.2f %s</string>
+    <string name="incorrect_value">Niepoprawna wartość</string>
+    <string name="fragment_diary_write_new">Dodaj nową notatkę</string>
+    <string name="eventlist_subtitle_in">w:</string>
+    <string name="eventlist_header_with_week" formatted="false">%s - %d. tydzień</string>
+    <string name="event_snackbar_item_removed">Element został usunięty.</string>
+    <string name="event_snackbar_click_to_cancel">Kliknij by anulować.</string>
+    <string name="event_edit_add_note">Dodaj notatkę…</string>
+    <string name="event_edit_add_address">Dodaj adres…</string>
+
+    <string-array name="diary_photo_src">
+        <item>Zrób zdjęcie</item>
+        <item>Wybierz zdjęcie</item>
+    </string-array>
+</resources>

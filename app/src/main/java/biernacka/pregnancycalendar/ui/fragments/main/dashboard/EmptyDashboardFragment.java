@@ -30,7 +30,7 @@ public class EmptyDashboardFragment extends BaseDashboardFragment {
         mainView.findViewById(R.id.imageview_dashboard_yes).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) getActivity()).goToSettings();
+                ((MainActivity) getActivity()).selectSettingsFragment();
             }
         });
     }

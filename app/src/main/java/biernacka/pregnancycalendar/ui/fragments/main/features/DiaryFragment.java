@@ -20,18 +20,15 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import java.util.Calendar;
+
 import biernacka.pregnancycalendar.App;
 import biernacka.pregnancycalendar.R;
 import biernacka.pregnancycalendar.adapters.DiaryEntriesAdapter;
-import biernacka.pregnancycalendar.adapters.ItemTouchHelper;
-import biernacka.pregnancycalendar.adapters.SimpleSectionedRecyclerViewAdapter;
+import biernacka.pregnancycalendar.adapters.helper.ItemTouchHelper;
 import biernacka.pregnancycalendar.model.DiaryEntry;
 import biernacka.pregnancycalendar.ui.activities.TitleImageActivity;
 import biernacka.pregnancycalendar.ui.fragments.main.MainFragment;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 /**
  * Created by agnieszka on 13.04.16.
@@ -195,7 +192,7 @@ public class DiaryFragment extends MainFragment implements ItemTouchHelper {
 
     private void initAdapter() {
         setSwipe2DismissEnabled(recyclerView, this);
-        diaryEntriesAdapter = new DiaryEntriesAdapter(getContext(), getActivity());
+        diaryEntriesAdapter = new DiaryEntriesAdapter(getActivity());
         refreshAdapter();
         //setSections();
     }
@@ -207,26 +204,6 @@ public class DiaryFragment extends MainFragment implements ItemTouchHelper {
         recyclerView.setLayoutManager(linearLayoutManager);
         diaryEntriesAdapter.updateList(App.getInstance().getDiaryEntriesRepository().getAll());
         recyclerView.setAdapter(diaryEntriesAdapter);
-    }
-
-
-    //FIXME: add sections?
-    private void setSections() {
-        List<SimpleSectionedRecyclerViewAdapter.Section> sections =
-                new ArrayList<SimpleSectionedRecyclerViewAdapter.Section>();
-
-        //Sections
-        sections.add(new SimpleSectionedRecyclerViewAdapter.Section(0,"Section 1"));
-        sections.add(new SimpleSectionedRecyclerViewAdapter.Section(2,"Section 2"));
-
-        //Add your adapter to the sectionAdapter
-        SimpleSectionedRecyclerViewAdapter.Section[] dummy = new SimpleSectionedRecyclerViewAdapter.Section[sections.size()];
-        SimpleSectionedRecyclerViewAdapter mSectionedAdapter = new
-                SimpleSectionedRecyclerViewAdapter(getContext(), R.layout.section,R.id.section_text,diaryEntriesAdapter);
-        mSectionedAdapter.setSections(sections.toArray(dummy));
-
-        //Apply this adapter to the RecyclerView
-        recyclerView.setAdapter(mSectionedAdapter);
     }
 
     private void findViews(View mainView) {

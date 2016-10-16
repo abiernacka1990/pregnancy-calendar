@@ -12,4 +12,6 @@ public interface EventsRepository extends BaseRepository<Event> {
     Event get(int id);
 
     List<Event> getAllEventsForSpecifiedDay(long date);
+
+    List<Event> findUpcomingEvents(long date, long numberOfEvents);
 }

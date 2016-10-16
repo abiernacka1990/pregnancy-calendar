@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity
         calendarView.setOnDateClickListener(selectedDate -> updateEventsList());
     }
 
-    private void refreshCalendar() {
+    public void refreshCalendar() {
         Date dateToSelect = calendarView.getLastSelectedDay() != null ? calendarView.getLastSelectedDay() : Calendar.getInstance().getTime();
         calendarView.refreshCalendar(Calendar.getInstance(Locale.getDefault()));
         calendarView.setDateAsSelected(dateToSelect);
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity
         fabTop.setOnClickListener(view -> openEventCreatorActivityWithSelectedDate());
     }
 
-    private void openEventCreatorActivityWithSelectedDate() {
+    public void openEventCreatorActivityWithSelectedDate() {
         Intent startEventCreatorActIntent = new Intent(this, EventCreatorActivity.class);
         startEventCreatorActIntent.putExtra(EventEditFragment.ARG_EVENT_START_DATE, calendarView.getLastSelectedDay().getTime());
         startActivityForEventsChangedResult(startEventCreatorActIntent);
@@ -196,12 +196,16 @@ public class MainActivity extends AppCompatActivity
         MainFragment selectedFragment = getFragmentByNavDrawerItem(item);
 
         if (selectedFragment != null) {
-            setTitle(selectedFragment.getTitleRes());
-            replaceFragmentAndCloseDrawer(selectedFragment);
+            selectFragment(selectedFragment);
             return true;
         } else {
             return false;
         }
+    }
+
+    public void selectFragment(MainFragment selectedFragment) {
+        setTitle(selectedFragment.getTitleRes());
+        replaceFragmentAndCloseDrawer(selectedFragment);
     }
 
     private void updateActivityViewForSelectedFragment(MainFragment selectedFragment) {
@@ -303,8 +307,24 @@ public class MainActivity extends AppCompatActivity
         super.onSaveInstanceState(savedInstanceState);
     }
 
-    public void goToSettings() {
-        navigationView.setCheckedItem(R.id.nav_settings);
-        replaceFragment(SettingsFragment.newInstance());
+    public void selectDiaryFragment() {
+        selectNavigDrawerItem(R.id.nav_diary);
+    }
+
+    public void selectSettingsFragment() {
+        selectNavigDrawerItem(R.id.nav_settings);
+    }
+
+    public void selectWeightFragment() {
+        selectNavigDrawerItem(R.id.nav_weight);
+    }
+
+    public void selectCalendarFragment() {
+        selectNavigDrawerItem(R.id.nav_calendar);
+    }
+
+    private void selectNavigDrawerItem(int itemId) {
+        onNavigationItemSelected(navigationView.getMenu().findItem(itemId));
+        navigationView.setCheckedItem(itemId);
     }
 }

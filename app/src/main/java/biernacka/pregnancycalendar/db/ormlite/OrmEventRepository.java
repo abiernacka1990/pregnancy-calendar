@@ -103,4 +103,19 @@ public class OrmEventRepository implements EventsRepository {
         return getAllEventsForSpecifiedDuration(startOfDay, endOfDay);
     }
 
+    @Override
+    public List<Event> findUpcomingEvents(long date, long numberOfEvents) {
+        try {
+            return events
+                    .queryBuilder()
+                    .limit(numberOfEvents)
+                    .where()
+                    .ge(Event.START_DATE_FIELD_NAME, date)
+                    .query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
